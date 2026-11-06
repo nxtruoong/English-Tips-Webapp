@@ -24,6 +24,14 @@ export interface Activity {
   source: string;
   verification: string;
   passage?: string;
+  /** Heading above the source material; defaults to a generic label per skill. */
+  sourceHeading?: string;
+  /** Alt text for `image`. Required whenever `image` is set. */
+  imageAlt?: string;
+  /** Lesson stage whose page links to this workspace. Defaults to 'full'. */
+  lessonStage?: 'small' | 'full';
+  /** Show on the overview as the quick practice, previewing this question. */
+  preview?: { questionId: string };
   audio?: string;
   image?: string;
   transcript?: string;
@@ -52,7 +60,7 @@ export interface StudyData {
   schema: 1;
   attempts: Attempt[];
   saved: string[];
-  lessons: Record<string,LessonProgress>;
+  lessons: Record<string, LessonProgress>;
 }
 export const emptyData = (): StudyData => ({ schema: 1, attempts: [], saved: [], lessons: {} });
 
@@ -69,10 +77,46 @@ export function isCorrect(question: Question, response = ''): boolean {
 export function score(activity: Activity, responses: Record<string, string>): number {
   return activity.questions.filter(question => isCorrect(question, responses[question.id])).length;
 }
+export type DurationFilter = 'all' | 'short' | 'medium' | 'long';
+export interface ActivityFilters {
+  skill: Skill | 'all';
+  part: string;
+  duration: string;
+  query: string;
+}
+function fitsDuration(minutes: number, duration: string): boolean {
+  if (duration === 'short') return minutes <= 10;
+  if (duration === 'medium') return minutes > 10 && minutes <= 20;
+  if (duration === 'long') return minutes > 20;
+  return true;
+}
+export function filterActivities(list: Activity[], filters: ActivityFilters): Activity[] {
+  const query = filters.query.trim().toLocaleLowerCase('vi');
+  return list.filter(
+    a =>
+      (filters.skill === 'all' || a.skill === filters.skill) &&
+      (filters.part === 'all' || a.part === filters.part) &&
+      fitsDuration(a.minutes, filters.duration) &&
+      `${a.title} ${a.description} ${a.technique} ${a.skill}`.toLocaleLowerCase('vi').includes(query),
+  );
+}
 export function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 export function newAttempt(activity: Activity): Attempt {
   const now = new Date().toISOString();
-  return { id: crypto.randomUUID(), activityId: activity.id, version: activity.version, createdAt: now, updatedAt: now, responses: {}, plan: '', draft: '', revisions: [], checks: [], status: 'draft', revealed: false };
+  return {
+    id: crypto.randomUUID(),
+    activityId: activity.id,
+    version: activity.version,
+    createdAt: now,
+    updatedAt: now,
+    responses: {},
+    plan: '',
+    draft: '',
+    revisions: [],
+    checks: [],
+    status: 'draft',
+    revealed: false,
+  };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isCorrect, normalize, score, wordCount } from './domain';
+import { filterActivities, isCorrect, normalize, score, wordCount } from './domain';
 import { activities } from './content/activities';
 import { validateData } from './storage';
 
@@ -28,8 +28,24 @@ describe('backup validation', () => {
     expect(() => validateData({ schema: 1, attempts: [{}], saved: [] })).toThrow();
   });
   it('strips untrusted properties and rejects duplicate attempt ids', () => {
-    const attempt = { id: 'a', activityId: 'reading-museum', version: 1, createdAt: '2026-10-29T00:00:00Z', updatedAt: '2026-10-29T00:00:00Z', responses: {}, plan: '', draft: '', revisions: [], checks: [], revealed: false, status: 'draft', unexpected: true };
-    expect(validateData({ schema: 1, attempts: [attempt], saved: [] }).attempts[0]).not.toHaveProperty('unexpected');
+    const attempt = {
+      id: 'a',
+      activityId: 'reading-museum',
+      version: 1,
+      createdAt: '2026-10-29T00:00:00Z',
+      updatedAt: '2026-10-29T00:00:00Z',
+      responses: {},
+      plan: '',
+      draft: '',
+      revisions: [],
+      checks: [],
+      revealed: false,
+      status: 'draft',
+      unexpected: true,
+    };
+    expect(validateData({ schema: 1, attempts: [attempt], saved: [] }).attempts[0]).not.toHaveProperty(
+      'unexpected',
+    );
     expect(() => validateData({ schema: 1, attempts: [attempt, attempt], saved: [] })).toThrow();
   });
 });
@@ -45,5 +61,26 @@ describe('curated content', () => {
       }
       if (!activity.questions.length) expect(activity.model?.length).toBeGreaterThan(30);
     }
+  });
+});
+
+describe('filterActivities', () => {
+  const all = { skill: 'all', part: 'all', duration: 'all', query: '' } as const;
+  it('returns everything with no filters', () => {
+    expect(filterActivities(activities, all)).toHaveLength(activities.length);
+  });
+  it('filters by skill, duration and case-insensitive query', () => {
+    expect(filterActivities(activities, { ...all, skill: 'Reading' }).every(a => a.skill === 'Reading')).toBe(
+      true,
+    );
+    expect(filterActivities(activities, { ...all, duration: 'short' }).every(a => a.minutes <= 10)).toBe(
+      true,
+    );
+    expect(filterActivities(activities, { ...all, query: '  WESTLAKE ' }).map(a => a.id)).toEqual([
+      'listening-westlake',
+    ]);
+  });
+  it('returns nothing for an unknown query', () => {
+    expect(filterActivities(activities, { ...all, query: 'zzzz' })).toEqual([]);
   });
 });
