@@ -52,7 +52,7 @@ export interface StudyData {
   schema: 1;
   attempts: Attempt[];
   saved: string[];
-  lessons: Record<string,LessonProgress>;
+  lessons: Record<string, LessonProgress>;
 }
 export const emptyData = (): StudyData => ({ schema: 1, attempts: [], saved: [], lessons: {} });
 
@@ -74,5 +74,18 @@ export function wordCount(text: string): number {
 }
 export function newAttempt(activity: Activity): Attempt {
   const now = new Date().toISOString();
-  return { id: crypto.randomUUID(), activityId: activity.id, version: activity.version, createdAt: now, updatedAt: now, responses: {}, plan: '', draft: '', revisions: [], checks: [], status: 'draft', revealed: false };
+  return {
+    id: crypto.randomUUID(),
+    activityId: activity.id,
+    version: activity.version,
+    createdAt: now,
+    updatedAt: now,
+    responses: {},
+    plan: '',
+    draft: '',
+    revisions: [],
+    checks: [],
+    status: 'draft',
+    revealed: false,
+  };
 }

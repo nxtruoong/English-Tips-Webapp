@@ -28,8 +28,24 @@ describe('backup validation', () => {
     expect(() => validateData({ schema: 1, attempts: [{}], saved: [] })).toThrow();
   });
   it('strips untrusted properties and rejects duplicate attempt ids', () => {
-    const attempt = { id: 'a', activityId: 'reading-museum', version: 1, createdAt: '2026-10-29T00:00:00Z', updatedAt: '2026-10-29T00:00:00Z', responses: {}, plan: '', draft: '', revisions: [], checks: [], revealed: false, status: 'draft', unexpected: true };
-    expect(validateData({ schema: 1, attempts: [attempt], saved: [] }).attempts[0]).not.toHaveProperty('unexpected');
+    const attempt = {
+      id: 'a',
+      activityId: 'reading-museum',
+      version: 1,
+      createdAt: '2026-10-29T00:00:00Z',
+      updatedAt: '2026-10-29T00:00:00Z',
+      responses: {},
+      plan: '',
+      draft: '',
+      revisions: [],
+      checks: [],
+      revealed: false,
+      status: 'draft',
+      unexpected: true,
+    };
+    expect(validateData({ schema: 1, attempts: [attempt], saved: [] }).attempts[0]).not.toHaveProperty(
+      'unexpected',
+    );
     expect(() => validateData({ schema: 1, attempts: [attempt, attempt], saved: [] })).toThrow();
   });
 });
