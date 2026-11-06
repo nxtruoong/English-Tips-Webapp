@@ -57,6 +57,11 @@ const skillDescriptions = {
   Writing: 'Lập dàn ý, viết bài và so sánh bài mẫu.',
 };
 const getRoute = () => location.hash.slice(1) || 'today';
+const quick = (() => {
+  const activity = activities.find(a => a.preview);
+  const question = activity?.questions.find(q => q.id === activity.preview?.questionId);
+  return activity && question ? { activity, question } : undefined;
+})();
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'long', timeZone: 'Asia/Bangkok' }).format(
     new Date(date),
@@ -343,21 +348,23 @@ export default function App() {
                         <ArrowRight size={17} />
                       </button>
                     </section>
-                    <section className="reading-preview">
-                      <h2>Bài luyện nhanh</h2>
-                      <p className="metadata">Reading · True / False / Not Given · 5 phút</p>
-                      <blockquote lang="en">
-                        The museum opened in 2004 and began offering free entry in 2010.
-                      </blockquote>
-                      <p>
-                        “Admission was free from the first day.”
-                        <br />
-                        Đối chiếu nhận định với thông tin trong đoạn văn.
-                      </p>
-                      <button className="text-button" onClick={() => start(activities[2])}>
-                        Làm bài Reading <ArrowRight size={17} />
-                      </button>
-                    </section>
+                    {quick && (
+                      <section className="reading-preview">
+                        <h2>Bài luyện nhanh</h2>
+                        <p className="metadata">
+                          {quick.activity.skill} · {quick.activity.technique} · {quick.activity.minutes} phút
+                        </p>
+                        <blockquote lang="en">{quick.activity.passage}</blockquote>
+                        <p>
+                          <span lang="en">“{quick.question.prompt}”</span>
+                          <br />
+                          Đối chiếu nhận định với thông tin trong đoạn văn.
+                        </p>
+                        <button className="text-button" onClick={() => start(quick.activity)}>
+                          Làm bài {quick.activity.skill} <ArrowRight size={17} />
+                        </button>
+                      </section>
+                    )}
                   </aside>
                 </div>
                 <footer>
@@ -893,11 +900,8 @@ function Workspace({
           </details>
           <div className="source-material">
             <h2>
-              {activity.skill === 'Listening'
-                ? 'Westlake Sports Club'
-                : activity.skill === 'Reading'
-                  ? 'Đọc và tìm bằng chứng.'
-                  : 'Đề luyện tập'}
+              {activity.sourceHeading ??
+                (activity.skill === 'Reading' ? 'Đọc và tìm bằng chứng.' : 'Đề luyện tập')}
             </h2>
             <p className="instructions" lang="en">
               {activity.instructions}
@@ -906,7 +910,7 @@ function Workspace({
               <>
                 <audio
                   key={audioKey}
-                  aria-label="Audio bài nghe Westlake"
+                  aria-label={`Audio bài nghe: ${activity.title}`}
                   controls
                   preload="metadata"
                   src={asset(activity.audio)}
@@ -935,11 +939,7 @@ function Workspace({
             )}
             {activity.image && (
               <figure>
-                <img
-                  className="task-image"
-                  src={asset(activity.image)}
-                  alt="Line graph: annual income in pounds of Bernie’s Buns, Lovely Loaves and Robbie’s Bakery, 2000–2010. Open the image to inspect values."
-                />
+                <img className="task-image" src={asset(activity.image)} alt={activity.imageAlt ?? ''} />
                 <figcaption>
                   <a href={asset(activity.image)} target="_blank" rel="noreferrer">
                     Mở hình gốc để phóng to

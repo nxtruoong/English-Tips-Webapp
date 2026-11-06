@@ -195,9 +195,7 @@ export default function CourseReader({
   );
   const position = stages.indexOf(stage);
   const practice = activities.filter(
-    a =>
-      unit.linkedActivities.includes(a.id) &&
-      (stage === 'small' ? a.id === 'reading-museum' : stage === 'full' && a.id !== 'reading-museum'),
+    a => unit.linkedActivities.includes(a.id) && (a.lessonStage ?? 'full') === stage,
   );
   const audio = blocks.filter(b => b.kind === 'audio');
   const hasExerciseNotes = groups.some(g => g.exercise);

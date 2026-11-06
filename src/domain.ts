@@ -24,6 +24,14 @@ export interface Activity {
   source: string;
   verification: string;
   passage?: string;
+  /** Heading above the source material; defaults to a generic label per skill. */
+  sourceHeading?: string;
+  /** Alt text for `image`. Required whenever `image` is set. */
+  imageAlt?: string;
+  /** Lesson stage whose page links to this workspace. Defaults to 'full'. */
+  lessonStage?: 'small' | 'full';
+  /** Show on the overview as the quick practice, previewing this question. */
+  preview?: { questionId: string };
   audio?: string;
   image?: string;
   transcript?: string;

@@ -54,6 +54,7 @@ export const activities: Activity[] = [
     skill: 'Listening',
     part: 'Part 1',
     title: 'Westlake Sports Club',
+    sourceHeading: 'Westlake Sports Club',
     description: 'Theo dấu thông tin và nhận ra lúc người nói đổi ý.',
     minutes: 15,
     technique: 'Form completion',
@@ -110,6 +111,8 @@ export const activities: Activity[] = [
     source: 'Reading/IELTS_READING.docx · 1. True / False / Not Given · Small exercise',
     verification: 'Bài luyện ngắn từ tài liệu. Bộ bài đọc dài sẽ được bổ sung sau.',
     passage: 'The museum opened in 2004 and began offering free entry in 2010.',
+    lessonStage: 'small',
+    preview: { questionId: 'r2' },
     questions: [
       {
         id: 'r1',
@@ -217,6 +220,8 @@ export const activities: Activity[] = [
     verification: 'Hình gốc được giữ nguyên. Cần kiểm tra hình và giá trị trước khi xuất bản công khai.',
     questions: [],
     image: excerpts.task1Image,
+    imageAlt:
+      'Line graph: annual income in pounds of Bernie’s Buns, Lovely Loaves and Robbie’s Bakery, 2000–2010. Open the image to inspect values.',
     model: excerpts.task1Model,
     checklist: [
       'Tôi xác định đúng chủ đề, thời gian và đơn vị.',
