@@ -1,0 +1,13 @@
+{
+  "approved": true,
+  "approval": "Choice delegated by user: recommend for all, followed by approval and continue. Agent selected editorial spread after comparing three generated compositions.",
+  "tool": "built-in image_gen",
+  "intent": "Desktop Hiên study app editorial spread. Warm ivory, green ink, botanical illustration, next lesson beside quiet study panel, editorial skill rows. Live text and controls remain semantic HTML.",
+  "corrections": [
+    "Use actual client date, not generated date",
+    "Use original museum passage, not generated expansion",
+    "No capitalization rule or invented score from generated UI",
+    "Local save status reflects real state"
+  ],
+  "prompt": "Generate a single high-fidelity desktop web app UI mockup, landscape 1440x1000, actual screen not device photograph. Independent campus journal design for Vietnamese university IELTS study app. Working title 'Hiên' (provisional). Warm ivory #f5f1e7 background, dark green #264638, rust #a84d32, charcoal #242821. Elegant literary serif large headings, readable humanist sans Vietnamese body. Layout A editorial spread: left narrow vertical navigation logo Hiên, Hôm nay, Luyện tập, Ôn lại, bottom local-device saved note. Main spacious composition large heading 'Một chút mỗi ngày.' top, small date on right. Large cream left journal region with 'Buổi học tiếp theo' and lesson 'Nghe đúng, đừng đoán.' and 'Listening · Part 1 · 15 phút', green rectangular button 'Bắt đầu học'. Right narrower column a quiet green study-session panel with explanatory Vietnamese text and no invented statistics. Below, four skills as neatly typeset editorial horizontal rows, not identical cards: Listening, Speaking, Reading, Writing with small counts only when labeled demo otherwise omit all counts. Bottom small preview passage museum opened in 2004 and admission free in 2010. Delicate small botanical line illustration at margin only, mostly typography and whitespace. No gradients, no rounded card grid, no streaks, no fake progress, no photos, no badges, no giant metric. All copy looks like genuine useful app controls. No eyebrow above heading. Show full composition with crisp professional UI detail."
+}

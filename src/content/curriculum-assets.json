@@ -1,0 +1,706 @@
+[
+  {
+    "path": "listening-image1.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image1.png",
+    "sha256": "b94909e29c737d8b2fe11d9e8e03bf6e5a432ef2c2f5531166e3fcd674d17ac0"
+  },
+  {
+    "path": "listening-image2.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image2.png",
+    "sha256": "d90af4bc2d35dfce226a630342993da31a1657355df7a82f678455cf8538ea0c"
+  },
+  {
+    "path": "listening-image3.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image3.png",
+    "sha256": "c1f0476254d2a564c420bbbb68b5ce663986e2794ee6889a44f6669096ee2415"
+  },
+  {
+    "path": "listening-image4.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image4.png",
+    "sha256": "bd30500bbcf907158c046bb5c3c9e6444519f5d09ff1c04533a40e22e33ac991"
+  },
+  {
+    "path": "listening-image5.jpg",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image5.jpg",
+    "sha256": "1a7f955c28d680d032847398dc7162c31ca2733b0c6dd819843ce91a82b1cbec"
+  },
+  {
+    "path": "listening-image6.jpg",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image6.jpg",
+    "sha256": "7057220ea5456cd7564e7be88f6c782ddc6ff5f6d8073ee2beca037a120fca3d"
+  },
+  {
+    "path": "listening-image7.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image7.png",
+    "sha256": "4d16592d9541ef5e843839554129b596dc4f43eda00d4a5a6ed0aed4eafb47da"
+  },
+  {
+    "path": "listening-image8.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image8.png",
+    "sha256": "074c9f6b51c1f5d6dc6cecea4bf82d4405210ae9c9e9653bfd8f583e7f49945a"
+  },
+  {
+    "path": "listening-image9.png",
+    "source": "Listening/IELTS_Listening_Complete_Master_4_Parts_Updated.docx",
+    "packagePath": "word/media/image9.png",
+    "sha256": "3e6f71e4beaf44382f3082c75062dfd74ee2c80c6a1469a1a43fb8af519cfac4"
+  },
+  {
+    "path": "listening-Part1_Small_Exercises.mp3",
+    "source": "Listening/Part1_Small_Exercises.mp3",
+    "sha256": "95f7fa0dd95fb5c7b83f387d423e48ed2946cdb02c34623e30706b6023a89e2c"
+  },
+  {
+    "path": "listening-Part1_Full_Test.mp3",
+    "source": "Listening/Part1_Full_Test.mp3",
+    "sha256": "8455c9e773a97817b0b6e039cbc1af7d4189e579d5237dd3dbcfaff3acb043f5"
+  },
+  {
+    "path": "listening-Part2_Small_Exercises.mp3",
+    "source": "Listening/Part2_Small_Exercises.mp3",
+    "sha256": "7fcae2b3d6162189db82bf65e5aa1df8e67de94cba85c6275294a1f51b831b7b"
+  },
+  {
+    "path": "listening-Part2_Full_Test.mp3",
+    "source": "Listening/Part2_Full_Test.mp3",
+    "sha256": "68ca6652a975d3a319a0899d600c739af22167a2b386c41f0a60cbb7e2790f5d"
+  },
+  {
+    "path": "listening-Part3_Small_Exercises.mp3",
+    "source": "Listening/Part3_Small_Exercises.mp3",
+    "sha256": "cbc90c5c8cdebc1976ba1d4f582d949de18d8548a49d1785942447a147a42987"
+  },
+  {
+    "path": "listening-Part3_Full_Test.mp3",
+    "source": "Listening/Part3_Full_Test.mp3",
+    "sha256": "4ca7152742a5af7649fdcbf5d582e389ee64f1661660a7da504c9193d7521729"
+  },
+  {
+    "path": "listening-Part4_Small_Exercises.mp3",
+    "source": "Listening/Part4_Small_Exercises.mp3",
+    "sha256": "08127bcd90a7f5a8e1aa18021d522b6534ea0577ec5df09b4ea4d882d2c3130c"
+  },
+  {
+    "path": "listening-Part4_Full_Test.mp3",
+    "source": "Listening/Part4_Full_Test.mp3",
+    "sha256": "625e47d273a8f0457f5ba10ab466a09ba58935f81cfc9003791d9c49f819127e"
+  },
+  {
+    "path": "speaking-1-E1_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E1_Part1.mp3",
+    "sha256": "d0b470868a82c4cd4688e69e9d52810388c69e1b5d78123c75b0effafaf977df"
+  },
+  {
+    "path": "speaking-1-E2_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E2_Part1.mp3",
+    "sha256": "80f508a3a4b213aa328580b3f19e76fa1df75d8af61d2fbd0577ab56acf24991"
+  },
+  {
+    "path": "speaking-1-E3_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E3_Part1.mp3",
+    "sha256": "6eb594c4fd74629b276e71bf058d3033a6965af8897d806b251b901d9d6e054d"
+  },
+  {
+    "path": "speaking-1-E4_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E4_Part1.mp3",
+    "sha256": "c0253157c5fa61fb39745d32a41e4ee0457538a589a019ff0815e84262601e8f"
+  },
+  {
+    "path": "speaking-1-E5_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E5_Part1.mp3",
+    "sha256": "326108e089b6d5400b02448c05cd214655edac0c581d73e8ad5afa6a1c8c6df1"
+  },
+  {
+    "path": "speaking-1-E6_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E6_Part1.mp3",
+    "sha256": "42574b913c24b9ae6413921872a9ff6a8d94f63bd911b83bc2ea4fcc44b08f8b"
+  },
+  {
+    "path": "speaking-1-E7_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E7_Part1.mp3",
+    "sha256": "92116ca6164525f8ac83fa910e9b3dfe831cce9fed1fd961a06326e1ca8c6118"
+  },
+  {
+    "path": "speaking-1-E8_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E8_Part1.mp3",
+    "sha256": "187960ae79bc2bf9eacae829e1ee7e17d946f684c640a9f6119f235526728f66"
+  },
+  {
+    "path": "speaking-1-E9_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/E9_Part1.mp3",
+    "sha256": "f5f3b99e0efdb67c75cdfdb36086fe782fbe0108f0dac86dea53606721090742"
+  },
+  {
+    "path": "speaking-1-F10_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F10_Part1.mp3",
+    "sha256": "10371af1059641d5e6d0ae14a4cb709c5065872aa9c464d86f0a45a29e78f767"
+  },
+  {
+    "path": "speaking-1-F11_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F11_Part1.mp3",
+    "sha256": "5e8be682efe7070b03ddcf4123399165f5bff19b299d16b2298425b28f53eae7"
+  },
+  {
+    "path": "speaking-1-F12_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F12_Part1.mp3",
+    "sha256": "4578fa24cfce0b12a2c9b64413cd3491d220a5f5b0376cb52ab711ffdba9c716"
+  },
+  {
+    "path": "speaking-1-F1_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F1_Part1.mp3",
+    "sha256": "804c861f6a8c39d8b7ad20d7f5990a39c09546a02e500d3ad4c46312885a0e68"
+  },
+  {
+    "path": "speaking-1-F2_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F2_Part1.mp3",
+    "sha256": "6df2cdc31e8cf79c32a4df3c9bf9b96688a73627958372a855b7858813df178a"
+  },
+  {
+    "path": "speaking-1-F3_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F3_Part1.mp3",
+    "sha256": "127043c0a979fe09e455617881641cdaebaf1baaced31ff2e5807f6704da72de"
+  },
+  {
+    "path": "speaking-1-F4_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F4_Part1.mp3",
+    "sha256": "79baee3915e0d3c8fead1ad5fdae222b51c595a0ac2ad1d300a3bcd22e7bc444"
+  },
+  {
+    "path": "speaking-1-F5_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F5_Part1.mp3",
+    "sha256": "1c58cf995b677e48d98820204a1d89b4e7e349d44f9b4fa84525189e79d74203"
+  },
+  {
+    "path": "speaking-1-F6_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F6_Part1.mp3",
+    "sha256": "d43a065cbee52dda33c34cea6c2977a9e765185aefc7442a83ea48748acd6bab"
+  },
+  {
+    "path": "speaking-1-F7_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F7_Part1.mp3",
+    "sha256": "5e9db385adee6ca8769dde95596228af544c06991651f366c49505fa857e7def"
+  },
+  {
+    "path": "speaking-1-F8_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F8_Part1.mp3",
+    "sha256": "686f57bfd1668d1d80eece5f9fcffd4501c809cfebb82f91e0209d4d8bd667fb"
+  },
+  {
+    "path": "speaking-1-F9_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/F9_Part1.mp3",
+    "sha256": "995350df692a5c41fbd34b42ca35cf2524c94305eab163e52edb16e45f28c267"
+  },
+  {
+    "path": "speaking-1-P1_to_P10_Part1.mp3",
+    "source": "Speaking/Audio_Part_1/P1_to_P10_Part1.mp3",
+    "sha256": "f8174c8026063c5dca5c2e47678271e91dd4e2174ec2b117f8115eb816819f6a"
+  },
+  {
+    "path": "speaking-2-E10_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E10_Part2.mp3",
+    "sha256": "8a1aef839ff7c21350265535620cb508d8699b807b676d476456f2f722b56882"
+  },
+  {
+    "path": "speaking-2-E1_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E1_Part2.mp3",
+    "sha256": "b8ebd21e7f8043382f9deef8c733149a7dbb72a09f8e88d685a3a6265008c140"
+  },
+  {
+    "path": "speaking-2-E2_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E2_Part2.mp3",
+    "sha256": "18b7fa326b510957ed55eb9b469e4fb2e74ba979fea663bccd2c692a9bff7c2a"
+  },
+  {
+    "path": "speaking-2-E3_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E3_Part2.mp3",
+    "sha256": "af7120b4522aebd3deab7459a7b2206ce5f288dbcad05d2e15d64902d0daa99e"
+  },
+  {
+    "path": "speaking-2-E4_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E4_Part2.mp3",
+    "sha256": "471ea5d43de4c12c51cf31c004eef87eba06e50e16425d62cb2c9cc5967f8ea3"
+  },
+  {
+    "path": "speaking-2-E5_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E5_Part2.mp3",
+    "sha256": "2772af9086236197cb4b3f71d83f96c425f59a4f2269cd1d5ba88d60896e7291"
+  },
+  {
+    "path": "speaking-2-E6_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E6_Part2.mp3",
+    "sha256": "96d2e866df93b43e976cbb65cdac34df8514e00298196c1128c412bd5c8c46c5"
+  },
+  {
+    "path": "speaking-2-E7_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E7_Part2.mp3",
+    "sha256": "21ef59b350648ab817dceca096b891f68e0b9dedc8fc2f43b84823dd5f8e4906"
+  },
+  {
+    "path": "speaking-2-E8_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E8_Part2.mp3",
+    "sha256": "f5307a78bf82adc9f471dbee0c599026904b99ff185f06ae7c952e04fb0b9a45"
+  },
+  {
+    "path": "speaking-2-E9_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/E9_Part2.mp3",
+    "sha256": "8a1aef839ff7c21350265535620cb508d8699b807b676d476456f2f722b56882"
+  },
+  {
+    "path": "speaking-2-F10_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F10_Part2.mp3",
+    "sha256": "3b0b86c76bd87fae97037935fb178db5d4724cf119316f9d0dee648e52aed9c0"
+  },
+  {
+    "path": "speaking-2-F11_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F11_Part2.mp3",
+    "sha256": "45d3912e5779af1b5e79c30c21047d337823132f990853b9f9f9224bc77d626a"
+  },
+  {
+    "path": "speaking-2-F12_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F12_Part2.mp3",
+    "sha256": "1f205e13095f034f8a2958ff9658806fa3de83fbbdca5e47ab855b7f9be651b2"
+  },
+  {
+    "path": "speaking-2-F1_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F1_Part2.mp3",
+    "sha256": "4d9b806447ba3794ad7087821f07ae0f5c64d7dc4cc64f23ba2b26afeee74a26"
+  },
+  {
+    "path": "speaking-2-F2_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F2_Part2.mp3",
+    "sha256": "8ad5f7f536be09c103e04540a9ff67eb80a9396659f8e41621355f2eba68d37a"
+  },
+  {
+    "path": "speaking-2-F3_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F3_Part2.mp3",
+    "sha256": "68693084c9d0f0288bcdd9559d86446da36dc0d717521eb5a2c4e552f122fd85"
+  },
+  {
+    "path": "speaking-2-F4_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F4_Part2.mp3",
+    "sha256": "12d2db3244585c25d18fa0fab51002845bd5aeaeffbab5b52d9934202aa3919d"
+  },
+  {
+    "path": "speaking-2-F5_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F5_Part2.mp3",
+    "sha256": "8b570be05d8f5b0cd5766fd39c20ef6255eed65b249a997e4fa71fe67b67236c"
+  },
+  {
+    "path": "speaking-2-F6_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F6_Part2.mp3",
+    "sha256": "a343c85424decda705740c431d16c6897ebff43bc06b2f308d2a6b762d7b5501"
+  },
+  {
+    "path": "speaking-2-F7_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F7_Part2.mp3",
+    "sha256": "9de5875df641d07708e80c8694f8403dd1bebec7219a86b16c8993aebb4da6cb"
+  },
+  {
+    "path": "speaking-2-F8_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F8_Part2.mp3",
+    "sha256": "5fca7a75dfc85b4cf3507ad9f72de79d166fd26e3b8466aff7e6a60675e2e981"
+  },
+  {
+    "path": "speaking-2-F9_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/F9_Part2.mp3",
+    "sha256": "390572c3e3a8816a126a3db8c7869f0462f2f5c488afd10dce3f857f65eec51a"
+  },
+  {
+    "path": "speaking-2-P1_to_P10_Part2.mp3",
+    "source": "Speaking/Audio_Part_2/P1_to_P10_Part2.mp3",
+    "sha256": "66740341934b12a7833ab760972f91f7194abca04d0d14de5e4b3396a0b135e2"
+  },
+  {
+    "path": "speaking-3-E10_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E10_Part3.mp3",
+    "sha256": "5921f78522592de6b43fb838810690ab4c5973a7ae8a676c28901aa4856b907d"
+  },
+  {
+    "path": "speaking-3-E1_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E1_Part3.mp3",
+    "sha256": "fe2a6767e6acdf7cd86b2de102d2d6fc04cb34ee5f58841a16a7c8d265ba98e1"
+  },
+  {
+    "path": "speaking-3-E2_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E2_Part3.mp3",
+    "sha256": "877402aa8fc46012fe4827e0fec21860f7c4a2df28b89ae71c6fb9388d97e7e3"
+  },
+  {
+    "path": "speaking-3-E3_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E3_Part3.mp3",
+    "sha256": "492b88877dbbee84097094628b5958f645b661a75413efb6dc2831307ff3fbc8"
+  },
+  {
+    "path": "speaking-3-E4_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E4_Part3.mp3",
+    "sha256": "0f160efba7f27f4656703e661b1164c965daaff9f82450d2f2e6991148cf78ab"
+  },
+  {
+    "path": "speaking-3-E5_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E5_Part3.mp3",
+    "sha256": "beaae90bc47211b3916f97eafbb5db672ccc8688b927514bd121110cd914683d"
+  },
+  {
+    "path": "speaking-3-E6_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E6_Part3.mp3",
+    "sha256": "b0fb62c6e02873eda727b096e61e7c650a1a85da69a7d434293dfaad79009cfe"
+  },
+  {
+    "path": "speaking-3-E7_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E7_Part3.mp3",
+    "sha256": "dd800a22841cd5fe9bd18c5078908a5408d6fd39e5428a29332b7e3b7c293def"
+  },
+  {
+    "path": "speaking-3-E8_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E8_Part3.mp3",
+    "sha256": "04b752e6c8e6b8b29991983fef4608c399f320ed3124ed38d212104725be094f"
+  },
+  {
+    "path": "speaking-3-E9_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/E9_Part3.mp3",
+    "sha256": "23c7faa6498ec63f1c0e26cb3eb742da1bda993e3dfb92210bae995496a74945"
+  },
+  {
+    "path": "speaking-3-F10_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F10_Part3.mp3",
+    "sha256": "63d79d460ac7ac9981c2e0da4133c7a16f6d5f26a77f7fde3866df6a673d2302"
+  },
+  {
+    "path": "speaking-3-F11_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F11_Part3.mp3",
+    "sha256": "b472d783a2ce1a5a203628c321f0838b8835d04d105d4a4f98e20ede1d25c6a4"
+  },
+  {
+    "path": "speaking-3-F12_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F12_Part3.mp3",
+    "sha256": "e43fe2ecda45df3ed103f7965587679824df0e2ea8753d4b053deeba40aa11af"
+  },
+  {
+    "path": "speaking-3-F1_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F1_Part3.mp3",
+    "sha256": "54986f547cb29e63fa0ffe8d2e006149d95639e5eaa94c3cd7edd2be1eb6a72a"
+  },
+  {
+    "path": "speaking-3-F2_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F2_Part3.mp3",
+    "sha256": "7c69340916fa165627face370e5fa5a986199f559e85e136443a5e6bc5b5825c"
+  },
+  {
+    "path": "speaking-3-F3_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F3_Part3.mp3",
+    "sha256": "2a661672ca1336b18b30b1c72b09d44a7447d356e30563d7d38d8e0a3cb24589"
+  },
+  {
+    "path": "speaking-3-F4_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F4_Part3.mp3",
+    "sha256": "bddb02e10ad921e483ac957085c444e5b804cc3b660446df8e705abf18048ba3"
+  },
+  {
+    "path": "speaking-3-F5_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F5_Part3.mp3",
+    "sha256": "2d11b4ff546d72eb3f00f98ef4be315c9c53ec29279913a3f58f3d875e24fcee"
+  },
+  {
+    "path": "speaking-3-F6_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F6_Part3.mp3",
+    "sha256": "cb245fdd83aa07815d0d3c833d26f31bcdad97c700259432c4a74d22dcb303e9"
+  },
+  {
+    "path": "speaking-3-F7_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F7_Part3.mp3",
+    "sha256": "9f2ee1cb0af8a9389cdb543cac6d515c6f6144fd78c254322b2f0128b1f3644e"
+  },
+  {
+    "path": "speaking-3-F8_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F8_Part3.mp3",
+    "sha256": "4bb9daefb4e3a31315b92e38c328c91e26142a8c9859b1e1f786826171d10476"
+  },
+  {
+    "path": "speaking-3-F9_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/F9_Part3.mp3",
+    "sha256": "4526fb6fb93f5605afaf9b00913219f685a13d84358e231d27ab2d3bef75c1fd"
+  },
+  {
+    "path": "speaking-3-P1_to_P10_Part3.mp3",
+    "source": "Speaking/Audio_Part_3/P1_to_P10_Part3.mp3",
+    "sha256": "60659ddbbf1f09862288ea4700ab327523a9759b9892021149517f91250d0766"
+  },
+  {
+    "path": "writing-1-rId57.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId57.png",
+    "sha256": "288cb88106e60148c8bb05c22c202fd446030135b5a578b729fb52b8800ea3d2"
+  },
+  {
+    "path": "writing-1-rId65.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId65.png",
+    "sha256": "3fc660d0e2db057cdc69a65909398dc211e7ab68ad288b0bebf08161a394ec73"
+  },
+  {
+    "path": "writing-1-rId69.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId69.png",
+    "sha256": "b50d9eb6bc9dbd7f7a4022be7fa5b29fde794623dce95ca060a6c2f639c03840"
+  },
+  {
+    "path": "writing-1-rId73.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId73.png",
+    "sha256": "ed7f432916446ab9d56a41fb99ec9162d95374c125b049ba37ef883d1773ba16"
+  },
+  {
+    "path": "writing-1-rId81.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId81.png",
+    "sha256": "a4229b6c804d836aa7c18365fcf69be4420b14223b2b40ca260b835455c5ab5c"
+  },
+  {
+    "path": "writing-1-rId85.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId85.png",
+    "sha256": "56b6c4883caf4d729d60222e361d246d9821cde19d3c09809a90431923bc68ae"
+  },
+  {
+    "path": "writing-1-rId89.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId89.png",
+    "sha256": "828a919430277f657ca621cdda6a6846a50349a8740b7a368c0e4b5c109d58a7"
+  },
+  {
+    "path": "writing-1-rId93.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId93.png",
+    "sha256": "90cccaabcdfa760a0ea4476508f197e14feb197910e58396cd897eb0f64f3368"
+  },
+  {
+    "path": "writing-1-rId97.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId97.png",
+    "sha256": "285152932e06b7c0e669b1c79c51c82b611b711c3d9b539f4a88d801dd83c202"
+  },
+  {
+    "path": "writing-1-rId101.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId101.png",
+    "sha256": "cfe6e3f30cf5effc9a8edac159fead69ea8e8f2bedcd2f781df304ce64f7b1f1"
+  },
+  {
+    "path": "writing-1-rId105.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId105.png",
+    "sha256": "ca6ed0398de84cfa1d9b840c8e5b8178e0604dae431d445b760236f8112deb46"
+  },
+  {
+    "path": "writing-1-rId109.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId109.png",
+    "sha256": "add712d82af9715a864b49c69c9296b48c7cfe849111d10c4a419bdf390a9d23"
+  },
+  {
+    "path": "writing-1-rId113.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId113.png",
+    "sha256": "65f700e280d75345ad375d6a397b56b6387ef77cb7b2f107748dc9f78f5afe5a"
+  },
+  {
+    "path": "writing-1-rId117.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId117.png",
+    "sha256": "0549525f8356d120f176c541306401adafdf8a75bed004768aed4feb205abc11"
+  },
+  {
+    "path": "writing-1-rId120.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId120.png",
+    "sha256": "e7a29ecf1da786dcd62dd2b22a025e6172a4ff6a7552f4c3d3a35ce2a1ae8541"
+  },
+  {
+    "path": "writing-1-rId123.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId123.png",
+    "sha256": "10369776191d41f02acb4e88bc855987fae8af6c3fdafc658b9a221ac5d8238a"
+  },
+  {
+    "path": "writing-1-rId127.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId127.png",
+    "sha256": "ed2e7a1716a68fec64a2b7c135848c750acb5960014ee5ac2ce38a7db1f24001"
+  },
+  {
+    "path": "writing-1-rId136.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId136.png",
+    "sha256": "b43f3293808bd4d81392a639707585cfefbfe0251ed55f1910037c2ff39fd194"
+  },
+  {
+    "path": "writing-1-rId143.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId143.png",
+    "sha256": "b2a4c20922a2dc7997fcb03026b24d33fd1f522d5e1d1ce4a8664bfddfef180e"
+  },
+  {
+    "path": "writing-1-rId150.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId150.png",
+    "sha256": "120667c07a2efc71fd2334f96034aaa466c587d9a98df8dc47e08ed81540b945"
+  },
+  {
+    "path": "writing-1-rId157.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId157.png",
+    "sha256": "55259504fdc33c7829a78b0f488785668f70b581ab2f7ceef1dd64690ab78972"
+  },
+  {
+    "path": "writing-1-rId164.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId164.png",
+    "sha256": "7f710f61475d2198d910fea3f312afaf3864f780a54e4bba6444a42c8936eef1"
+  },
+  {
+    "path": "writing-1-rId171.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId171.png",
+    "sha256": "7822b368b374ccd43d86df2af90b80170ae2bd40d59f69fe2eeb2aae43ee9b49"
+  },
+  {
+    "path": "writing-1-rId178.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId178.png",
+    "sha256": "abba6c78fb53b41efa13bb69e7946d67a1b096b91fd721af186586b168dad94b"
+  },
+  {
+    "path": "writing-1-rId185.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId185.png",
+    "sha256": "9b37c94c309e285c9f9d5c994f36d3f346008cc0202b0f909cafe9e541c786c5"
+  },
+  {
+    "path": "writing-1-rId192.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId192.png",
+    "sha256": "2d6cab1e6163bda389aa2597c6a1d5624a8e8ce10a169f483586d2125e6d3bd9"
+  },
+  {
+    "path": "writing-1-rId199.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId199.png",
+    "sha256": "0705e6746d9a0b3d0fa7a4f332aac38cf24fb24bb66e487301abc0e19874ab92"
+  },
+  {
+    "path": "writing-1-rId202.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId202.png",
+    "sha256": "710fc06b1a5253e6e266a49f4c10d5dae1a694b734e1d65dc54c3489adb1f26b"
+  },
+  {
+    "path": "writing-1-rId209.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId209.png",
+    "sha256": "7105a435cd2d1c803cd9446054fdb736871a458fb477ed7ae1f24202949cd328"
+  },
+  {
+    "path": "writing-1-rId216.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId216.png",
+    "sha256": "57897648a72ae7430bfb0144506b738af7fd90b82099edd8a0eab1dd628d6865"
+  },
+  {
+    "path": "writing-1-rId223.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId223.png",
+    "sha256": "a0574522fd2dd3f5f79018b8cece3c6e1f4ef83b454e0b98ae08f6b60754ba75"
+  },
+  {
+    "path": "writing-1-rId230.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId230.png",
+    "sha256": "584251a7957865e254e4d16d35c6cb84485fdd4f414071d996d4729eb487a2ff"
+  },
+  {
+    "path": "writing-1-rId237.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId237.png",
+    "sha256": "00b388eed5730f7be1169590574085a291f5e2cd1df262c077a2232323db1508"
+  },
+  {
+    "path": "writing-1-rId244.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId244.png",
+    "sha256": "5ed953aa77ed1db336ef22585783bfe6e166304002d5602115abe9f0b9fbc544"
+  },
+  {
+    "path": "writing-1-rId251.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId251.png",
+    "sha256": "6f44571a583bb29c40ced7f648afcc52b93f2473a1a69a4d5caaa879cac2ab86"
+  },
+  {
+    "path": "writing-1-rId258.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId258.png",
+    "sha256": "ed5f123cbe501d6ea10213b37dd3f32897207488dc40956dd07a0b334622d07a"
+  },
+  {
+    "path": "writing-1-rId265.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId265.png",
+    "sha256": "8897364598836dc1b964220c61410b61653560d9d7a056feb79d4834b2c2ba1c"
+  },
+  {
+    "path": "writing-1-rId272.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId272.png",
+    "sha256": "9f6a900cd96ddb818b3e98dbf9a593c1d14294d1c9e986db238c61e0c2d1032b"
+  },
+  {
+    "path": "writing-1-rId279.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId279.png",
+    "sha256": "9638f71b9fe38a9769c033f17f9cda3b7b2acc2f690e84bf00fd47c1461cb8bd"
+  },
+  {
+    "path": "writing-1-rId286.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId286.png",
+    "sha256": "cd61cd5d7f1e5eef14fe4b0693899ffbae797594afe2bcba38ddc88bc68ebaf2"
+  },
+  {
+    "path": "writing-1-rId293.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId293.png",
+    "sha256": "9f8d82162e81e29228bcf46e7870d25be481b37d7afed8f2b3e2cd21b91900f3"
+  },
+  {
+    "path": "writing-1-rId300.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId300.png",
+    "sha256": "b0c65aa02701e893da9d751170f65f85e2f9a7aa1bbbd19269d5d4f3dd2b697e"
+  },
+  {
+    "path": "writing-1-rId307.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId307.png",
+    "sha256": "1dc643ac268c692a4e03703cab280334b75d1bd45a0474c8fdeb31b2d020a7cd"
+  },
+  {
+    "path": "writing-1-rId314.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId314.png",
+    "sha256": "24f94945385a0a8e1e6e143978e5eddbb8eeb3e6ac0f15c63946fe2174d09ebc"
+  },
+  {
+    "path": "writing-1-rId321.png",
+    "source": "Writing/IELTS_Writing_Task_1_No_Vertical_Lines.docx",
+    "packagePath": "word/media/rId321.png",
+    "sha256": "25cf85cddf4ee50da2eb771d5514f68cf992bbe474fae3f6a46567fa411b260e"
+  }
+]

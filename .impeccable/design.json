@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T00:00:00Z",
+  "title": "Design System: Hiên",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Background",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "White Workspace",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Heading Ink",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Body Slate",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Cool Divider",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Cobalt Action",
+        "tonalRamp": [
+          "oklch(15% .10 265)",
+          "oklch(26.42857142857143% .10 265)",
+          "oklch(37.85714285714286% .10 265)",
+          "oklch(49.285714285714285% .10 265)",
+          "oklch(60.714285714285715% .10 265)",
+          "oklch(72.14285714285714% .10 265)",
+          "oklch(83.57142857142857% .10 265)",
+          "oklch(95% .10 265)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Deep Cobalt",
+        "tonalRamp": [
+          "oklch(15% .10 265)",
+          "oklch(26.42857142857143% .10 265)",
+          "oklch(37.85714285714286% .10 265)",
+          "oklch(49.285714285714285% .10 265)",
+          "oklch(60.714285714285715% .10 265)",
+          "oklch(72.14285714285714% .10 265)",
+          "oklch(83.57142857142857% .10 265)",
+          "oklch(95% .10 265)"
+        ]
+      },
+      "tint": {
+        "role": "primary",
+        "displayName": "Reference Tint",
+        "tonalRamp": [
+          "oklch(15% .10 265)",
+          "oklch(26.42857142857143% .10 265)",
+          "oklch(37.85714285714286% .10 265)",
+          "oklch(49.285714285714285% .10 265)",
+          "oklch(60.714285714285715% .10 265)",
+          "oklch(72.14285714285714% .10 265)",
+          "oklch(83.57142857142857% .10 265)",
+          "oklch(95% .10 265)"
+        ]
+      },
+      "nav": {
+        "role": "neutral",
+        "displayName": "Graphite Navigation",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "nav-text": {
+        "role": "neutral",
+        "displayName": "Light Navigation Text",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "danger": {
+        "role": "error",
+        "displayName": "Danger",
+        "tonalRamp": [
+          "oklch(15% .10 25)",
+          "oklch(26.42857142857143% .10 25)",
+          "oklch(37.85714285714286% .10 25)",
+          "oklch(49.285714285714285% .10 25)",
+          "oklch(60.714285714285715% .10 25)",
+          "oklch(72.14285714285714% .10 25)",
+          "oklch(83.57142857142857% .10 25)",
+          "oklch(95% .10 25)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "tonalRamp": [
+          "oklch(15% .10 265)",
+          "oklch(26.42857142857143% .10 265)",
+          "oklch(37.85714285714286% .10 265)",
+          "oklch(49.285714285714285% .10 265)",
+          "oklch(60.714285714285715% .10 265)",
+          "oklch(72.14285714285714% .10 265)",
+          "oklch(83.57142857142857% .10 265)",
+          "oklch(95% .10 265)"
+        ]
+      },
+      "button-border": {
+        "role": "neutral",
+        "displayName": "Button Border",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "button-hover": {
+        "role": "neutral",
+        "displayName": "Button Hover",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% .015 265)",
+          "oklch(26.42857142857143% .015 265)",
+          "oklch(37.85714285714286% .015 265)",
+          "oklch(49.285714285714285% .015 265)",
+          "oklch(60.714285714285715% .015 265)",
+          "oklch(72.14285714285714% .015 265)",
+          "oklch(83.57142857142857% .015 265)",
+          "oklch(95% .015 265)"
+        ]
+      },
+      "correct": {
+        "role": "success",
+        "displayName": "Correct Answer",
+        "tonalRamp": [
+          "oklch(15% .10 155)",
+          "oklch(26.42857142857143% .10 155)",
+          "oklch(37.85714285714286% .10 155)",
+          "oklch(49.285714285714285% .10 155)",
+          "oklch(60.714285714285715% .10 155)",
+          "oklch(72.14285714285714% .10 155)",
+          "oklch(83.57142857142857% .10 155)",
+          "oklch(95% .10 155)"
+        ]
+      },
+      "incorrect": {
+        "role": "error",
+        "displayName": "Incorrect Answer",
+        "tonalRamp": [
+          "oklch(15% .10 25)",
+          "oklch(26.42857142857143% .10 25)",
+          "oklch(37.85714285714286% .10 25)",
+          "oklch(49.285714285714285% .10 25)",
+          "oklch(60.714285714285715% .10 25)",
+          "oklch(72.14285714285714% .10 25)",
+          "oklch(83.57142857142857% .10 25)",
+          "oklch(95% .10 25)"
+        ]
+      },
+      "error-bg": {
+        "role": "error",
+        "displayName": "Error Background",
+        "tonalRamp": [
+          "oklch(15% .10 25)",
+          "oklch(26.42857142857143% .10 25)",
+          "oklch(37.85714285714286% .10 25)",
+          "oklch(49.285714285714285% .10 25)",
+          "oklch(60.714285714285715% .10 25)",
+          "oklch(72.14285714285714% .10 25)",
+          "oklch(83.57142857142857% .10 25)",
+          "oklch(95% .10 25)"
+        ]
+      },
+      "error-text": {
+        "role": "error",
+        "displayName": "Error Text",
+        "tonalRamp": [
+          "oklch(15% .10 25)",
+          "oklch(26.42857142857143% .10 25)",
+          "oklch(37.85714285714286% .10 25)",
+          "oklch(49.285714285714285% .10 25)",
+          "oklch(60.714285714285715% .10 25)",
+          "oklch(72.14285714285714% .10 25)",
+          "oklch(83.57142857142857% .10 25)",
+          "oklch(95% .10 25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Task Heading",
+        "purpose": "Compact page headings with responsive context overrides."
+      },
+      "passage": {
+        "displayName": "English Passage",
+        "purpose": "Readable source material bounded at 72ch."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": "background .15s ease-out,border-color .15s ease-out",
+        "purpose": "Button hover states."
+      },
+      {
+        "name": "workspace-open",
+        "value": ".18s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Enter from translateY(3px), blur(.6px), to rest; only without motion reduction."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation:none!important;transition:none!important;scroll-behavior:auto!important",
+        "purpose": "Disable motion for reduced-motion preference."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "960px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1200px"
+      },
+      {
+        "name": "wide-desktop-min",
+        "value": "1600px"
+      },
+      {
+        "name": "lesson-single-column-max",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "html": "<button class=\"ds-primary\">Bắt đầu học</button>",
+      "css": ".ds-primary{font:500 14px/1.5 var(--sans);min-height:44px;cursor:pointer;border-radius:5px;transition:background .15s ease-out,border-color .15s ease-out;background:var(--accent);color:white;border:1px solid var(--accent);padding:12px 19px}.ds-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}.ds-primary:focus-visible{outline:3px solid #638dff;outline-offset:4px}.ds-primary:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "html": "<button class=\"ds-secondary\">Xuất dữ liệu</button>",
+      "css": ".ds-secondary{font:500 14px/1.5 var(--sans);min-height:44px;cursor:pointer;border-radius:5px;transition:background .15s ease-out,border-color .15s ease-out;background:var(--sheet);color:var(--ink);border:1px solid #bac5d6;padding:10px 15px}.ds-secondary:hover{background:#eaf0fb;border-color:#8b9dbc}.ds-secondary:focus-visible{outline:3px solid #638dff;outline-offset:4px}.ds-secondary:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Text Action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "html": "<button class=\"ds-text\">Xem bài đã làm</button>",
+      "css": ".ds-text{font:500 13px/1.5 var(--sans);min-height:40px;padding:7px 0;background:none;color:var(--accent);border:0;border-radius:0;cursor:pointer}.ds-text:hover{color:var(--accent-hover);text-decoration:underline;text-underline-offset:4px}.ds-text:focus-visible{outline:3px solid #638dff;outline-offset:4px}"
+    },
+    {
+      "name": "Answer Field",
+      "kind": "input",
+      "refersTo": "field",
+      "html": "<label class=\"ds-label\" for=\"ds-answer\">Câu trả lời</label><input class=\"ds-field\" id=\"ds-answer\" autocomplete=\"off\">",
+      "css": ".ds-label{display:block;margin-bottom:11px;font:500 15px/1.7 var(--sans);color:var(--text)}.ds-field{font:400 14px/1.7 var(--sans);padding:11px 12px;border:1px solid #b5c1d2;border-radius:5px;background:#fff;color:var(--text);caret-color:var(--accent);max-width:100%}.ds-field:hover{border-color:#8b9dbc}.ds-field:focus-visible{outline:3px solid #638dff;outline-offset:4px}.ds-field:disabled{background:#f1f4f9;color:var(--text);opacity:1}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "navigation",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Điều hướng\"><a href=\"#today\" aria-current=\"page\">Hôm nay</a><a href=\"#practice\">Luyện tập</a></nav>",
+      "css": ".ds-nav{padding:18px;background:var(--nav);display:flex;flex-direction:column;gap:7px}.ds-nav a{font:400 13px/1.7 var(--sans);padding:12px 15px;border:1px solid transparent;border-radius:5px;color:#c4d0e2;text-decoration:none;min-height:48px;box-sizing:border-box}.ds-nav a:hover{background:#203149;color:#fff}.ds-nav a[aria-current]{background:#263e65;border-color:#355785;color:#fff}.ds-nav a:focus-visible{outline:3px solid #a4c3ff;outline-offset:4px}"
+    },
+    {
+      "name": "Skill Filter",
+      "kind": "chip",
+      "refersTo": "skill-filter-selected",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"true\">Listening</button><button class=\"ds-filter\" aria-pressed=\"false\">Reading</button>",
+      "css": ".ds-filter{font:500 14px/1.5 var(--sans);min-height:44px;cursor:pointer;border-radius:5px;transition:background .15s ease-out,border-color .15s ease-out;font-size:12px;border:1px solid transparent;background:transparent;color:var(--ink);padding:9px 13px}.ds-filter:hover{background:#eaf0fb}.ds-filter[aria-pressed=true]{background:var(--accent);color:white}.ds-filter:focus-visible{outline:3px solid #638dff;outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-filter{transition:none}}"
+    },
+    {
+      "name": "Workspace Pane",
+      "kind": "card",
+      "refersTo": "workspace",
+      "html": "<section class=\"ds-pane\"><h2>Nội dung bài học</h2><p>Đọc câu hỏi và đối chiếu bằng chứng.</p></section>",
+      "css": ".ds-pane{font:400 14px/1.7 var(--sans);color:var(--text);background:white;border:1px solid var(--line);border-radius:6px;padding:25px}.ds-pane h2{font:600 20px/1.6 var(--sans);color:var(--ink);letter-spacing:-.025em;margin:0 0 15px}.ds-pane p{margin:0}"
+    },
+    {
+      "name": "Lesson Stage",
+      "kind": "nav",
+      "refersTo": "lesson-stage-selected",
+      "description": "Five direct stage destinations; checks reflect self-marked study completion, not correctness.",
+      "html": "<nav class=\"ds-stages\" aria-label=\"Lesson stages\"><button aria-current=\"step\"><span>1</span>Lý thuyết</button><button><span>2</span>Hướng dẫn làm bài</button><button><span>3</span>Bài tập nhỏ</button><button><span>4</span>Bài tập đầy đủ</button><button><span>5</span>Đáp án &amp; xem lại</button></nav>",
+      "css": ".ds-stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;font-family:var(--sans)}.ds-stages button{display:flex;align-items:center;gap:8px;text-align:left;padding:12px 10px;min-height:44px;border:1px solid #bac5d6;border-radius:5px;background:var(--sheet);color:var(--ink);font:500 11px/1.6 var(--sans);cursor:pointer}.ds-stages button span{display:grid;place-items:center;flex-shrink:0;width:23px;height:23px;background:#e7ecf5;border-radius:4px}.ds-stages button[aria-current]{border-color:var(--accent);background:var(--tint);color:#1c47b8}.ds-stages button[aria-current] span{background:var(--accent);color:white}.ds-stages button:hover{border-color:#8b9dbc}.ds-stages button:focus-visible{outline:3px solid #638dff;outline-offset:4px}@media(max-width:760px){.ds-stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ds-stages button{min-height:49px;padding:10px}.ds-stages button:last-child{grid-column:1/-1}}"
+    },
+    {
+      "name": "Source Section and Notebook",
+      "kind": "custom",
+      "description": "Native source disclosure with saved exercise notes; model answers open only by learner action.",
+      "html": "<details class=\"ds-source\" open><summary>E1. Bài tập nhỏ</summary><div class=\"ds-source-body\"><p>Read the source task and save your response for review.</p><label for=\"ds-notes\">Exercise notes: E1</label><textarea id=\"ds-notes\" rows=\"5\"></textarea><small>Saved on this device. Compare in the review stage.</small></div></details>",
+      "css": ".ds-source{font:400 14px/1.95 var(--sans);color:var(--text);padding:17px 0;border-bottom:1px solid var(--line)}.ds-source summary{font-size:14px;line-height:1.85;cursor:pointer;overflow-wrap:anywhere}.ds-source summary:hover{color:var(--accent)}.ds-source summary:focus-visible,.ds-source textarea:focus-visible{outline:3px solid #638dff;outline-offset:4px}.ds-source-body{padding-top:18px;min-width:0}.ds-source-body p{max-width:75ch;overflow-wrap:anywhere}.ds-source label{display:block;border-top:1px solid var(--line);padding-top:19px;margin:25px 0 11px;font-size:13px;font-weight:500}.ds-source textarea{width:100%;box-sizing:border-box;font:400 14px/1.7 var(--sans);background:white;color:var(--text);border:1px solid #b5c1d2;border-radius:5px;padding:11px 12px;resize:vertical}.ds-source textarea:hover{border-color:#8b9dbc}.ds-source small{display:block;margin-top:11px;font-size:10px;color:var(--muted)}@media(max-width:760px){.ds-source{font-size:13px;line-height:2}.ds-source summary{font-size:13px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Technical Field Manual",
+    "overview": "Hiên is a practical IELTS workspace for Vietnamese university students, primarily in technology-related majors. Graphite navigation, cool white workspaces, cobalt actions, and compact sans-serif headings make study tasks easy to locate and complete. Audience relevance comes from clarity and useful information, without gender stereotypes.\n\nThe interface uses direct Vietnamese instructions alongside English learning material. Fine dividers, labeled steps, and reference panes support deliberate practice and evidence review. The implementation in `src/theme.css`, `src/main.tsx`, and `src/App.tsx` defines this system.",
+    "keyCharacteristics": [
+      "Graphite navigation and white workspaces on a cool neutral background.",
+      "One sans-serif family with clear task hierarchy and measured density.",
+      "Flat lists, explicit states, and study information derived from actual work.",
+      "Source-led lessons use five direct stages, native disclosures, and persistent exercise notes within the existing field-manual workspace."
+    ],
+    "rules": [
+      {
+        "name": "The State Evidence Rule",
+        "body": "Use color alongside a visible label or explanation; color alone never communicates study results.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Use Be Vietnam Pro for both learning material and interface chrome; preserve Vietnamese glyph coverage.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do use graphite navigation, cool white workspaces, cobalt actions, and clear sans-serif hierarchy.",
+      "Do keep selected, saved, submitted, and error states explicit in text and semantics.",
+      "Do preserve keyboard focus, readable learning material, and reduced-motion behavior.",
+      "Do derive study counts and progress from actual activity and saved work.",
+      "Do label learner-marked stage completion separately from assessed answer correctness."
+    ],
+    "donts": [
+      "Don't reintroduce botanical imagery, literary serif styling, motivational slogans, or decorative code.",
+      "Don't turn flat study indexes into floating decorative card collections.",
+      "Don't invent analytics, official endorsement, or automated band scores.",
+      "Don't use decorative artwork or generated copy as learning evidence.",
+      ""
+    ]
+  }
+}

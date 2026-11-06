@@ -1,0 +1,50 @@
+{
+  "regions": [
+    {
+      "id": "navigation",
+      "kind": "chrome",
+      "grid": "A0:B9",
+      "note": "Slim persistent left rail, logo, three primary actions and device-data control."
+    },
+    {
+      "id": "heading",
+      "kind": "text",
+      "grid": "B0:G1",
+      "note": "One large editorial headline in deep ink."
+    },
+    {
+      "id": "next-lesson",
+      "kind": "text",
+      "grid": "B2:F5",
+      "note": "Next activity details and primary start action."
+    },
+    {
+      "id": "botanical",
+      "kind": "plate",
+      "grid": "E1:G6",
+      "plate": "public/art/botanical.png",
+      "note": "Fine botanical stem with translucent sage leaves on transparent ground.",
+      "bleed": true
+    },
+    {
+      "id": "quiet-study",
+      "kind": "plate",
+      "grid": "H2:J5",
+      "plate": "public/art/quiet-study.png",
+      "note": "Deep green quiet study panel, text remains live HTML above background plate.",
+      "bleed": true
+    },
+    {
+      "id": "skill-index",
+      "kind": "text",
+      "grid": "B6:G9",
+      "note": "Four flat editorial rows, meaningful navigation."
+    },
+    {
+      "id": "reading-preview",
+      "kind": "text",
+      "grid": "H6:J9",
+      "note": "Original museum passage, no invented expansion."
+    }
+  ]
+}

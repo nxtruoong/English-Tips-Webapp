@@ -1,0 +1,13 @@
+{
+  "approved": true,
+  "approval": "Choice delegated by user: recommend for all, followed by approval and continue. Agent selected editorial spread after comparing three generated compositions.",
+  "tool": "built-in image_gen",
+  "intent": "Desktop Hiên study app editorial spread. Warm ivory, green ink, botanical illustration, next lesson beside quiet study panel, editorial skill rows. Live text and controls remain semantic HTML.",
+  "corrections": [
+    "Use actual client date, not generated date",
+    "Use original museum passage, not generated expansion",
+    "No capitalization rule or invented score from generated UI",
+    "Local save status reflects real state"
+  ],
+  "buildRole": "critique-reference"
+}
