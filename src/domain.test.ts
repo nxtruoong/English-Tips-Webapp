@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isCorrect, normalize, score, wordCount } from './domain';
+import { filterActivities, isCorrect, normalize, score, wordCount } from './domain';
 import { activities } from './content/activities';
 import { validateData } from './storage';
 
@@ -61,5 +61,26 @@ describe('curated content', () => {
       }
       if (!activity.questions.length) expect(activity.model?.length).toBeGreaterThan(30);
     }
+  });
+});
+
+describe('filterActivities', () => {
+  const all = { skill: 'all', part: 'all', duration: 'all', query: '' } as const;
+  it('returns everything with no filters', () => {
+    expect(filterActivities(activities, all)).toHaveLength(activities.length);
+  });
+  it('filters by skill, duration and case-insensitive query', () => {
+    expect(filterActivities(activities, { ...all, skill: 'Reading' }).every(a => a.skill === 'Reading')).toBe(
+      true,
+    );
+    expect(filterActivities(activities, { ...all, duration: 'short' }).every(a => a.minutes <= 10)).toBe(
+      true,
+    );
+    expect(filterActivities(activities, { ...all, query: '  WESTLAKE ' }).map(a => a.id)).toEqual([
+      'listening-westlake',
+    ]);
+  });
+  it('returns nothing for an unknown query', () => {
+    expect(filterActivities(activities, { ...all, query: 'zzzz' })).toEqual([]);
   });
 });

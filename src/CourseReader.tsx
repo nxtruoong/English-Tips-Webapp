@@ -41,11 +41,10 @@ interface ReaderProps {
 export function CourseLoader(props: Omit<ReaderProps, 'unit'> & { unit: LessonMeta }) {
   const [unit, setUnit] = useState<LessonUnit>();
   const [error, setError] = useState(false);
-  const [retry, setRetry] = useState(0);
+  const id = props.unit.id;
   useEffect(() => {
     let active = true;
-    setError(false);
-    loadUnit(props.unit.id)
+    loadUnit(id)
       .then(value => {
         if (active) setUnit(value);
       })
@@ -55,13 +54,19 @@ export function CourseLoader(props: Omit<ReaderProps, 'unit'> & { unit: LessonMe
     return () => {
       active = false;
     };
-  }, [props.unit.id, retry]);
+  }, [id]);
+  function retry() {
+    setError(false);
+    loadUnit(id)
+      .then(setUnit)
+      .catch(() => setError(true));
+  }
   if (error)
     return (
       <div className="empty" role="alert">
         <h1>Không tải được bài học.</h1>
         <p>Kiểm tra kết nối rồi tải lại. Bài làm đã lưu không bị xóa.</p>
-        <button onClick={() => setRetry(r => r + 1)}>Thử lại</button>
+        <button onClick={retry}>Thử lại</button>
       </div>
     );
   if (!unit)

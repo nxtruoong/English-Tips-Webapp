@@ -3,7 +3,7 @@ import { activities } from './activities';
 
 describe('activity content', () => {
   it('gives every image alt text', () => {
-    for (const a of activities.filter(a => a.image)) expect(a.imageAlt, a.id).toBeTruthy();
+    for (const a of activities.filter(item => item.image)) expect(a.imageAlt, a.id).toBeTruthy();
   });
   it('previews at most one activity, using an existing question', () => {
     const previews = activities.filter(a => a.preview);

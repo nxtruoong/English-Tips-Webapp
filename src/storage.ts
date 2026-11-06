@@ -18,18 +18,18 @@ function db(): Promise<IDBDatabase> {
   return database;
 }
 export async function readData(): Promise<StudyData> {
-  const database = await db();
+  const conn = await db();
   return new Promise((resolve, reject) => {
-    const tx = database.transaction('study', 'readonly');
+    const tx = conn.transaction('study', 'readonly');
     const request = tx.objectStore('study').get('data');
     request.onsuccess = () => resolve(request.result ? validateData(request.result, true) : emptyData());
     request.onerror = () => reject(request.error);
   });
 }
 export async function writeData(data: StudyData): Promise<void> {
-  const database = await db();
+  const conn = await db();
   return new Promise((resolve, reject) => {
-    const tx = database.transaction('study', 'readwrite');
+    const tx = conn.transaction('study', 'readwrite');
     tx.objectStore('study').put(data, 'data');
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
