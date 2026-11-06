@@ -46,16 +46,16 @@ describe('lesson progress migration and backups', () => {
     });
   });
   it('round-trips stage notes and rejects invalid stage values', () => {
-    const lessons = {
+    const progress = {
       'listening-1': { stage: 'small', completed: ['theory', 'guide'], notes: { 'small/ex1': 'My answers' } },
     };
-    expect(validateData({ schema: 1, attempts: [], saved: [], lessons }).lessons).toEqual(lessons);
+    expect(validateData({ schema: 1, attempts: [], saved: [], lessons: progress }).lessons).toEqual(progress);
     expect(() =>
       validateData({
         schema: 1,
         attempts: [],
         saved: [],
-        lessons: { 'listening-1': { ...lessons['listening-1'], stage: 'fake' } },
+        lessons: { 'listening-1': { ...progress['listening-1'], stage: 'fake' } },
       }),
     ).toThrow();
   });

@@ -19,7 +19,9 @@ export function Recorder({
   const stream = useRef<MediaStream | null>(null);
   const mounted = useRef(true);
   const changed = useRef(onChange);
-  changed.current = onChange;
+  useEffect(() => {
+    changed.current = onChange;
+  });
   useEffect(() => {
     mounted.current = true;
     return () => {
@@ -29,11 +31,14 @@ export function Recorder({
     };
   }, []);
   useEffect(() => {
+    // Object URLs are an external resource: create and revoke them with the blob.
     if (!recording) {
+      // oxlint-disable-next-line react/set-state-in-effect
       setUrl('');
       return;
     }
     const next = URL.createObjectURL(recording);
+    // oxlint-disable-next-line react/set-state-in-effect
     setUrl(next);
     return () => URL.revokeObjectURL(next);
   }, [recording]);

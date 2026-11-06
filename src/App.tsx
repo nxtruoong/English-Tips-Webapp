@@ -24,6 +24,7 @@ import {
 import { activities, skills } from './content/activities';
 import {
   emptyData,
+  filterActivities,
   isCorrect,
   newAttempt,
   score,
@@ -75,6 +76,7 @@ export default function App() {
   const [part, setPart] = useState('all');
   const [duration, setDuration] = useState('all');
   const [reviewTab, setReviewTab] = useState<'saved' | 'history'>('saved');
+  const [today] = useState(() => new Date());
   useEffect(() => {
     const change = () => {
       setRoute(getRoute());
@@ -151,6 +153,7 @@ export default function App() {
   const requestedStage = route.split('/')[2] || '';
   const lessonStage = isLessonStage(requestedStage) ? requestedStage : 'theory';
   const section = route.startsWith('attempt') ? 'practice' : route.startsWith('lesson/') ? 'courses' : route;
+  const visibleActivities = filterActivities(activities, { skill: filter, part, duration, query });
   const nav = [
     { id: 'today', label: 'Hôm nay', Icon: Home },
     { id: 'courses', label: 'Bài học', Icon: Layers },
@@ -246,7 +249,7 @@ export default function App() {
                       day: 'numeric',
                       month: 'long',
                       timeZone: 'Asia/Bangkok',
-                    }).format(new Date())}
+                    }).format(today)}
                   </span>
                 </header>
                 <div className="daily-grid">
@@ -512,45 +515,17 @@ export default function App() {
                   thêm sau.
                 </p>
                 <div className="activity-list">
-                  {activities
-                    .filter(
-                      a =>
-                        (filter === 'all' || a.skill === filter) &&
-                        (part === 'all' || part === a.part) &&
-                        (duration === 'all' ||
-                          (duration === 'short'
-                            ? a.minutes <= 10
-                            : duration === 'medium'
-                              ? a.minutes > 10 && a.minutes <= 20
-                              : a.minutes > 20)) &&
-                        `${a.title} ${a.description} ${a.technique} ${a.skill}`
-                          .toLocaleLowerCase('vi')
-                          .includes(query.toLocaleLowerCase('vi')),
-                    )
-                    .map(a => (
-                      <ActivityRow
-                        key={a.id}
-                        activity={a}
-                        onClick={() => start(a)}
-                        completed={data.attempts.some(
-                          at => at.activityId === a.id && at.status === 'completed',
-                        )}
-                      />
-                    ))}
-                  {!activities.some(
-                    a =>
-                      (filter === 'all' || a.skill === filter) &&
-                      (part === 'all' || part === a.part) &&
-                      (duration === 'all' ||
-                        (duration === 'short'
-                          ? a.minutes <= 10
-                          : duration === 'medium'
-                            ? a.minutes > 10 && a.minutes <= 20
-                            : a.minutes > 20)) &&
-                      `${a.title} ${a.description} ${a.technique} ${a.skill}`
-                        .toLocaleLowerCase('vi')
-                        .includes(query.toLocaleLowerCase('vi')),
-                  ) && (
+                  {visibleActivities.map(a => (
+                    <ActivityRow
+                      key={a.id}
+                      activity={a}
+                      onClick={() => start(a)}
+                      completed={data.attempts.some(
+                        at => at.activityId === a.id && at.status === 'completed',
+                      )}
+                    />
+                  ))}
+                  {visibleActivities.length === 0 && (
                     <div className="empty">
                       <Search />
                       <h2>Chưa tìm thấy bài phù hợp.</h2>
