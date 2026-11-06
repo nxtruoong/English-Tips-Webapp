@@ -10,12 +10,13 @@ import {
   type LessonUnit,
   type LessonMeta,
 } from './curriculum';
+import { asset } from './asset';
 
 const unitCache = new Map<string, Promise<LessonUnit>>();
 function loadUnit(id: string): Promise<LessonUnit> {
   let pending = unitCache.get(id);
   if (!pending) {
-    pending = fetch(`/curriculum/${encodeURIComponent(id)}.json`).then(async response => {
+    pending = fetch(asset(`/curriculum/${encodeURIComponent(id)}.json`)).then(async response => {
       if (!response.ok) throw new Error('Không tải được nội dung bài học.');
       const unit: LessonUnit = await response.json();
       if (unit.id !== id || !stages.every(stage => Array.isArray(unit.stages?.[stage])))
@@ -109,17 +110,17 @@ function SourceBlock({ block }: { block: ContentBlock }) {
   if (block.kind === 'image')
     return (
       <figure>
-        <a href={block.url} target="_blank" rel="noreferrer">
-          <img loading="lazy" src={block.url} alt={block.alt} />
+        <a href={asset(block.url)} target="_blank" rel="noreferrer">
+          <img loading="lazy" src={asset(block.url)} alt={block.alt} />
         </a>
         <figcaption>
-          <a href={block.url} target="_blank" rel="noreferrer">
+          <a href={asset(block.url)} target="_blank" rel="noreferrer">
             Mở hình gốc để phóng to
           </a>
         </figcaption>
       </figure>
     );
-  if (block.kind === 'audio') return <SourceAudio url={block.url} title={block.text} />;
+  if (block.kind === 'audio') return <SourceAudio url={asset(block.url)} title={block.text} />;
   return (
     <div className="lesson-table-scroll" role="region" aria-label="Bảng trong tài liệu gốc" tabIndex={0}>
       <table>
