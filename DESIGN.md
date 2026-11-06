@@ -127,7 +127,7 @@ components:
 
 Hiên is a practical IELTS workspace for Vietnamese university students, primarily in technology-related majors. Graphite navigation, cool white workspaces, cobalt actions, and compact sans-serif headings make study tasks easy to locate and complete. Audience relevance comes from clarity and useful information, without gender stereotypes.
 
-The interface uses direct Vietnamese instructions alongside English learning material. Fine dividers, labeled steps, and reference panes support deliberate practice and evidence review. The implementation in `src/theme.css`, `src/main.tsx`, and `src/App.tsx` defines this system.
+The interface uses direct Vietnamese instructions alongside English learning material. Fine dividers, labeled steps, and reference panes support deliberate practice and evidence review. Tokens live in `src/styles/tokens.css`; component styles in `src/theme.css` reference them. Never add raw hex colors or pixel font sizes outside the token file.
 
 **Key Characteristics:**
 
@@ -171,7 +171,9 @@ The same clear family carries navigation, interface instructions, English passag
 - **Headline and title:** general section headings use the frontmatter roles. Compact panel headings commonly use (15–17px).
 - **Body:** ordinary interface copy uses the body role; task instructions commonly use (13px) with generous leading.
 - **Passage:** English source material uses the passage role, bounded at (72ch). Models use (14px) with the same generous leading.
-- **Labels:** medium weight distinguishes controls. Secondary metadata commonly uses (10–12px); dates, counters, and timers use tabular numerals where defined.
+- **Labels:** medium weight distinguishes controls. Secondary metadata uses `--text-xs` (12px), the smallest size in the scale; dates, counters, and timers use tabular numerals where defined.
+
+The type scale has eight steps: `--text-xs` 12, `--text-sm` 13, `--text-md` 14, `--text-lg` 16, `--text-xl` 18, `--text-2xl` 22, `--text-3xl` 26, `--text-4xl` 30 (px). Nothing renders below 12px.
 - **Writing:** drafts use (15px) with (1.9) line height; planning fields use (13px).
 
 **The One Family Rule.** Use Be Vietnam Pro for both learning material and interface chrome; preserve Vietnamese glyph coverage.
@@ -180,15 +182,17 @@ The same clear family carries navigation, interface instructions, English passag
 
 Desktop has a sticky navigation rail (228px) and a shrinkable main region bounded at (1680px). Main padding is (38px 35px 24px). The dashboard uses a fluid task column and a (285px) supporting column, separated by the dashboard gap. Skill and activity indexes are flat rows inside ruled white containers.
 
-Study workspaces use two equal shrinkable columns with the workspace gap. Each pane has independent white framing and workspace padding. Reading text, models, and supporting descriptions have bounded line lengths.
+Study workspaces use two equal columns when each pane gets at least 420px and a single column otherwise (`auto-fit`), so they adapt without a breakpoint. Each pane has independent white framing and workspace padding. Reading text, models, and supporting descriptions have bounded line lengths.
 
-At (1200px) and below, the rail narrows to (196px), main padding becomes (31px 25px 22px), and workspace padding becomes (21px). Between (761px) and (960px), the dashboard stacks with two supporting panels side by side; study panes become a continuous single column.
+The layout uses three breakpoints: mobile (760px and below), compact (1200px and below), and wide (1600px and above).
 
-At (760px) and below, navigation moves above the content. Main padding becomes (26px 18px 22px). Dashboard panels stack; study panes use mutually exclusive source/work views controlled by sticky tabs. Filters and actions wrap, activity metadata moves below descriptions, and long provenance text wraps anywhere. Keep every content column shrinkable.
+At (1200px) and below, the rail narrows to (196px), main padding becomes (31px 25px 22px), and workspace padding becomes (21px). Between (761px) and (1200px), the dashboard stacks with two supporting panels side by side.
+
+At (760px) and below, navigation moves above the content as four equal tabs with the icon above a single-line label. Main padding becomes (26px 18px 22px). Dashboard panels stack; study panes use mutually exclusive source/work views controlled by sticky tabs. Filters and actions wrap, activity metadata moves below descriptions, and long provenance text wraps anywhere. Keep every content column shrinkable.
 
 At (1600px) and above, main padding increases to (43px 45px 27px), the supporting column becomes (320px), and the dashboard gap becomes (28px).
 
-The lesson reader extends the same workspace with five equal stage controls, an (8px) gap, and a (195px) sticky overview beside a shrinkable reading column, separated by (23px). The overview sits (24px) from the viewport top. The reader surface uses (26px) padding. At (1100px) and below, it becomes one column with (23px) padding; source provenance moves into an in-content disclosure. At (760px) and below, stage controls form two columns with the final review control spanning both, the gap becomes (7px), and reader padding becomes (20px 16px). Tables scroll inside their own focusable regions instead of widening the page.
+The lesson reader extends the same workspace with five equal stage controls, an (8px) gap, and a (195px) sticky overview beside a shrinkable reading column, separated by (23px). The overview sits (24px) from the viewport top. The reader surface uses (26px) padding. At (1200px) and below, it becomes one column with (23px) padding; source provenance moves into an in-content disclosure. At (760px) and below, stage controls form two columns with the final review control spanning both, the gap becomes (7px), and reader padding becomes (20px 16px). Tables scroll inside their own focusable regions instead of widening the page.
 
 ## Elevation & Depth
 
