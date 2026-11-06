@@ -35,6 +35,7 @@ import {
 } from './domain';
 import { download, validateData } from './storage';
 import { useStudyData } from './useStudyData';
+import { asset } from './asset';
 import { Recorder } from './Recorder';
 import { CourseLoader } from './CourseReader';
 import {
@@ -908,7 +909,7 @@ function Workspace({
                   aria-label="Audio bài nghe Westlake"
                   controls
                   preload="metadata"
-                  src={activity.audio}
+                  src={asset(activity.audio)}
                   onError={() => setAudioError(true)}
                 />
                 {audioError && (
@@ -936,11 +937,11 @@ function Workspace({
               <figure>
                 <img
                   className="task-image"
-                  src={activity.image}
+                  src={asset(activity.image)}
                   alt="Line graph: annual income in pounds of Bernie’s Buns, Lovely Loaves and Robbie’s Bakery, 2000–2010. Open the image to inspect values."
                 />
                 <figcaption>
-                  <a href={activity.image} target="_blank" rel="noreferrer">
+                  <a href={asset(activity.image)} target="_blank" rel="noreferrer">
                     Mở hình gốc để phóng to
                   </a>
                 </figcaption>
