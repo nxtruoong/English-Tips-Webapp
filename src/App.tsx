@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -33,7 +33,8 @@ import {
   type Skill,
   type StudyData,
 } from './domain';
-import { download, readData, validateData, writeData } from './storage';
+import { download, validateData } from './storage';
+import { useStudyData } from './useStudyData';
 import { Recorder } from './Recorder';
 import { CourseLoader } from './CourseReader';
 import {
@@ -61,13 +62,7 @@ const formatDate = (date: string) =>
   );
 
 export default function App() {
-  const [data, setData] = useState<StudyData>(emptyData);
-  const currentData = useRef(data);
-  const [ready, setReady] = useState(false);
-  const [saveState, setSaveState] = useState('Đang tải dữ liệu…');
-  const [storageError, setStorageError] = useState('');
-  const queue = useRef(Promise.resolve());
-  const revision = useRef(0);
+  const { data, ready, saveState, storageError, conflict, mutate, reload, dismissConflict } = useStudyData();
   const [route, setRoute] = useState(getRoute);
   const [filter, setFilter] = useState<Skill | 'all'>('all');
   const [query, setQuery] = useState('');
@@ -75,60 +70,13 @@ export default function App() {
   const [duration, setDuration] = useState('all');
   const [reviewTab, setReviewTab] = useState<'saved' | 'history'>('saved');
   useEffect(() => {
-    let active = true;
-    readData()
-      .then(value => {
-        if (active) {
-          currentData.current = value;
-          setData(value);
-          setSaveState('Đã lưu trên thiết bị này');
-        }
-      })
-      .catch(() => {
-        if (active) {
-          setStorageError(
-            'Không mở được bộ nhớ trình duyệt. Bạn vẫn có thể luyện, nhưng hãy xuất dữ liệu trước khi rời trang.',
-          );
-          setSaveState('Chưa lưu được');
-        }
-      })
-      .finally(() => {
-        if (active) setReady(true);
-      });
     const change = () => {
       setRoute(getRoute());
       window.scrollTo({ top: 0 });
     };
     window.addEventListener('hashchange', change);
-    return () => {
-      active = false;
-      window.removeEventListener('hashchange', change);
-    };
+    return () => window.removeEventListener('hashchange', change);
   }, []);
-  function mutate(update: (old: StudyData) => StudyData) {
-    const next = update(currentData.current);
-    currentData.current = next;
-    setData(next);
-    setSaveState('Đang lưu…');
-    const latest = ++revision.current;
-    queue.current = queue.current
-      .catch(() => undefined)
-      .then(() => writeData(next))
-      .then(() => {
-        if (latest === revision.current) {
-          setSaveState('Đã lưu trên thiết bị này');
-          setStorageError('');
-        }
-      })
-      .catch(() => {
-        if (latest === revision.current) {
-          setSaveState('Chưa lưu được');
-          setStorageError(
-            'Chưa lưu được thay đổi. Có thể bộ nhớ đã đầy. Xuất dữ liệu để giữ bài, rồi thử lưu lại.',
-          );
-        }
-      });
-  }
   function updateAttempt(id: string, patch: Partial<Attempt>) {
     mutate(old => ({
       ...old,
@@ -141,7 +89,7 @@ export default function App() {
     location.hash = destination;
   }
   function openLesson(unit: LessonMeta, stage?: LessonStage) {
-    const selected = stage || currentData.current.lessons[unit.id]?.stage || 'theory';
+    const selected = stage || data.lessons[unit.id]?.stage || 'theory';
     mutate(old => ({
       ...old,
       lessons: {
@@ -158,7 +106,7 @@ export default function App() {
     }));
   }
   function start(activity: Activity, fresh = false) {
-    const existing = [...currentData.current.attempts]
+    const existing = [...data.attempts]
       .reverse()
       .find(a => a.activityId === activity.id && a.version === activity.version && a.status === 'draft');
     if (!fresh && existing) {
@@ -254,11 +202,20 @@ export default function App() {
         </button>
       </aside>
       <main id="main" tabIndex={-1}>
+        {conflict && (
+          <div className="storage-error" role="alert">
+            <p>Dữ liệu vừa được lưu từ một tab Hiên khác. Chọn bản muốn giữ để tránh ghi đè bài làm.</p>
+            <div className="actions">
+              <button onClick={reload}>Dùng dữ liệu mới nhất</button>
+              <button onClick={dismissConflict}>Giữ bản của tab này</button>
+            </div>
+          </div>
+        )}
         {storageError && (
           <div className="storage-error" role="alert">
             <p>{storageError}</p>
             <div className="actions">
-              <button onClick={() => mutate(old => ({ ...old }))}>Thử lưu lại</button>
+              <button onClick={() => mutate(old => ({ ...old }), { immediate: true })}>Thử lưu lại</button>
               <button onClick={() => go('data')}>Xuất dữ liệu</button>
             </div>
           </div>
@@ -706,10 +663,13 @@ export default function App() {
                                   aria-label={`Xóa lượt học ${lesson?.title || a.id}`}
                                   onClick={() => {
                                     if (confirm('Xóa lượt học và bản ghi âm đi kèm?'))
-                                      mutate(old => ({
-                                        ...old,
-                                        attempts: old.attempts.filter(x => x.id !== a.id),
-                                      }));
+                                      mutate(
+                                        old => ({
+                                          ...old,
+                                          attempts: old.attempts.filter(x => x.id !== a.id),
+                                        }),
+                                        { immediate: true },
+                                      );
                                   }}
                                 >
                                   <Trash2 size={17} />
@@ -753,8 +713,8 @@ export default function App() {
             {route === 'data' && (
               <DataSettings
                 data={data}
-                onImport={value => mutate(() => value)}
-                onClear={() => mutate(emptyData)}
+                onImport={value => mutate(() => value, { immediate: true })}
+                onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
             {!['today', 'courses', 'practice', 'review', 'data'].includes(route) &&
