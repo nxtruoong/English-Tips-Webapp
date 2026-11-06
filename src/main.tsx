@@ -9,4 +9,8 @@ import '@fontsource/be-vietnam-pro/vietnamese-600.css';
 import './theme.css';
 import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
