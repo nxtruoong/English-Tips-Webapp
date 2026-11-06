@@ -6,6 +6,7 @@ import '@fontsource/be-vietnam-pro/vietnamese-500.css';
 import '@fontsource/be-vietnam-pro/latin-500.css';
 import '@fontsource/be-vietnam-pro/latin-600.css';
 import '@fontsource/be-vietnam-pro/vietnamese-600.css';
+import './styles/tokens.css';
 import './theme.css';
 import App from './App';
 
