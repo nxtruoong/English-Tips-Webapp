@@ -23,11 +23,17 @@ VS Code's **Go Live** is configured in `.vscode/settings.json` to serve the buil
 npm run build
 npm run preview
 npm test
+npm run lint
+npm run format        # rewrite files with Prettier; CI runs format:check
 npx playwright install chromium
 npx playwright test
 ```
 
-Playwright tests expect the development server running on port 5173. Production output is `dist/`; publish that directory to a static host. No public deployment has been made.
+Playwright starts the dev server on port 5173 when nothing is listening there and otherwise reuses the running one. If a dev server was started before `vite.config.ts` changed, restart it before running end-to-end tests. In VS Code, F5 runs the **Run app (Vite dev)** launch configuration.
+
+GitHub Actions (`.github/workflows/ci.yml`) runs the format check, lint, build, unit tests and Playwright on every push to `main` and every pull request.
+
+Production output is `dist/`; publish that directory to a static host. The build uses a relative base, so it works at the site root or under a sub-path such as GitHub Pages. Reference public files through `asset()` in `src/asset.ts`, never as hard-coded `/media/...` URLs. No public deployment has been made.
 
 ## Lesson library and interactive practice
 
