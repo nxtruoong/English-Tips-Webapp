@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, TriangleAlert } from 'lucide-react';
 import {
   compiledOn,
   scaleLabel,
@@ -11,6 +11,7 @@ import {
 } from '../content/outcomes';
 import { PageTitle } from '../ui';
 import { asset } from '../asset';
+import { GuideTabs } from './GuideTabs';
 
 const storageKey = 'hien.outcomes.school';
 const kindLabel: Record<ProgramKind, string | null> = {
@@ -88,6 +89,15 @@ function ProgramRow({ program }: { program: Program }) {
   );
 }
 
+function BrokenNote({ text }: { text: string }) {
+  return (
+    <span className="link-broken">
+      <TriangleAlert size={14} aria-hidden="true" />
+      {text}
+    </span>
+  );
+}
+
 export function OutcomesPage() {
   const [schoolId, setSchoolId] = useState(readSchool);
   const school = schools.find(s => s.id === schoolId) || schools[0];
@@ -101,6 +111,7 @@ export function OutcomesPage() {
   }
   return (
     <>
+      <GuideTabs current="outcomes" />
       <PageTitle
         title="Chuẩn đầu ra ngoại ngữ"
         description={`Mức tiếng Anh cần có để tốt nghiệp đại học chính quy tại UIT, HCMUS, HCMUT và UEH. Tổng hợp từ văn bản gốc ngày ${compiledOn}.`}
@@ -137,6 +148,13 @@ export function OutcomesPage() {
               {school.short} <span>· {school.name}</span>
             </h2>
             <p>{school.basis}</p>
+            {[
+              ...new Set(
+                school.groups.flatMap(g => g.programs.map(p => p.source.broken)).filter(Boolean) as string[],
+              ),
+            ].map(text => (
+              <BrokenNote key={text} text={text} />
+            ))}
           </div>
         </header>
         {school.groups.map(group => (
@@ -159,6 +177,7 @@ export function OutcomesPage() {
                     {note.link.label}
                   </a>
                 )}
+                {note.link?.broken && <BrokenNote text={note.link.broken} />}
               </p>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react';
 import { budgets, priceLabel, resourceGroups } from '../content/guide';
 import { PageTitle } from '../ui';
+import { asset } from '../asset';
 import { GuideTabs } from './GuideTabs';
 
 export function ResourcesPage() {
@@ -26,6 +27,7 @@ export function ResourcesPage() {
             {group.items.map(r => (
               <li key={r.name}>
                 <a className="resource-row" href={r.url} target="_blank" rel="noreferrer">
+                  <img className="resource-icon" src={asset(r.icon)} alt="" width={28} height={28} />
                   <span className="resource-main">
                     <strong>{r.name}</strong>
                     <span>{r.use}</span>

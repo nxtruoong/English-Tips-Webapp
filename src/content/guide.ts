@@ -207,6 +207,8 @@ export interface Resource {
   name: string;
   use: string;
   url: string;
+  /** Site icon in the public folder. */
+  icon: string;
   price: Price;
   note?: string;
 }
@@ -217,24 +219,28 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     items: [
       {
         name: 'Cambridge Dictionary',
+        icon: '/media/favicons/cambridge.jpg',
         use: 'Từ điển Anh–Anh, Anh–Việt, có phát âm.',
         url: 'https://dictionary.cambridge.org/vi/',
         price: 'free',
       },
       {
         name: 'Oxford Learner’s Dictionaries',
+        icon: '/media/favicons/oxford.png',
         use: 'Từ điển cho người học, có ví dụ và collocation.',
         url: 'https://www.oxfordlearnersdictionaries.com/',
         price: 'free',
       },
       {
         name: 'Thesaurus',
+        icon: '/media/favicons/thesaurus.png',
         use: 'Tìm từ đồng nghĩa để paraphrase.',
         url: 'https://www.thesaurus.com/',
         price: 'free',
       },
       {
         name: 'Ludwig',
+        icon: '/media/favicons/ludwig.png',
         use: 'Xem từ/cụm từ được dùng trong câu thật từ nguồn uy tín.',
         url: 'https://ludwig.guru/',
         price: 'freemium',
@@ -246,6 +252,7 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     items: [
       {
         name: 'Anki',
+        icon: '/media/favicons/anki.png',
         use: 'Flashcard với lặp lại ngắt quãng.',
         url: 'https://apps.ankiweb.net/',
         price: 'free',
@@ -253,6 +260,7 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
       },
       {
         name: 'Quizlet',
+        icon: '/media/favicons/quizlet.png',
         use: 'Tạo và học bộ flashcard, có sẵn nhiều bộ của người khác.',
         url: 'https://quizlet.com/vn',
         price: 'freemium',
@@ -264,12 +272,14 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     items: [
       {
         name: 'DailyDictation',
+        icon: '/media/favicons/dailydictation.png',
         use: 'Audio ngắn để nghe – chép, tự chấm từng câu.',
         url: 'https://dailydictation.com/',
         price: 'free',
       },
       {
         name: 'Google Speech-to-Text',
+        icon: '/media/favicons/google-cloud.png',
         use: 'Chuyển lời nói thành chữ để tự kiểm tra phát âm. Trên điện thoại có thể dùng luôn tính năng nhập bằng giọng nói của bàn phím.',
         url: 'https://cloud.google.com/speech-to-text',
         price: 'freemium',
@@ -281,18 +291,21 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     items: [
       {
         name: 'STUDY4',
+        icon: '/media/favicons/study4.png',
         use: 'Đề và khóa luyện IELTS, TOEIC.',
         url: 'https://study4.com/',
         price: 'freemium',
       },
       {
         name: 'Mini IELTS',
+        icon: '/media/favicons/mini-ielts.png',
         use: 'Bài tập IELTS ngắn theo kỹ năng.',
         url: 'https://mini-ielts.com/',
         price: 'free',
       },
       {
         name: 'IELTS Online Tests',
+        icon: '/media/favicons/ieltsonlinetests.png',
         use: 'Đề thi thử IELTS trực tuyến.',
         url: 'https://ieltsonlinetests.com/',
         price: 'freemium',
@@ -303,19 +316,15 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     title: 'Viết & sửa lỗi',
     items: [
       {
-        name: 'Reboost',
-        use: 'AI chấm và chữa bài Writing Task 1, Task 2.',
-        url: 'https://reboost.vn/',
-        price: 'freemium',
-      },
-      {
         name: 'Grammarly',
+        icon: '/media/favicons/grammarly.png',
         use: 'Sửa chính tả, ngữ pháp và văn phong.',
         url: 'https://www.grammarly.com/',
         price: 'freemium',
       },
       {
         name: 'ChatGPT / Claude',
+        icon: '/media/favicons/claude.png',
         use: 'Hỏi ngữ pháp, nhờ nhận xét bài viết, luyện hội thoại.',
         url: 'https://claude.ai/',
         price: 'freemium',
@@ -328,18 +337,21 @@ export const resourceGroups: { title: string; items: Resource[] }[] = [
     items: [
       {
         name: 'Google Translate',
+        icon: '/media/favicons/google-translate.png',
         use: 'Dịch nhanh câu hoặc đoạn.',
         url: 'https://translate.google.com/',
         price: 'free',
       },
       {
         name: 'Yomitan',
+        icon: '/media/favicons/yomitan.png',
         use: 'Tiện ích trình duyệt: rê chuột vào từ để tra nghĩa.',
         url: 'https://yomitan.wiki/',
         price: 'free',
       },
       {
         name: 'Duolingo',
+        icon: '/media/favicons/duolingo.png',
         use: 'Ôn 4 kỹ năng ở mức cơ bản, bài ngắn mỗi ngày.',
         url: 'https://www.duolingo.com/',
         price: 'freemium',

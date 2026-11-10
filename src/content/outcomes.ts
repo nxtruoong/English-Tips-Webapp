@@ -28,6 +28,8 @@ export interface Score {
 export interface Source {
   label: string;
   url: string;
+  /** Set when the link failed a reachability check. */
+  broken?: string;
 }
 
 export type ProgramKind = 'graduation' | 'entry' | 'unclear';
@@ -69,10 +71,12 @@ const oepOverview: Source = {
 };
 const hcmut: Source = {
   label: 'QĐ 2749/QĐ-ĐHBK (27/05/2026)',
+  broken: 'Ngày 10/11/2026 tên miền fme.hcmut.edu.vn không phân giải được; tìm QĐ 2749 trên hcmut.edu.vn.',
   url: 'https://fme.hcmut.edu.vn/wp-content/uploads/2026/05/2026.05.27_2749_QD-DHBK_QD-dieu-chinh_Hvu-DH_-2933_2026_PL1_lan-2_27-5-2026.signed.pdf',
 };
 const ueh52: Source = {
   label: 'UEH – Chuẩn đầu ra tiếng Anh khóa 52',
+  broken: 'Ngày 10/11/2026 trang li.ueh.edu.vn không kết nối được; có thể chỉ vào được từ một số mạng.',
   url: 'https://li.ueh.edu.vn/chuan-dau-ra-trinh-do-tieng-anh-doi-voi-khoa-52-ueh-dhcq-la-gi-can-dat-bao-nhieu-diem-de-tot-nghiep-dung-han/',
 };
 const ielts6 = (name: string, source: Source): Program => ({
@@ -165,7 +169,7 @@ export const schools: School[] = [
           }),
           ielts6('Kỹ thuật phần mềm – tiếng Anh', {
             label: 'OEP – Kỹ thuật phần mềm',
-            url: 'https://www.oep.uit.edu.vn/vi/chuong-trinh-tieng-anh-nganh-ky-thuat-phan-mem',
+            url: 'https://oep.uit.edu.vn/vi/chuong-trinh-tieng-anh-nganh-ky-thuat-phan-mem',
           }),
           ielts6('Thiết kế vi mạch – tiếng Anh', {
             label: 'OEP – Thiết kế vi mạch',
@@ -472,7 +476,11 @@ export const schools: School[] = [
       {
         title: 'Đọc thêm',
         text: 'Danh mục quy chế và quy định UEH 2026.',
-        link: { label: 'daotao.ueh.edu.vn', url: 'https://daotao.ueh.edu.vn/quy-che-quy-dinh-ueh/' },
+        link: {
+          label: 'daotao.ueh.edu.vn',
+          url: 'https://daotao.ueh.edu.vn/quy-che-quy-dinh-ueh/',
+          broken: 'Ngày 10/11/2026 trang này không kết nối được; có thể chỉ vào được từ một số mạng.',
+        },
       },
     ],
   },
