@@ -1,4 +1,4 @@
-import { ArrowRight, Bookmark, CheckCircle2, Layers, PenSquare, Timer } from 'lucide-react';
+import { ArrowRight, Timer } from 'lucide-react';
 import { activities, skills } from '../content/activities';
 import {
   lessonIndex as lessons,
@@ -70,11 +70,24 @@ export function TodayPage({
   const weekMax = Math.max(1, ...week.map(d => d.count));
   const weekTotal = week.reduce((n, d) => n + d.count, 0);
 
-  const stats = [
-    { label: 'Bước bài học đã xong', value: doneStages, of: lessons.length * 5, Icon: Layers },
-    { label: 'Lượt luyện hoàn thành', value: completed, Icon: CheckCircle2 },
-    { label: 'Bài đang làm dở', value: drafts, Icon: PenSquare },
-    { label: 'Câu đã lưu để ôn', value: data.saved.length, Icon: Bookmark },
+  const links = [
+    {
+      value: completed,
+      label: 'lượt luyện đã xong',
+      onClick: () => {
+        setReviewTab('history');
+        go('review');
+      },
+    },
+    { value: drafts, label: 'bài đang làm dở', onClick: () => go('practice') },
+    {
+      value: data.saved.length,
+      label: 'câu đã lưu để ôn',
+      onClick: () => {
+        setReviewTab('saved');
+        go('review');
+      },
+    },
   ];
 
   return (
@@ -134,17 +147,49 @@ export function TodayPage({
         )}
       </section>
 
-      <section className="stat-row" aria-label="Số liệu học tập">
-        {stats.map(({ label, value, of, Icon }) => (
-          <div className="stat" key={label}>
-            <Icon size={20} aria-hidden="true" />
-            <strong>
-              {value}
-              {of !== undefined && <small> / {of}</small>}
-            </strong>
-            <span>{label}</span>
-          </div>
-        ))}
+      <section className="roadmap" aria-labelledby="roadmap-title">
+        <div className="roadmap-head">
+          <h2 id="roadmap-title">Lộ trình</h2>
+          <span>
+            <strong>{doneStages}</strong> / {lessons.length * 5} bước đã xong
+          </span>
+        </div>
+        <div className="roadmap-map">
+          {skills.map(skill => (
+            <div className="roadmap-group" key={skill} data-skill={skill.toLowerCase()}>
+              <div className="roadmap-cols">
+                {lessons
+                  .filter(l => l.skill === skill)
+                  .map(l => {
+                    const done = data.lessons[l.id]?.completed || [];
+                    return (
+                      <button
+                        key={l.id}
+                        className={l.id === nextLesson.id ? 'col here' : 'col'}
+                        title={`${l.skill} · ${l.part}: ${l.title} — ${done.length}/5 bước`}
+                        aria-label={`${l.skill} ${l.part}, ${done.length}/5 bước`}
+                        onClick={() => openLesson(l)}
+                      >
+                        {stages.map(s => (
+                          <span key={s} className={done.includes(s) ? 'on' : ''} />
+                        ))}
+                      </button>
+                    );
+                  })}
+              </div>
+              <small>{skill}</small>
+            </div>
+          ))}
+        </div>
+        <ul className="roadmap-links">
+          {links.map(link => (
+            <li key={link.label}>
+              <button onClick={link.onClick}>
+                <strong>{link.value}</strong> {link.label}
+              </button>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <div className="today-grid">
@@ -171,7 +216,7 @@ export function TodayPage({
                 >
                   <span className="skill-card-top">
                     <SkillTile skill={skill} />
-                    <span className="skill-card-count">{own.length} bài</span>
+                    <span className="skill-card-count">{own.length} bài học</span>
                   </span>
                   <strong>{skill}</strong>
                   <span className="skill-card-text">{skillDescriptions[skill]}</span>
