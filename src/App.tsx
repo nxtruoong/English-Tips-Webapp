@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, ChevronRight, Laptop, Layers, RotateCcw, Home } from 'lucide-react';
+import { BookOpen, ChevronRight, GraduationCap, Laptop, Layers, RotateCcw, Home } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
 import { useStudyData } from './useStudyData';
@@ -19,6 +19,7 @@ import { PracticePage } from './pages/PracticePage';
 import { ReviewPage } from './pages/ReviewPage';
 import { Workspace } from './pages/Workspace';
 import { DataSettings } from './pages/DataSettings';
+import { OutcomesPage } from './pages/OutcomesPage';
 
 const getRoute = () => location.hash.slice(1) || 'today';
 
@@ -112,6 +113,7 @@ export default function App() {
     { id: 'courses', label: 'Bài học', Icon: Layers },
     { id: 'practice', label: 'Luyện tập', Icon: BookOpen },
     { id: 'review', label: 'Ôn lại', Icon: RotateCcw },
+    { id: 'outcomes', label: 'Chuẩn đầu ra', Icon: GraduationCap },
   ];
 
   return (
@@ -275,6 +277,7 @@ export default function App() {
                 onClick={() => go('review')}
               />
             )}
+            {route === 'outcomes' && <OutcomesPage />}
             {route === 'data' && (
               <DataSettings
                 data={data}
@@ -282,7 +285,7 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'data'].includes(route) &&
+            {!['today', 'courses', 'practice', 'review', 'outcomes', 'data'].includes(route) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
