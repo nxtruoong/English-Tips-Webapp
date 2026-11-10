@@ -670,9 +670,33 @@
   outline: none;
 }
 
-/* Collapsible sidebar (desktop and tablet; mobile keeps the top bar) */
+/*
+ * Collapsible sidebar (desktop and tablet; mobile keeps the top bar).
+ * Icons keep the same x position in both states; only the rail width
+ * changes and the labels fade, so nothing jumps or rewraps mid-transition.
+ */
 .app-shell {
-  transition: grid-template-columns 0.22s ease-out;
+  --rail-collapsed: 88px;
+  transition: grid-template-columns 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar {
+  overflow: hidden;
+}
+.sidebar .wordmark > span:last-child,
+.sidebar nav a span,
+.sidebar-toggle span,
+.device-button span,
+.device-button > svg:last-child,
+.sidebar-note {
+  white-space: nowrap;
+  transition: opacity 0.18s ease-out;
+}
+.sidebar-note {
+  white-space: normal;
+  min-width: 170px;
+}
+.device-button span {
+  text-wrap: nowrap;
 }
 .sidebar-toggle {
   justify-content: flex-start;
@@ -692,19 +716,8 @@
   border-color: transparent;
   color: var(--sheet);
 }
-.sidebar-note + .sidebar-toggle {
-  margin-top: 0;
-}
 .app-shell.collapsed {
-  grid-template-columns: 76px minmax(0, 1fr);
-}
-.collapsed .sidebar {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-.collapsed .wordmark {
-  margin: 0 0 48px;
-  justify-content: center;
+  grid-template-columns: var(--rail-collapsed) minmax(0, 1fr);
 }
 .collapsed .wordmark > span:last-child,
 .collapsed .sidebar nav a span,
@@ -712,43 +725,40 @@
 .collapsed .device-button span,
 .collapsed .device-button > svg:last-child,
 .collapsed .sidebar-note {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }
-.collapsed .sidebar nav a,
-.collapsed .sidebar-toggle,
-.collapsed .device-button {
-  justify-content: center;
-  padding-left: 0;
-  padding-right: 0;
-}
-.collapsed .sidebar-toggle {
-  margin-top: auto;
+@media (max-width: 1200px) {
+  .app-shell {
+    --rail-collapsed: 76px;
+  }
+  .sidebar-toggle {
+    padding: 10px 12px;
+    gap: 10px;
+  }
 }
 @media (max-width: 760px) {
+  .sidebar {
+    overflow: visible;
+  }
   .sidebar-toggle {
     display: none;
   }
   .app-shell.collapsed {
     display: block;
   }
-  .collapsed .sidebar {
-    padding: 21px 20px 0;
-  }
-  .collapsed .wordmark {
-    margin: 0;
-    justify-content: flex-start;
-  }
   .collapsed .wordmark > span:last-child,
   .collapsed .sidebar nav a span,
   .collapsed .device-button span {
-    display: revert;
-  }
-  .collapsed .sidebar nav a {
-    padding: 8px 2px;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .app-shell {
     transition: none;
   }
+}
+.brand-mark {
+  flex-shrink: 0;
 }
