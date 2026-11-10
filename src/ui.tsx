@@ -8,14 +8,6 @@ export const skillDescriptions: Record<Skill, string> = {
   Reading: 'Đọc hiểu và đối chiếu bằng chứng.',
   Writing: 'Lập dàn ý, viết bài và so sánh bài mẫu.',
 };
-export function SkillTile({ skill, size = 22 }: { skill: Skill; size?: number }) {
-  const Icon = icons[skill];
-  return (
-    <span className="skill-tile" data-skill={skill.toLowerCase()} aria-hidden="true">
-      <Icon size={size} strokeWidth={1.8} />
-    </span>
-  );
-}
 export function StageBar({ completed, current }: { completed: number; current?: number }) {
   return (
     <span className="stage-bar" aria-hidden="true">
@@ -60,13 +52,12 @@ export function ActivityRow({
   completed: boolean;
 }) {
   return (
-    <button className="activity-row" onClick={onClick}>
-      <SkillTile skill={activity.skill} />
+    <button className="activity-row" data-skill={activity.skill.toLowerCase()} onClick={onClick}>
       <div>
         <h2>{activity.title}</h2>
         <p>{activity.description}</p>
         <span className="metadata">
-          {activity.skill} · {activity.part} · {activity.technique}
+          <span className="skill-label">{activity.skill}</span> · {activity.part} · {activity.technique}
         </span>
       </div>
       <span className="row-end">

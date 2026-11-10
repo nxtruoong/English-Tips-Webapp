@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { skills } from '../content/activities';
 import { lessonIndex as lessons, stages, type LessonMeta } from '../curriculum';
 import type { Skill, StudyData } from '../domain';
-import { PageTitle, SkillTile, StageBar } from '../ui';
+import { PageTitle, StageBar } from '../ui';
 
 export function CoursesPage({
   data,
@@ -49,7 +49,6 @@ export function CoursesPage({
               onClick={() => openLesson(lesson)}
             >
               <span className="lesson-card-top">
-                <SkillTile skill={lesson.skill} />
                 <span className="eyebrow">
                   {lesson.skill} · {lesson.part.replace(/^Question type/i, 'Dạng')}
                 </span>

@@ -8,7 +8,7 @@ import {
   type LessonStage,
 } from '../curriculum';
 import type { Activity, Attempt, Skill, StudyData } from '../domain';
-import { SkillTile, skillDescriptions } from '../ui';
+import { skillDescriptions } from '../ui';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
@@ -107,9 +107,12 @@ export function TodayPage({
         </span>
       </header>
 
-      <section className="hero" aria-labelledby="hero-title">
+      <section
+        className="hero"
+        data-skill={(pending ? next.skill : nextLesson.skill).toLowerCase()}
+        aria-labelledby="hero-title"
+      >
         <div className="hero-main">
-          <SkillTile skill={pending ? next.skill : nextLesson.skill} size={30} />
           <div className="hero-copy">
             <span className="eyebrow">
               {pending ? 'Bài luyện đang làm dở' : doneHere ? 'Học tiếp' : 'Gợi ý bắt đầu'}
@@ -198,68 +201,70 @@ export function TodayPage({
             <h2 id="skills-title">Học theo kỹ năng</h2>
             <span>{lessons.length} bài học</span>
           </div>
-          <div className="skill-cards">
+          <ul className="skill-table">
             {skills.map(skill => {
               const own = lessons.filter(l => l.skill === skill);
               const done = own.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
               const total = own.length * 5;
               return (
-                <button
-                  key={skill}
-                  className="skill-card"
-                  data-skill={skill.toLowerCase()}
-                  onClick={() => {
-                    setFilter(skill);
-                    setPart('all');
-                    go('courses');
-                  }}
-                >
-                  <span className="skill-card-top">
-                    <SkillTile skill={skill} />
-                    <span className="skill-card-count">{own.length} bài học</span>
-                  </span>
-                  <strong>{skill}</strong>
-                  <span className="skill-card-text">{skillDescriptions[skill]}</span>
-                  <span className="meter" aria-label={`${done}/${total} bước`}>
-                    <span style={{ width: `${(done / total) * 100}%` }} />
-                  </span>
-                  <span className="skill-card-foot">
-                    {done}/{total} bước <ArrowRight size={16} aria-hidden="true" />
-                  </span>
-                </button>
+                <li key={skill} data-skill={skill.toLowerCase()}>
+                  <button
+                    onClick={() => {
+                      setFilter(skill);
+                      setPart('all');
+                      go('courses');
+                    }}
+                  >
+                    <span className="skill-name">
+                      <strong>{skill}</strong>
+                      <span>{skillDescriptions[skill]}</span>
+                    </span>
+                    <span className="skill-progress">
+                      <span className="meter" aria-hidden="true">
+                        <span style={{ width: `${(done / total) * 100}%` }} />
+                      </span>
+                      <small>
+                        {done}/{total} bước · {own.length} bài
+                      </small>
+                    </span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </button>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </section>
 
         <aside className="today-side">
-          <section className="panel">
-            <div className="panel-head">
-              <h2>7 ngày qua</h2>
-              <span>{weekTotal} lượt luyện</span>
-            </div>
-            <div className="week-chart" role="img" aria-label={`${weekTotal} lượt luyện trong 7 ngày qua`}>
-              {week.map((d, i) => (
-                <div key={d.key} className={i === 6 ? 'today' : ''}>
-                  <span
-                    className="bar"
-                    style={{ height: `${(d.count / weekMax) * 100}%` }}
-                    title={`${d.count}`}
-                  />
-                  <small>{d.label}</small>
-                </div>
-              ))}
-            </div>
-            <button
-              className="text-button"
-              onClick={() => {
-                setReviewTab('history');
-                go('review');
-              }}
-            >
-              Xem lịch sử học <ArrowRight size={17} />
-            </button>
-          </section>
+          {weekTotal > 0 && (
+            <section className="panel">
+              <div className="panel-head">
+                <h2>7 ngày qua</h2>
+                <span>{weekTotal} lượt luyện</span>
+              </div>
+              <div className="week-chart" role="img" aria-label={`${weekTotal} lượt luyện trong 7 ngày qua`}>
+                {week.map((d, i) => (
+                  <div key={d.key} className={i === 6 ? 'today' : ''}>
+                    <span
+                      className="bar"
+                      style={{ height: `${(d.count / weekMax) * 100}%` }}
+                      title={`${d.count}`}
+                    />
+                    <small>{d.label}</small>
+                  </div>
+                ))}
+              </div>
+              <button
+                className="text-button"
+                onClick={() => {
+                  setReviewTab('history');
+                  go('review');
+                }}
+              >
+                Xem lịch sử học <ArrowRight size={17} />
+              </button>
+            </section>
+          )}
           {quick && (
             <section className="panel quick-card">
               <div className="panel-head">
