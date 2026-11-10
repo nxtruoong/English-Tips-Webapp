@@ -2490,31 +2490,89 @@ footer {
 /* Guide (cẩm nang): sub-tabs, methods, resources */
 .guide-tabs {
   display: flex;
-  gap: 4px;
-  margin: -6px 0 22px;
-  border-bottom: 1px solid var(--line);
+  gap: 8px;
+  margin: 0 0 26px;
   overflow-x: auto;
 }
 .guide-tabs a {
   flex-shrink: 0;
-  padding: 10px 14px;
-  min-height: 44px;
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 16px;
   font-size: var(--text-sm);
   font-weight: 500;
-  color: var(--muted);
+  color: var(--ink);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
+  background: var(--sheet);
+  border: 1px solid var(--border-control);
+  border-radius: 5px;
+}
+.guide-tabs a svg {
+  color: var(--icon);
 }
 .guide-tabs a:hover {
-  color: var(--ink);
+  background: var(--tint-strong);
+  border-color: var(--border-control-hover);
 }
 .guide-tabs a.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--sheet);
   font-weight: 600;
+}
+.guide-tabs a.active svg {
+  color: var(--sheet);
+}
+.guide-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease-out,
+    background 0.15s ease-out;
+}
+.guide-card:hover {
+  border-color: var(--accent-border);
+  background: var(--surface-hover);
+}
+.guide-card > svg {
+  color: var(--accent);
+}
+.guide-card h2 {
+  font-size: var(--text-xl);
+  margin: 4px 0 0;
+}
+.guide-card p {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  margin: 0;
+  flex: 1;
+}
+.guide-card-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent);
+}
+@media (max-width: 1200px) {
+  .guide-cards {
+    grid-template-columns: 1fr;
+  }
 }
 .guide-section {
   margin-bottom: 30px;

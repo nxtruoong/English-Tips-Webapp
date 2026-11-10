@@ -22,7 +22,7 @@ import { DataSettings } from './pages/DataSettings';
 import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
-import { guideRoutes } from './pages/GuideTabs';
+import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
 
@@ -122,7 +122,7 @@ export default function App() {
     { id: 'courses', label: 'Bài học', Icon: Layers },
     { id: 'practice', label: 'Luyện tập', Icon: BookOpen },
     { id: 'review', label: 'Ôn lại', Icon: RotateCcw },
-    { id: 'guide', href: 'outcomes', label: 'Cẩm nang', Icon: GraduationCap },
+    { id: 'guide', label: 'Cẩm nang', Icon: GraduationCap },
   ];
 
   return (
@@ -148,10 +148,10 @@ export default function App() {
           </span>
         </a>
         <nav aria-label="Điều hướng chính">
-          {nav.map(({ id, href, label, Icon }) => (
+          {nav.map(({ id, label, Icon }) => (
             <a
               key={id}
-              href={`#${href || id}`}
+              href={`#${id}`}
               className={section === id ? 'active' : ''}
               aria-current={section === id ? 'page' : undefined}
             >
@@ -286,6 +286,7 @@ export default function App() {
                 onClick={() => go('review')}
               />
             )}
+            {route === 'guide' && <GuidePage />}
             {route === 'outcomes' && <OutcomesPage />}
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
