@@ -173,14 +173,14 @@ figcaption {
 }
 .primary {
   background: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
   border-color: var(--accent);
   padding: 12px 19px;
 }
 .primary:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);
-  color: var(--sheet);
+  color: var(--on-accent);
 }
 .text-button {
   border: 0;
@@ -237,7 +237,7 @@ figcaption {
   top: -100px;
   z-index: 50;
   background: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
   padding: 15px;
 }
 .skip:focus {
@@ -263,7 +263,7 @@ figcaption {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: var(--sheet);
+  color: var(--nav-strong);
   font-size: var(--text-3xl);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -278,7 +278,7 @@ figcaption {
   background: var(--brand-bg);
   border: 1px solid var(--brand-border);
   border-radius: 7px;
-  color: var(--sheet);
+  color: var(--nav-strong);
 }
 .wordmark small {
   font-size: var(--text-xs);
@@ -307,12 +307,12 @@ figcaption {
 }
 .sidebar nav a:hover {
   background: var(--nav-hover);
-  color: var(--sheet);
+  color: var(--nav-strong);
 }
 .sidebar nav a.active {
   background: var(--nav-active);
   border-color: var(--nav-active-border);
-  color: var(--sheet);
+  color: var(--nav-strong);
 }
 .sidebar nav a.active svg {
   color: var(--nav-accent);
@@ -350,7 +350,7 @@ figcaption {
 }
 .device-button:hover {
   background: transparent;
-  color: var(--sheet);
+  color: var(--nav-strong);
 }
 .device-button span {
   text-wrap: balance;
@@ -703,7 +703,7 @@ footer {
 }
 .skill-tabs button.selected {
   background: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
 }
 .search {
   margin-left: auto;
@@ -1842,7 +1842,7 @@ footer {
 }
 .lesson-stages .selected .stage-number {
   background: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
 }
 .lesson-layout {
   display: grid;
@@ -2519,11 +2519,11 @@ footer {
 .guide-tabs a.active {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
   font-weight: 600;
 }
 .guide-tabs a.active svg {
-  color: var(--sheet);
+  color: var(--on-accent);
 }
 .guide-cards {
   display: grid;
@@ -2664,7 +2664,7 @@ footer {
   margin-right: 8px;
   border-radius: 4px;
   background: var(--accent);
-  color: var(--sheet);
+  color: var(--on-accent);
   font-size: var(--text-xs);
 }
 .plan-steps p {

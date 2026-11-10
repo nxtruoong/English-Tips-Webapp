@@ -89,4 +89,78 @@
   --radius-tile: 10px;
   --shadow-card: 0 1px 2px rgb(16 24 40 / 5%);
   --shadow-hover: 0 8px 22px -8px rgb(24 36 56 / 22%);
+
+  /* Text on filled accent/state backgrounds, and strong text on the nav rail */
+  --on-accent: #fff;
+  --nav-strong: #fff;
+
+  color-scheme: light;
+}
+
+/*
+ * Dark theme. Applied when the viewer chose dark, or when the system is dark
+ * and the viewer has not forced light. Same token names; components need no changes.
+ */
+:root[data-theme='dark'] {
+  --paper: #0f1522;
+  --sheet: #172031;
+  --surface-subtle: #1b2638;
+  --surface-hover: #202d43;
+  --surface-muted: #1d2739;
+
+  --ink: #e9eef7;
+  --text: #cbd4e2;
+  --muted: #98a6bb;
+  --placeholder: #7f8ea5;
+  --icon: #a3bbe8;
+  --icon-muted: #8193ae;
+
+  --line: #2a364b;
+  --line-soft: #233044;
+  --line-strong: #35445d;
+  --border-control: #45546e;
+  --border-control-hover: #62749a;
+
+  --accent: #6f9bff;
+  --accent-hover: #8fb1ff;
+  --accent-ink: #c9d8ff;
+  --accent-border: #3d5994;
+  --tint: #1b2a4a;
+  --tint-strong: #233660;
+  --focus: #8fb1ff;
+  --selection: #2d4680;
+  --selection-text: #f0f4fb;
+
+  --nav: #0a0f19;
+  --nav-hover: #151f31;
+  --nav-active: #1b2b47;
+  --nav-active-border: #2c4470;
+  --nav-line: #1f2a3d;
+  --nav-text: #dbe4f2;
+  --nav-text-muted: #9fb0c8;
+  --nav-accent: #9dbcff;
+
+  --success: #5fc78c;
+  --success-bg: #14301f;
+  --success-border: #25573b;
+  --danger: #ff7b7b;
+  --danger-ink: #ff9d9d;
+  --danger-bg: #3a1a1d;
+  --danger-border: #6f3035;
+
+  --listening: #4ec5cb;
+  --listening-bg: #12302f;
+  --speaking: #f29a5f;
+  --speaking-bg: #3a2414;
+  --reading: #a993ff;
+  --reading-bg: #262046;
+  --writing: #72d193;
+  --writing-bg: #15301f;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 35%);
+  --shadow-hover: 0 10px 24px -8px rgb(0 0 0 / 65%);
+
+  --on-accent: #0b1220;
+
+  color-scheme: dark;
 }

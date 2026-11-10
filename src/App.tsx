@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  BookMarked,
-  CalendarDays,
+  LayoutDashboard,
+  Moon,
+  Signpost,
+  Sun,
   ChevronRight,
   History,
   Laptop,
@@ -53,6 +55,35 @@ export default function App() {
       return false;
     }
   });
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  );
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    setTheme(next);
+    try {
+      localStorage.setItem('hien.theme', next);
+    } catch {
+      // Not critical; the choice just won't be remembered.
+    }
+  }
+  useEffect(() => {
+    // Follow system changes until the viewer picks a theme explicitly.
+    const media = matchMedia('(prefers-color-scheme: dark)');
+    const follow = () => {
+      try {
+        if (localStorage.getItem('hien.theme')) return;
+      } catch {
+        // Fall through and follow the system.
+      }
+      const next = media.matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      setTheme(next);
+    };
+    media.addEventListener('change', follow);
+    return () => media.removeEventListener('change', follow);
+  }, []);
   const toggleSidebar = useCallback(() => {
     setCollapsed(value => {
       try {
@@ -156,8 +187,8 @@ export default function App() {
         ? 'guide'
         : route;
   const nav = [
-    { id: 'guide', label: 'Cẩm nang', Icon: BookMarked },
-    { id: 'today', label: 'Hôm nay', Icon: CalendarDays },
+    { id: 'guide', label: 'Cẩm nang', Icon: Signpost },
+    { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: NotebookPen },
     { id: 'review', label: 'Ôn lại', Icon: History },
@@ -207,6 +238,15 @@ export default function App() {
             Theo dõi bài đã làm.
           </span>
         </div>
+        <button
+          className="sidebar-toggle theme-toggle"
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+          title={collapsed ? (theme === 'dark' ? 'Giao diện sáng' : 'Giao diện tối') : undefined}
+        >
+          {theme === 'dark' ? <Sun size={22} strokeWidth={1.5} /> : <Moon size={22} strokeWidth={1.5} />}
+          <span>{theme === 'dark' ? 'Giao diện sáng' : 'Giao diện tối'}</span>
+        </button>
         <button
           className="sidebar-toggle"
           onClick={toggleSidebar}
