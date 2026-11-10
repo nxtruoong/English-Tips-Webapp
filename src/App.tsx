@@ -8,7 +8,7 @@ import {
   History,
   Laptop,
   Layers,
-  NotebookPen,
+  LibraryBig,
   PanelLeftClose,
   PanelLeftOpen,
   BookOpenText,
@@ -190,7 +190,7 @@ export default function App() {
     { id: 'guide', label: 'Cẩm nang', Icon: Lightbulb },
     { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
-    { id: 'practice', label: 'Luyện tập', Icon: NotebookPen },
+    { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
     { id: 'review', label: 'Ôn lại', Icon: History },
   ];
 
