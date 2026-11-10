@@ -9,7 +9,7 @@ import {
   NotebookPen,
   PanelLeftClose,
   PanelLeftOpen,
-  Route,
+  BookOpenText,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -158,7 +158,7 @@ export default function App() {
   const nav = [
     { id: 'guide', label: 'Cẩm nang', Icon: BookMarked },
     { id: 'today', label: 'Hôm nay', Icon: CalendarDays },
-    { id: 'courses', label: 'Bài học', Icon: Route },
+    { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: NotebookPen },
     { id: 'review', label: 'Ôn lại', Icon: History },
   ];
