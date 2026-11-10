@@ -2849,3 +2849,17 @@ li:last-child > .resource-row {
     display: none;
   }
 }
+.guide-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: -10px 0 6px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+}
+.guide-back:hover {
+  color: var(--accent);
+}

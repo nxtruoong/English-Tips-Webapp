@@ -1,4 +1,4 @@
-import { ArrowRight, Compass, GraduationCap, LibraryBig, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Compass, GraduationCap, LibraryBig, type LucideIcon } from 'lucide-react';
 import { PageTitle } from '../ui';
 
 const tabs: { id: string; label: string; text: string; Icon: LucideIcon }[] = [
@@ -25,19 +25,25 @@ export const guideRoutes = ['guide', ...tabs.map(t => t.id)];
 
 export function GuideTabs({ current }: { current: string }) {
   return (
-    <nav className="guide-tabs" aria-label="Cẩm nang">
-      {tabs.map(({ id, label, Icon }) => (
-        <a
-          key={id}
-          href={`#${id}`}
-          className={id === current ? 'active' : ''}
-          aria-current={id === current ? 'page' : undefined}
-        >
-          <Icon size={18} aria-hidden="true" />
-          {label}
-        </a>
-      ))}
-    </nav>
+    <>
+      <a className="guide-back" href="#guide">
+        <ArrowLeft size={18} aria-hidden="true" />
+        Cẩm nang
+      </a>
+      <nav className="guide-tabs" aria-label="Cẩm nang">
+        {tabs.map(({ id, label, Icon }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={id === current ? 'active' : ''}
+            aria-current={id === current ? 'page' : undefined}
+          >
+            <Icon size={18} aria-hidden="true" />
+            {label}
+          </a>
+        ))}
+      </nav>
+    </>
   );
 }
 
