@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   LayoutDashboard,
   Moon,
-  Signpost,
+  Lightbulb,
   Sun,
   ChevronRight,
   History,
@@ -187,7 +187,7 @@ export default function App() {
         ? 'guide'
         : route;
   const nav = [
-    { id: 'guide', label: 'Cẩm nang', Icon: Signpost },
+    { id: 'guide', label: 'Cẩm nang', Icon: Lightbulb },
     { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: NotebookPen },

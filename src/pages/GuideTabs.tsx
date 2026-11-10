@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Compass, GraduationCap, LibraryBig, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Compass, BookMarked, GraduationCap, type LucideIcon } from 'lucide-react';
 import { PageTitle } from '../ui';
 
 const tabs: { id: string; label: string; text: string; Icon: LucideIcon }[] = [
@@ -18,7 +18,7 @@ const tabs: { id: string; label: string; text: string; Icon: LucideIcon }[] = [
     id: 'resources',
     label: 'Tài nguyên miễn phí',
     text: 'Từ điển, flashcard, luyện đề, sửa bài viết… dùng được mà không tốn tiền.',
-    Icon: LibraryBig,
+    Icon: BookMarked,
   },
 ];
 export const guideRoutes = ['guide', ...tabs.map(t => t.id)];
