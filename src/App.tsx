@@ -118,11 +118,11 @@ export default function App() {
         ? 'guide'
         : route;
   const nav = [
+    { id: 'guide', label: 'Cẩm nang', Icon: GraduationCap },
     { id: 'today', label: 'Hôm nay', Icon: Home },
     { id: 'courses', label: 'Bài học', Icon: Layers },
     { id: 'practice', label: 'Luyện tập', Icon: BookOpen },
     { id: 'review', label: 'Ôn lại', Icon: RotateCcw },
-    { id: 'guide', label: 'Cẩm nang', Icon: GraduationCap },
   ];
 
   return (
