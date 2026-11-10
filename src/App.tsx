@@ -1,5 +1,15 @@
-import { useEffect, useState } from 'react';
-import { BookOpen, ChevronRight, GraduationCap, Laptop, Layers, RotateCcw, Home } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  BookOpen,
+  ChevronRight,
+  GraduationCap,
+  Laptop,
+  Layers,
+  PanelLeftClose,
+  PanelLeftOpen,
+  RotateCcw,
+  Home,
+} from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
 import { useStudyData } from './useStudyData';
@@ -35,6 +45,33 @@ export default function App() {
   const [duration, setDuration] = useState('all');
   const [reviewTab, setReviewTab] = useState<'saved' | 'history'>('saved');
   const [today] = useState(() => new Date());
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem('hien.sidebar') === 'collapsed';
+    } catch {
+      return false;
+    }
+  });
+  const toggleSidebar = useCallback(() => {
+    setCollapsed(value => {
+      try {
+        localStorage.setItem('hien.sidebar', value ? 'open' : 'collapsed');
+      } catch {
+        // Not critical; the choice just won't be remembered.
+      }
+      return !value;
+    });
+  }, []);
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'b') {
+        event.preventDefault();
+        toggleSidebar();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [toggleSidebar]);
   useEffect(() => {
     const change = () => {
       setRoute(getRoute());
@@ -126,7 +163,7 @@ export default function App() {
   ];
 
   return (
-    <div className="app-shell">
+    <div className={collapsed ? 'app-shell collapsed' : 'app-shell'}>
       <a
         className="skip"
         href="#main"
@@ -154,6 +191,7 @@ export default function App() {
               href={`#${id}`}
               className={section === id ? 'active' : ''}
               aria-current={section === id ? 'page' : undefined}
+              title={collapsed ? label : undefined}
             >
               <Icon size={22} strokeWidth={1.5} />
               <span>{label}</span>
@@ -168,7 +206,21 @@ export default function App() {
             Theo dõi bài đã làm.
           </span>
         </div>
-        <button className="device-button" onClick={() => go('data')}>
+        <button
+          className="sidebar-toggle"
+          onClick={toggleSidebar}
+          aria-expanded={!collapsed}
+          aria-label={collapsed ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên'}
+          title={`${collapsed ? 'Mở rộng' : 'Thu gọn'} (Ctrl+B)`}
+        >
+          {collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
+          <span>Thu gọn</span>
+        </button>
+        <button
+          className="device-button"
+          onClick={() => go('data')}
+          title={collapsed ? saveState : undefined}
+        >
           <Laptop size={21} />
           <span>{saveState}</span>
           <ChevronRight size={15} />

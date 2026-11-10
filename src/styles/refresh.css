@@ -659,3 +659,96 @@
   color: var(--skill);
   font-weight: 600;
 }
+
+/* Search: focus ring on the whole field (icon + input), not on the inner input */
+.search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--selection);
+}
+.search input:focus,
+.search input:focus-visible {
+  outline: none;
+}
+
+/* Collapsible sidebar (desktop and tablet; mobile keeps the top bar) */
+.app-shell {
+  transition: grid-template-columns 0.22s ease-out;
+}
+.sidebar-toggle {
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  margin: 0 0 12px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--nav-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+.sidebar-toggle:hover {
+  background: var(--nav-hover);
+  border-color: transparent;
+  color: var(--sheet);
+}
+.sidebar-note + .sidebar-toggle {
+  margin-top: 0;
+}
+.app-shell.collapsed {
+  grid-template-columns: 76px minmax(0, 1fr);
+}
+.collapsed .sidebar {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.collapsed .wordmark {
+  margin: 0 0 48px;
+  justify-content: center;
+}
+.collapsed .wordmark > span:last-child,
+.collapsed .sidebar nav a span,
+.collapsed .sidebar-toggle span,
+.collapsed .device-button span,
+.collapsed .device-button > svg:last-child,
+.collapsed .sidebar-note {
+  display: none;
+}
+.collapsed .sidebar nav a,
+.collapsed .sidebar-toggle,
+.collapsed .device-button {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.collapsed .sidebar-toggle {
+  margin-top: auto;
+}
+@media (max-width: 760px) {
+  .sidebar-toggle {
+    display: none;
+  }
+  .app-shell.collapsed {
+    display: block;
+  }
+  .collapsed .sidebar {
+    padding: 21px 20px 0;
+  }
+  .collapsed .wordmark {
+    margin: 0;
+    justify-content: flex-start;
+  }
+  .collapsed .wordmark > span:last-child,
+  .collapsed .sidebar nav a span,
+  .collapsed .device-button span {
+    display: revert;
+  }
+  .collapsed .sidebar nav a {
+    padding: 8px 2px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell {
+    transition: none;
+  }
+}
