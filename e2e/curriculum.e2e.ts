@@ -16,8 +16,8 @@ test('all lesson modules expose source theory, guide, small exercises, full exer
   page,
 }) => {
   await page.goto('/#courses');
-  await expect(page.locator('.activity-row')).toHaveCount(17);
-  await page.locator('.activity-row').filter({ hasText: 'Social Dialogue' }).click();
+  await expect(page.locator('.lesson-card')).toHaveCount(17);
+  await page.locator('.lesson-card').filter({ hasText: 'Social Dialogue' }).click();
   await expect(page.locator('.lesson-stages button')).toHaveCount(5);
   await expect(page.locator('.lesson-stage-heading h2')).toHaveText('Lý thuyết');
   await expect(page.locator('.source-section[open]')).toContainText('Bản chất');

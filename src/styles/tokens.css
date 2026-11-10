@@ -73,4 +73,20 @@
   --text-4xl: 30px; /* page headings */
 
   --sans: 'Be Vietnam Pro', sans-serif;
+
+  /* Skill identity: icon tiles, progress, filters. Always paired with the skill name. */
+  --listening: #0b7f86;
+  --listening-bg: #e2f4f4;
+  --speaking: #c4560f;
+  --speaking-bg: #fdede1;
+  --reading: #6544cf;
+  --reading-bg: #efeafd;
+  --writing: #2b7d45;
+  --writing-bg: #e5f3e9;
+
+  /* Shape and depth */
+  --radius-card: 12px;
+  --radius-tile: 10px;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 5%);
+  --shadow-hover: 0 8px 22px -8px rgb(24 36 56 / 22%);
 }

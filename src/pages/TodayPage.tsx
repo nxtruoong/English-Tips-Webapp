@@ -1,4 +1,4 @@
-import { ArrowRight, Timer } from 'lucide-react';
+import { ArrowRight, Bookmark, CheckCircle2, Layers, PenSquare, Timer } from 'lucide-react';
 import { activities, skills } from '../content/activities';
 import {
   lessonIndex as lessons,
@@ -8,13 +8,32 @@ import {
   type LessonStage,
 } from '../curriculum';
 import type { Activity, Attempt, Skill, StudyData } from '../domain';
-import { icons, skillDescriptions } from '../ui';
+import { SkillTile, skillDescriptions } from '../ui';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
   const question = activity?.questions.find(q => q.id === activity.preview?.questionId);
   return activity && question ? { activity, question } : undefined;
 })();
+
+const dayKey = (date: Date) => date.toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
+
+/** Attempts touched on each of the last seven days, oldest first. */
+function lastWeek(attempts: Attempt[], today: Date) {
+  const counts = new Map<string, number>();
+  for (const a of attempts) {
+    const key = dayKey(new Date(a.updatedAt));
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(today.getTime() - (6 - i) * 86_400_000);
+    return {
+      key: dayKey(date),
+      label: new Intl.DateTimeFormat('vi-VN', { weekday: 'narrow', timeZone: 'Asia/Bangkok' }).format(date),
+      count: counts.get(dayKey(date)) || 0,
+    };
+  });
+}
 
 export function TodayPage({
   data,
@@ -41,12 +60,29 @@ export function TodayPage({
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
 }) {
+  const progress = data.lessons[nextLesson.id];
+  const doneHere = progress?.completed.length || 0;
+  const currentIndex = stages.indexOf(progress?.stage || 'theory');
+  const doneStages = lessons.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
+  const completed = data.attempts.filter(a => a.status === 'completed').length;
+  const drafts = data.attempts.filter(a => a.status === 'draft').length;
+  const week = lastWeek(data.attempts, today);
+  const weekMax = Math.max(1, ...week.map(d => d.count));
+  const weekTotal = week.reduce((n, d) => n + d.count, 0);
+
+  const stats = [
+    { label: 'Bước bài học đã xong', value: doneStages, of: lessons.length * 5, Icon: Layers },
+    { label: 'Lượt luyện hoàn thành', value: completed, Icon: CheckCircle2 },
+    { label: 'Bài đang làm dở', value: drafts, Icon: PenSquare },
+    { label: 'Câu đã lưu để ôn', value: data.saved.length, Icon: Bookmark },
+  ];
+
   return (
     <>
       <header className="daily-heading">
         <div>
           <h1>Tổng quan học tập</h1>
-          <p>Chọn bài luyện, kiểm tra kết quả và xử lý điểm yếu.</p>
+          <p>Học tiếp từ chỗ dừng, hoặc chọn kỹ năng muốn luyện.</p>
         </div>
         <span className="date">
           {new Intl.DateTimeFormat('vi-VN', {
@@ -57,89 +93,118 @@ export function TodayPage({
           }).format(today)}
         </span>
       </header>
-      <div className="daily-grid">
-        <div>
-          <section className="feature">
-            <div className="feature-copy">
-              <h2>{pending ? next.title : `${nextLesson.skill} · ${nextLesson.part}`}</h2>
-              <div className="feature-meta">
-                <span className="part-label">
-                  {next.skill} / {next.part}
-                </span>
-                <span>
-                  <Timer size={15} />
-                  {pending ? `${next.minutes} phút` : '5 bước học'}
-                </span>
-                <span className="resume-state">
-                  {pending ? 'Bản nháp bài luyện' : 'Bắt đầu từ lý thuyết'}
-                </span>
-              </div>
-              <p className="feature-description">
-                {pending
-                  ? next.description
-                  : 'Học nội dung gốc, xem cách làm, luyện bài nhỏ rồi chuyển sang bài đầy đủ.'}
-              </p>
-              <button className="primary" onClick={() => (pending ? start(next) : openLesson(nextLesson))}>
-                {pending ? 'Học tiếp' : 'Bắt đầu học'}
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            <ol className="session-flow" aria-label="Quy trình học">
-              {stages.map((step, i) => (
-                <li key={step}>
-                  <span>{i + 1}</span>
-                  <div>
-                    <strong>{stageLabels[step]}</strong>
-                  </div>
+
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-main">
+          <SkillTile skill={pending ? next.skill : nextLesson.skill} size={30} />
+          <div className="hero-copy">
+            <span className="eyebrow">
+              {pending ? 'Bài luyện đang làm dở' : doneHere ? 'Học tiếp' : 'Gợi ý bắt đầu'}
+            </span>
+            <h2 id="hero-title">{pending ? next.title : `${nextLesson.skill} · ${nextLesson.part}`}</h2>
+            <p>{pending ? next.description : nextLesson.title}</p>
+            <span className="hero-meta">
+              <Timer size={15} aria-hidden="true" />
+              {pending ? `${next.minutes} phút` : `${doneHere}/5 bước đã xong`}
+            </span>
+          </div>
+          <button
+            className="primary hero-cta"
+            onClick={() => (pending ? start(next) : openLesson(nextLesson))}
+          >
+            {pending || doneHere ? 'Học tiếp' : 'Bắt đầu học'}
+            <ArrowRight size={18} />
+          </button>
+        </div>
+        {!pending && (
+          <ol className="hero-steps" aria-label="5 bước của bài học">
+            {stages.map((step, i) => {
+              const done = progress?.completed.includes(step);
+              const state = done ? 'done' : i === currentIndex ? 'current' : '';
+              return (
+                <li key={step} className={state}>
+                  <button onClick={() => openLesson(nextLesson, step)}>
+                    <span className="step-dot">{done ? '✓' : i + 1}</span>
+                    {stageLabels[step]}
+                  </button>
                 </li>
-              ))}
-            </ol>
-          </section>
-          <section className="skill-index" aria-label="Bốn kỹ năng">
-            <div className="section-heading">
-              <h2>Học theo kỹ năng</h2>
-              <span>{lessons.length} bài học</span>
-            </div>
+              );
+            })}
+          </ol>
+        )}
+      </section>
+
+      <section className="stat-row" aria-label="Số liệu học tập">
+        {stats.map(({ label, value, of, Icon }) => (
+          <div className="stat" key={label}>
+            <Icon size={20} aria-hidden="true" />
+            <strong>
+              {value}
+              {of !== undefined && <small> / {of}</small>}
+            </strong>
+            <span>{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <div className="today-grid">
+        <section aria-labelledby="skills-title">
+          <div className="section-heading">
+            <h2 id="skills-title">Học theo kỹ năng</h2>
+            <span>{lessons.length} bài học</span>
+          </div>
+          <div className="skill-cards">
             {skills.map(skill => {
-              const Icon = icons[skill];
+              const own = lessons.filter(l => l.skill === skill);
+              const done = own.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
+              const total = own.length * 5;
               return (
                 <button
                   key={skill}
+                  className="skill-card"
+                  data-skill={skill.toLowerCase()}
                   onClick={() => {
                     setFilter(skill);
                     setPart('all');
                     go('courses');
                   }}
                 >
-                  <Icon size={25} strokeWidth={1.6} />
-                  <span>
-                    <strong>{skill}</strong>
-                    <span>{skillDescriptions[skill]}</span>
+                  <span className="skill-card-top">
+                    <SkillTile skill={skill} />
+                    <span className="skill-card-count">{own.length} bài</span>
                   </span>
-                  <span className="skill-count">{lessons.filter(a => a.skill === skill).length} bài học</span>
-                  <ArrowRight size={18} />
+                  <strong>{skill}</strong>
+                  <span className="skill-card-text">{skillDescriptions[skill]}</span>
+                  <span className="meter" aria-label={`${done}/${total} bước`}>
+                    <span style={{ width: `${(done / total) * 100}%` }} />
+                  </span>
+                  <span className="skill-card-foot">
+                    {done}/{total} bước <ArrowRight size={16} aria-hidden="true" />
+                  </span>
                 </button>
               );
             })}
-          </section>
-        </div>
-        <aside className="daily-margin">
-          <section className="study-summary">
-            <h2>Tiến độ của bạn</h2>
-            <dl>
-              <div>
-                <dt>Lượt đã hoàn thành</dt>
-                <dd>{data.attempts.filter(a => a.status === 'completed').length}</dd>
-              </div>
-              <div>
-                <dt>Bài đang học</dt>
-                <dd>{data.attempts.filter(a => a.status === 'draft').length}</dd>
-              </div>
-              <div>
-                <dt>Câu đã lưu để ôn</dt>
-                <dd>{data.saved.length}</dd>
-              </div>
-            </dl>
+          </div>
+        </section>
+
+        <aside className="today-side">
+          <section className="panel">
+            <div className="panel-head">
+              <h2>7 ngày qua</h2>
+              <span>{weekTotal} lượt luyện</span>
+            </div>
+            <div className="week-chart" role="img" aria-label={`${weekTotal} lượt luyện trong 7 ngày qua`}>
+              {week.map((d, i) => (
+                <div key={d.key} className={i === 6 ? 'today' : ''}>
+                  <span
+                    className="bar"
+                    style={{ height: `${(d.count / weekMax) * 100}%` }}
+                    title={`${d.count}`}
+                  />
+                  <small>{d.label}</small>
+                </div>
+              ))}
+            </div>
             <button
               className="text-button"
               onClick={() => {
@@ -147,22 +212,17 @@ export function TodayPage({
                 go('review');
               }}
             >
-              Xem lịch sử học
-              <ArrowRight size={17} />
+              Xem lịch sử học <ArrowRight size={17} />
             </button>
           </section>
           {quick && (
-            <section className="reading-preview">
-              <h2>Bài luyện nhanh</h2>
-              <p className="metadata">
-                {quick.activity.skill} · {quick.activity.technique} · {quick.activity.minutes} phút
-              </p>
+            <section className="panel quick-card">
+              <div className="panel-head">
+                <h2>Bài luyện nhanh</h2>
+                <span>{quick.activity.minutes} phút</span>
+              </div>
               <blockquote lang="en">{quick.activity.passage}</blockquote>
-              <p>
-                <span lang="en">“{quick.question.prompt}”</span>
-                <br />
-                Đối chiếu nhận định với thông tin trong đoạn văn.
-              </p>
+              <p lang="en">“{quick.question.prompt}”</p>
               <button className="text-button" onClick={() => start(quick.activity)}>
                 Làm bài {quick.activity.skill} <ArrowRight size={17} />
               </button>

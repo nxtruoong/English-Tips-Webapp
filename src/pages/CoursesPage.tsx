@@ -1,8 +1,8 @@
 import { ArrowRight } from 'lucide-react';
 import { skills } from '../content/activities';
-import { lessonIndex as lessons, type LessonMeta } from '../curriculum';
+import { lessonIndex as lessons, stages, type LessonMeta } from '../curriculum';
 import type { Skill, StudyData } from '../domain';
-import { PageTitle, icons } from '../ui';
+import { PageTitle, SkillTile, StageBar } from '../ui';
 
 export function CoursesPage({
   data,
@@ -15,55 +15,61 @@ export function CoursesPage({
   setFilter: (skill: Skill | 'all') => void;
   openLesson: (unit: LessonMeta) => void;
 }) {
+  const shown = lessons.filter(lesson => filter === 'all' || lesson.skill === filter);
   return (
     <>
       <PageTitle
         title="Bài học theo lộ trình"
-        description="Lý thuyết → Hướng dẫn làm bài → Bài tập nhỏ → Bài tập đầy đủ → Đáp án & xem lại."
+        description="Mỗi bài có 5 bước: Lý thuyết → Hướng dẫn → Bài tập nhỏ → Bài tập đầy đủ → Đáp án."
       />
-      <div className="skill-tabs" aria-label="Lọc bài học">
+      <div className="pill-tabs" role="group" aria-label="Lọc bài học">
         {(['all', ...skills] as const).map(skill => (
           <button
             key={skill}
             className={filter === skill ? 'selected' : ''}
+            data-skill={skill === 'all' ? undefined : skill.toLowerCase()}
             aria-pressed={filter === skill}
             onClick={() => setFilter(skill)}
           >
+            {skill !== 'all' && <span className="dot" aria-hidden="true" />}
             {skill === 'all' ? 'Tất cả' : skill}
+            <small>{skill === 'all' ? lessons.length : lessons.filter(l => l.skill === skill).length}</small>
           </button>
         ))}
       </div>
-      <p className="library-note">
-        {lessons.length} bài học từ 7 tài liệu kỹ năng. Reading có đủ các dạng trong tài liệu hiện tại; nguồn
-        bài dài vẫn cần bổ sung. Bài tập nhập theo nội dung gốc dùng ô bài làm và tự đối chiếu; 6 workspace
-        hiện có hỗ trợ luyện riêng.
-      </p>
-      <div className="activity-list">
-        {lessons
-          .filter(lesson => filter === 'all' || lesson.skill === filter)
-          .map(lesson => {
-            const Icon = icons[lesson.skill];
-            const progress = data.lessons[lesson.id];
-            return (
-              <button className="activity-row" key={lesson.id} onClick={() => openLesson(lesson)}>
-                <Icon size={29} />
-                <div>
-                  <h2>
-                    {lesson.skill} · {lesson.part}
-                  </h2>
-                  <p>{lesson.title}</p>
-                  <span className="metadata">
-                    5 bước · {progress?.completed.length || 0}/5 đã đánh dấu học xong
-                  </span>
-                </div>
-                <span className="row-end">
-                  {progress ? 'Học tiếp' : 'Mở bài học'}
-                  <ArrowRight size={18} />
+      <div className="lesson-grid">
+        {shown.map(lesson => {
+          const progress = data.lessons[lesson.id];
+          const done = progress?.completed.length || 0;
+          return (
+            <button
+              className="lesson-card"
+              data-skill={lesson.skill.toLowerCase()}
+              key={lesson.id}
+              onClick={() => openLesson(lesson)}
+            >
+              <span className="lesson-card-top">
+                <SkillTile skill={lesson.skill} />
+                <span className="eyebrow">
+                  {lesson.skill} · {lesson.part.replace(/^Question type/i, 'Dạng')}
                 </span>
-              </button>
-            );
-          })}
+              </span>
+              <strong className="lesson-card-title">{lesson.title}</strong>
+              <StageBar completed={done} current={progress ? stages.indexOf(progress.stage) : undefined} />
+              <span className="lesson-card-foot">
+                <span>{done === 5 ? 'Đã xong 5 bước' : `${done}/5 bước`}</span>
+                <span className="go">
+                  {progress ? 'Học tiếp' : 'Bắt đầu'} <ArrowRight size={16} aria-hidden="true" />
+                </span>
+              </span>
+            </button>
+          );
+        })}
       </div>
+      <p className="library-note">
+        Bài tập lấy từ tài liệu gốc: làm vào ô bài làm rồi tự đối chiếu với đáp án gốc. 6 bài có workspace
+        luyện riêng trong mục Luyện tập.
+      </p>
     </>
   );
 }

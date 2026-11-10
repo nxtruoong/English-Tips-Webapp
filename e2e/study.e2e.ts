@@ -18,7 +18,7 @@ test('desktop and mobile surfaces, real source assets, and no horizontal overflo
     await page.goto('/#today');
     await expect(page.getByRole('heading', { name: 'Tổng quan học tập' })).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator('.feature-copy')).toBeVisible();
+    await expect(page.locator('.hero')).toBeVisible();
     await expect(page.locator('img[src^="/art/"]')).toHaveCount(0);
     await page.screenshot({
       path: `.impeccable/review/${width === 1440 ? 'desktop' : 'mobile'}.png`,
