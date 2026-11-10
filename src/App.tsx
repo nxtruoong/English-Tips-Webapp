@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  BookOpen,
+  BookMarked,
+  CalendarDays,
   ChevronRight,
-  GraduationCap,
+  History,
   Laptop,
   Layers,
+  NotebookPen,
   PanelLeftClose,
   PanelLeftOpen,
-  RotateCcw,
-  Home,
+  Route,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -155,11 +156,11 @@ export default function App() {
         ? 'guide'
         : route;
   const nav = [
-    { id: 'guide', label: 'Cẩm nang', Icon: GraduationCap },
-    { id: 'today', label: 'Hôm nay', Icon: Home },
-    { id: 'courses', label: 'Bài học', Icon: Layers },
-    { id: 'practice', label: 'Luyện tập', Icon: BookOpen },
-    { id: 'review', label: 'Ôn lại', Icon: RotateCcw },
+    { id: 'guide', label: 'Cẩm nang', Icon: BookMarked },
+    { id: 'today', label: 'Hôm nay', Icon: CalendarDays },
+    { id: 'courses', label: 'Bài học', Icon: Route },
+    { id: 'practice', label: 'Luyện tập', Icon: NotebookPen },
+    { id: 'review', label: 'Ôn lại', Icon: History },
   ];
 
   return (
