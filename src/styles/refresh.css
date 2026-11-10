@@ -751,6 +751,12 @@
   .sidebar {
     overflow: visible;
   }
+  .sidebar .wordmark > span:last-child,
+  .sidebar nav a span,
+  .device-button span {
+    white-space: normal;
+    text-wrap: balance;
+  }
   .sidebar-toggle {
     display: none;
   }
