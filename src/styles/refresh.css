@@ -594,112 +594,64 @@
   }
 }
 
-/* Fade-in-up on load and on every route change (new page content mounts). */
+/*
+ * Fade-in-up only where content arrives as a set worth noticing:
+ * the Today overview blocks, the lesson card grid, and the guide hub cards.
+ * Headings, workspaces, lesson reader and long lists stay static.
+ */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(12px);
     }
     to {
       opacity: 1;
       transform: none;
     }
   }
-  main > *,
-  .lesson-grid > *,
-  .skill-table > li,
-  .outcome-list > li,
+  .hero,
+  .roadmap,
+  .today-grid,
+  .lesson-grid > :nth-child(-n + 8),
   .guide-cards > * {
-    animation: fade-in-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
-  main > :nth-child(2) {
-    animation-delay: 0.05s;
+  .roadmap {
+    animation-delay: 0.06s;
   }
-  main > :nth-child(3) {
-    animation-delay: 0.1s;
+  .today-grid {
+    animation-delay: 0.12s;
   }
-  main > :nth-child(4) {
-    animation-delay: 0.15s;
+  .lesson-grid > :nth-child(1) {
+    animation-delay: 0.04s;
   }
-  main > :nth-child(n + 5) {
-    animation-delay: 0.2s;
+  .lesson-grid > :nth-child(2) {
+    animation-delay: 0.08s;
   }
-  .lesson-grid > :nth-child(1),
-  .skill-table > li:nth-child(1),
-  .outcome-list > li:nth-child(1),
-  .guide-cards > :nth-child(1) {
+  .lesson-grid > :nth-child(3) {
+    animation-delay: 0.12s;
+  }
+  .lesson-grid > :nth-child(4) {
     animation-delay: 0.16s;
   }
-  .lesson-grid > :nth-child(2),
-  .skill-table > li:nth-child(2),
-  .outcome-list > li:nth-child(2),
-  .guide-cards > :nth-child(2) {
+  .lesson-grid > :nth-child(5) {
     animation-delay: 0.2s;
   }
-  .lesson-grid > :nth-child(3),
-  .skill-table > li:nth-child(3),
-  .outcome-list > li:nth-child(3),
-  .guide-cards > :nth-child(3) {
+  .lesson-grid > :nth-child(6) {
     animation-delay: 0.24s;
   }
-  .lesson-grid > :nth-child(4),
-  .skill-table > li:nth-child(4),
-  .outcome-list > li:nth-child(4),
-  .guide-cards > :nth-child(4) {
+  .lesson-grid > :nth-child(7) {
     animation-delay: 0.28s;
   }
-  .lesson-grid > :nth-child(5),
-  .skill-table > li:nth-child(5),
-  .outcome-list > li:nth-child(5),
-  .guide-cards > :nth-child(5) {
+  .lesson-grid > :nth-child(8) {
     animation-delay: 0.32s;
   }
-  .lesson-grid > :nth-child(6),
-  .skill-table > li:nth-child(6),
-  .outcome-list > li:nth-child(6),
-  .guide-cards > :nth-child(6) {
-    animation-delay: 0.36s;
+  .guide-cards > :nth-child(2) {
+    animation-delay: 0.05s;
   }
-  .lesson-grid > :nth-child(7),
-  .skill-table > li:nth-child(7),
-  .outcome-list > li:nth-child(7),
-  .guide-cards > :nth-child(7) {
-    animation-delay: 0.4s;
-  }
-  .lesson-grid > :nth-child(8),
-  .skill-table > li:nth-child(8),
-  .outcome-list > li:nth-child(8),
-  .guide-cards > :nth-child(8) {
-    animation-delay: 0.44s;
-  }
-  .lesson-grid > :nth-child(9),
-  .skill-table > li:nth-child(9),
-  .outcome-list > li:nth-child(9),
-  .guide-cards > :nth-child(9) {
-    animation-delay: 0.48s;
-  }
-  .lesson-grid > :nth-child(10),
-  .skill-table > li:nth-child(10),
-  .outcome-list > li:nth-child(10),
-  .guide-cards > :nth-child(10) {
-    animation-delay: 0.52s;
-  }
-  .lesson-grid > :nth-child(11),
-  .skill-table > li:nth-child(11),
-  .outcome-list > li:nth-child(11),
-  .guide-cards > :nth-child(11) {
-    animation-delay: 0.56s;
-  }
-  .lesson-grid > :nth-child(12),
-  .skill-table > li:nth-child(12),
-  .outcome-list > li:nth-child(12),
-  .guide-cards > :nth-child(12) {
-    animation-delay: 0.6s;
-  }
-  .lesson-grid > :nth-child(n + 13),
-  .outcome-list > li:nth-child(n + 13) {
-    animation-delay: 0.6s;
+  .guide-cards > :nth-child(3) {
+    animation-delay: 0.1s;
   }
 }
 
