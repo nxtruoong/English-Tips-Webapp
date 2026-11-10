@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, ChevronRight, Laptop, Layers, RotateCcw, Home } from 'lucide-react';
+import { BookOpen, ChevronRight, GraduationCap, Laptop, Layers, RotateCcw, Home } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
 import { useStudyData } from './useStudyData';
@@ -19,6 +19,10 @@ import { PracticePage } from './pages/PracticePage';
 import { ReviewPage } from './pages/ReviewPage';
 import { Workspace } from './pages/Workspace';
 import { DataSettings } from './pages/DataSettings';
+import { OutcomesPage } from './pages/OutcomesPage';
+import { MethodsPage } from './pages/MethodsPage';
+import { ResourcesPage } from './pages/ResourcesPage';
+import { guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
 
@@ -106,12 +110,19 @@ export default function App() {
   const unit = lessons.find(lesson => route.startsWith(`lesson/${lesson.id}/`));
   const requestedStage = route.split('/')[2] || '';
   const lessonStage = isLessonStage(requestedStage) ? requestedStage : 'theory';
-  const section = route.startsWith('attempt') ? 'practice' : route.startsWith('lesson/') ? 'courses' : route;
+  const section = route.startsWith('attempt')
+    ? 'practice'
+    : route.startsWith('lesson/')
+      ? 'courses'
+      : guideRoutes.includes(route)
+        ? 'guide'
+        : route;
   const nav = [
     { id: 'today', label: 'Hôm nay', Icon: Home },
     { id: 'courses', label: 'Bài học', Icon: Layers },
     { id: 'practice', label: 'Luyện tập', Icon: BookOpen },
     { id: 'review', label: 'Ôn lại', Icon: RotateCcw },
+    { id: 'guide', href: 'outcomes', label: 'Cẩm nang', Icon: GraduationCap },
   ];
 
   return (
@@ -137,10 +148,10 @@ export default function App() {
           </span>
         </a>
         <nav aria-label="Điều hướng chính">
-          {nav.map(({ id, label, Icon }) => (
+          {nav.map(({ id, href, label, Icon }) => (
             <a
               key={id}
-              href={`#${id}`}
+              href={`#${href || id}`}
               className={section === id ? 'active' : ''}
               aria-current={section === id ? 'page' : undefined}
             >
@@ -275,6 +286,9 @@ export default function App() {
                 onClick={() => go('review')}
               />
             )}
+            {route === 'outcomes' && <OutcomesPage />}
+            {route === 'methods' && <MethodsPage />}
+            {route === 'resources' && <ResourcesPage />}
             {route === 'data' && (
               <DataSettings
                 data={data}
@@ -282,7 +296,7 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'data'].includes(route) &&
+            {!['today', 'courses', 'practice', 'review', 'data', ...guideRoutes].includes(route) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
