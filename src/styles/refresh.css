@@ -698,13 +698,17 @@
 .device-button span {
   text-wrap: nowrap;
 }
+/* Align every rail icon on the same column as the nav icons (padding + 1px border). */
+.device-button {
+  padding-left: 16px;
+}
 .sidebar-toggle {
   justify-content: flex-start;
   gap: 12px;
   min-height: 44px;
   margin: 0 0 12px;
   padding: 10px 15px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 5px;
   background: transparent;
   color: var(--nav-text-muted);
@@ -735,6 +739,12 @@
   .sidebar-toggle {
     padding: 10px 12px;
     gap: 10px;
+  }
+  .device-button {
+    padding-left: 13px;
+  }
+  .sidebar .wordmark {
+    margin-left: 4px;
   }
 }
 @media (max-width: 760px) {

@@ -214,7 +214,11 @@ export default function App() {
           aria-label={collapsed ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên'}
           title={`${collapsed ? 'Mở rộng' : 'Thu gọn'} (Ctrl+B)`}
         >
-          {collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
+          {collapsed ? (
+            <PanelLeftOpen size={22} strokeWidth={1.5} />
+          ) : (
+            <PanelLeftClose size={22} strokeWidth={1.5} />
+          )}
           <span>Thu gọn</span>
         </button>
         <button
