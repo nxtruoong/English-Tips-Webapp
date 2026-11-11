@@ -531,3 +531,76 @@
 .lesson-page .lesson-sections > .section-divider:first-child {
   margin-top: 0;
 }
+
+/* Structured source text: phases, numbered steps, bullets */
+.lesson-page .src-phase {
+  margin: 26px 0 12px;
+  padding-left: 12px;
+  border-left: 3px solid var(--skill, var(--accent));
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.lesson-page .source-section-body > .src-phase:first-child {
+  margin-top: 0;
+}
+.lesson-page .src-subhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 26px 0 12px;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--ink);
+}
+.lesson-page .src-num {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--skill-bg, var(--tint));
+  color: var(--skill, var(--accent));
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+.lesson-page .src-step {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.lesson-page .src-step .src-num {
+  transform: translateY(-2px);
+}
+.lesson-page .src-bullet {
+  position: relative;
+  margin: 0 0 8px 38px;
+  padding-left: 16px;
+}
+.lesson-page .src-bullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--skill, var(--accent));
+}
+.lesson-page .source-paragraph strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+@media (max-width: 760px) {
+  .lesson-page .src-bullet {
+    margin-left: 14px;
+  }
+  .lesson-page .src-subhead {
+    font-size: var(--text-lg);
+  }
+}

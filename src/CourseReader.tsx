@@ -110,9 +110,53 @@ function SourceAudio({ url, title }: { url: string; title: string }) {
   );
 }
 
+/** Bold a short "Label:" lead-in so list items scan quickly. */
+function withLabel(text: string) {
+  const at = text.indexOf(':');
+  const label = text.slice(0, at);
+  if (at < 1 || at > 70 || label.split(/\s+/).length > 9 || /[_|]/.test(label)) return text;
+  return (
+    <>
+      <strong>{label}:</strong>
+      {text.slice(at + 1)}
+    </>
+  );
+}
+
+/**
+ * Source paragraphs arrive one per block as plain text. Recognise the document's own
+ * structure (phases, numbered steps, bullets) and present it, without changing the words.
+ */
+export function SourceText({ text, style }: { text: string; style?: string }) {
+  const t = text.trim();
+  if (/^(?:Giai đoạn|Bước|Bẫy|Stage|Step|Phase)\s*\d+\s*[:.–-]/i.test(t))
+    return <h4 className="src-phase">{t}</h4>;
+  const numbered = /^(\d+)\.\s+(.*)$/s.exec(t);
+  if (numbered) {
+    const [, n, rest] = numbered;
+    if (!rest.includes(':') && !rest.includes('|') && rest.length < 70 && !/[.?!]$/.test(rest))
+      return (
+        <h4 className="src-subhead">
+          <span className="src-num">{n}</span>
+          {rest}
+        </h4>
+      );
+    return (
+      <p className="source-paragraph src-step">
+        <span className="src-num">{n}</span>
+        <span>{withLabel(rest)}</span>
+      </p>
+    );
+  }
+  const bullet = /^[•▪◦·]\s*(.*)$/s.exec(t);
+  if (bullet || style === 'ListBullet')
+    return <p className="source-paragraph src-bullet">{withLabel(bullet ? bullet[1] : t)}</p>;
+  return <p className="source-paragraph">{text}</p>;
+}
+
 function SourceBlock({ block }: { block: ContentBlock }) {
   if (block.kind === 'text')
-    return block.heading ? <h3>{block.text}</h3> : <p className="source-paragraph">{block.text}</p>;
+    return block.heading ? <h3>{block.text}</h3> : <SourceText text={block.text} style={block.style} />;
   if (block.kind === 'image')
     return (
       <figure>
