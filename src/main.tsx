@@ -9,6 +9,7 @@ import '@fontsource/be-vietnam-pro/vietnamese-600.css';
 import './styles/tokens.css';
 import './theme.css';
 import './styles/refresh.css';
+import './styles/lesson.css';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
