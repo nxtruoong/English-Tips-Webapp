@@ -2,11 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run app (Vite dev)",
-      "type": "node-terminal",
+      "name": "Mở web (Chrome)",
+      "type": "chrome",
       "request": "launch",
-      "command": "npm run dev -- --open",
-      "cwd": "${workspaceFolder}"
+      "url": "http://127.0.0.1:5173/",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "vite: dev server"
+    },
+    {
+      "name": "Mở web (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5173/",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "vite: dev server"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "vite: dev server",
+      "type": "shell",
+      "command": "node scripts/dev-if-needed.mjs",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "^__never_matches__$" },
+        "background": {
+          "activesBegins": true,
+          "beginsPattern": ".",
+          "endsPattern": "Local:"
+        }
+      }
+    }
+  ]
+}
