@@ -10,6 +10,7 @@ import {
   type Flashcard,
 } from '../flashcards';
 import { PageTitle, formatDate } from '../ui';
+import { sampleDecks } from '../content/sampleDecks';
 import { SampleDecks } from './SampleDecks';
 import type { Level } from '../content/levels';
 
@@ -267,6 +268,7 @@ export function CardsPage({
   const [deckMessage, setDeckMessage] = useState('');
   const [tab, setTab] = useState<'review' | 'cards' | 'decks'>(cards.length ? 'review' : 'decks');
   const [adding, setAdding] = useState(false);
+  const [group, setGroup] = useState('all');
   const decks = (intro: boolean) => (
     <SampleDecks
       cards={cards}
@@ -282,8 +284,16 @@ export function CardsPage({
   );
   const due = dueCards(cards, todayKey).length;
   const needle = query.trim().toLocaleLowerCase('vi');
+  // Cards do not store their deck, so group by matching the word against the sample decks.
+  const groupOf = (card: Flashcard) => {
+    const word = card.word.trim().toLowerCase();
+    const deck = sampleDecks.find(d => d.cards.some(c => c.word.trim().toLowerCase() === word));
+    return deck ? deck.title : card.lessonId ? 'Từ bài học' : 'Tự thêm';
+  };
+  const groups = [...new Set(cards.map(groupOf))];
   const shown = [...cards]
     .reverse()
+    .filter(c => group === 'all' || groupOf(c) === group)
     .filter(c => !needle || `${c.word} ${c.meaning}`.toLocaleLowerCase('vi').includes(needle));
   const duplicate = (word: string, except?: string) => {
     const found = findWord(cards, word);
@@ -291,7 +301,7 @@ export function CardsPage({
   };
   return (
     <>
-      <PageTitle title="Từ vựng" description={`Ôn lại sau ${intervals.join('–')} ngày.`} />
+      <PageTitle title="Từ vựng" />
       {deckMessage && (
         <p role="status" className="notice deck-message">
           {deckMessage}
@@ -343,6 +353,23 @@ export function CardsPage({
               </label>
             )}
           </div>
+          {groups.length > 1 && (
+            <div className="skill-tabs card-groups" role="group" aria-label="Lọc theo bộ thẻ">
+              {['all', ...groups].map(g => (
+                <button
+                  key={g}
+                  className={group === g ? 'selected' : ''}
+                  aria-pressed={group === g}
+                  onClick={() => setGroup(g)}
+                >
+                  {g === 'all' ? 'Tất cả' : g}{' '}
+                  <span className="library-count">
+                    {g === 'all' ? cards.length : cards.filter(c => groupOf(c) === g).length}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
           {adding && (
             <div className="panel card-add">
               <CardForm

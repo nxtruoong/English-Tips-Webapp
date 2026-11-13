@@ -1289,3 +1289,28 @@ a.feedback-button:hover {
 .card-grid .card-row > form {
   grid-column: 1 / -1;
 }
+
+/* Vocabulary page: keep the review card above the fold */
+.cards-tabs {
+  margin-bottom: 14px;
+}
+.deck-message {
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: var(--text-sm);
+}
+.cards-review-wrap .card-review {
+  padding: 16px 18px;
+}
+.cards-review-wrap .panel-head {
+  margin-bottom: 8px;
+}
+.cards-review-wrap .flip-card {
+  min-height: 210px;
+}
+.cards-review-wrap .flip-scene {
+  margin-bottom: 12px;
+}
+.card-groups {
+  margin-bottom: 12px;
+}
