@@ -106,7 +106,10 @@ export const schools: School[] = [
               { scale: 'toeic-lr', value: 450 },
               { scale: 'toeic-sw', value: 185 },
             ],
-            extra: ['Hoàn thành các học phần tiếng Anh theo chương trình đào tạo.'],
+            extra: [
+              'Hoàn thành các học phần tiếng Anh theo chương trình đào tạo.',
+              'Hoặc chứng chỉ tương đương (IELTS, TOEFL…): mức quy đổi xem trong văn bản gốc.',
+            ],
             source: { ...uitRules, label: 'UIT, mục I' },
           },
           {
