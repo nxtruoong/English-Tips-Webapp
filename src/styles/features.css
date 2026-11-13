@@ -801,3 +801,221 @@ a.feedback-button:hover {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   }
 }
+
+/* Start guide (#start) */
+.start-page {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.start-steps {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.start-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  font-size: var(--text-sm);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--sheet);
+}
+.start-steps li > span {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: var(--surface-muted);
+}
+.start-steps li.current {
+  color: var(--ink);
+  font-weight: 600;
+  border-color: var(--accent-border);
+  background: var(--tint);
+}
+.start-steps li.current > span {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.start-steps li.done > span {
+  background: var(--gold-bg);
+  color: var(--gold-ink);
+}
+.start-card {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.start-card h1 {
+  font-size: var(--text-4xl);
+  margin: 0;
+}
+.start-lead {
+  font-size: var(--text-lg);
+  color: var(--muted);
+  margin: -8px 0 0;
+}
+.start-howto {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 14px;
+}
+.start-howto li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tile);
+  background: var(--surface-subtle);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+.start-howto li svg {
+  color: var(--accent);
+}
+.start-howto strong {
+  font-size: var(--text-lg);
+  color: var(--ink);
+  font-weight: 600;
+}
+.start-num {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--gold-ink);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 999px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+.start-nav {
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.start-lesson {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--skill, var(--accent));
+  border-radius: var(--radius-tile);
+}
+.start-lesson h2 {
+  font-size: var(--text-2xl);
+  margin: 4px 0 14px;
+}
+.start-lesson ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.start-lesson li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+.start-lesson li > span {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-control);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+.start-lesson li:first-child > span {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.start-goal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink);
+}
+.start-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 16px 20px;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-card);
+  background: var(--tint);
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+}
+.start-banner:hover {
+  background: var(--tint-strong);
+}
+.start-banner > span {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.start-banner strong {
+  font-size: var(--text-lg);
+  color: var(--ink);
+}
+.start-banner svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.start-card h1:focus {
+  outline: none;
+}
+@media (max-width: 760px) {
+  .start-steps {
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .start-steps li {
+    padding: 4px 8px 4px 4px;
+    font-size: var(--text-xs);
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .start-steps li > span {
+    width: 20px;
+    height: 20px;
+  }
+  .start-card {
+    padding: 20px 16px;
+  }
+  .start-card h1 {
+    font-size: var(--text-3xl);
+  }
+}

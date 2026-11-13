@@ -40,6 +40,7 @@ import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ToolsPage } from './pages/ToolsPage';
+import { StartPage, startSeen } from './pages/StartPage';
 import { CardsPage } from './pages/CardsPage';
 import { addCards, cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
 import { suggestedLessons, type Level } from './content/levels';
@@ -51,6 +52,8 @@ const getRoute = () => location.hash.slice(1) || 'today';
 export default function App() {
   const { data, ready, saveState, storageError, conflict, mutate, reload, dismissConflict } = useStudyData();
   const [route, setRoute] = useState(getRoute);
+  // Opened without a destination: a first-time visitor is sent to the start guide once data loads.
+  const [landing] = useState(() => !location.hash.slice(1));
   const [filter, setFilter] = useState<Skill | 'all'>('all');
   const [query, setQuery] = useState('');
   const [part, setPart] = useState('all');
@@ -121,6 +124,13 @@ export default function App() {
     window.addEventListener('hashchange', change);
     return () => window.removeEventListener('hashchange', change);
   }, []);
+  useEffect(() => {
+    if (!ready || !landing || startSeen() || data.level) return;
+    const used = data.attempts.length || Object.keys(data.lessons).length || data.cards.length;
+    if (!used) location.replace('#start');
+    // Only the first load decides; later data changes must not redirect.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
   function updateAttempt(id: string, patch: Partial<Attempt>) {
     mutate(old => {
       const finished =
@@ -446,6 +456,9 @@ export default function App() {
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
             {route === 'tools' && <ToolsPage />}
+            {route === 'start' && (
+              <StartPage data={data} setLevel={setLevel} setGoal={setGoal} openLesson={openLesson} go={go} />
+            )}
             {route === 'cards' && (
               <CardsPage
                 cards={data.cards}
@@ -467,9 +480,17 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'tools', 'cards', 'data', ...guideRoutes].includes(
-              route,
-            ) &&
+            {![
+              'today',
+              'courses',
+              'practice',
+              'review',
+              'tools',
+              'cards',
+              'start',
+              'data',
+              ...guideRoutes,
+            ].includes(route) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
