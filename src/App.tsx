@@ -12,6 +12,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   BookOpenText,
+  Wrench,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -36,6 +37,7 @@ import { DataSettings } from './pages/DataSettings';
 import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import { ToolsPage } from './pages/ToolsPage';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
@@ -198,12 +200,23 @@ export default function App() {
       : guideRoutes.includes(route)
         ? 'guide'
         : route;
+  useEffect(() => {
+    // On phones the tab row scrolls; keep the current destination in view,
+    // again once web fonts have loaded and widened the labels.
+    const reveal = () =>
+      document
+        .querySelector(`.sidebar nav a[href="#${section}"]`)
+        ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    reveal();
+    void document.fonts?.ready.then(reveal);
+  }, [section]);
   const nav = [
     { id: 'guide', label: 'Cẩm nang', Icon: Lightbulb },
     { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
     { id: 'review', label: 'Ôn lại', Icon: History },
+    { id: 'tools', label: 'Công cụ', Icon: Wrench },
   ];
 
   return (
@@ -400,6 +413,7 @@ export default function App() {
             {route === 'outcomes' && <OutcomesPage />}
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
+            {route === 'tools' && <ToolsPage />}
             {route === 'data' && (
               <DataSettings
                 data={data}
@@ -407,7 +421,7 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'data', ...guideRoutes].includes(route) &&
+            {!['today', 'courses', 'practice', 'review', 'tools', 'data', ...guideRoutes].includes(route) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
