@@ -33,6 +33,10 @@ export function UitNote() {
         kỹ năng nên dùng được cho mọi loại chứng chỉ.
       </p>
       <div className="uit-links">
+        <a href={standard?.source.url} target="_blank" rel="noreferrer">
+          Bảng quy đổi chứng chỉ tương đương <ArrowRight size={15} aria-hidden="true" />
+          <span className="visually-hidden">(mở trang của trường)</span>
+        </a>
         <a href="#outcomes">
           Chuẩn các trường khác <ArrowRight size={15} aria-hidden="true" />
         </a>
