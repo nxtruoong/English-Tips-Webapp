@@ -1,5 +1,6 @@
 /*
  * Design tokens for Hiên. Source of truth: DESIGN.md.
+ * Palette: violet primary, gold secondary accent, lavender-tinted neutrals.
  * Use these variables instead of raw hex values or pixel font sizes.
  *
  * Breakpoints (CSS variables cannot be used inside @media, so use these literals):
@@ -9,49 +10,58 @@
  */
 :root {
   /* Surfaces */
-  --paper: #f3f5f9;
+  --paper: #f6f3fb;
   --sheet: #fff;
-  --surface-subtle: #f5f8ff;
-  --surface-hover: #f3f7ff;
-  --surface-muted: #f0f3f8;
+  --surface-subtle: #f8f5ff;
+  --surface-hover: #f4eefe;
+  --surface-muted: #f1edf7;
 
   /* Text */
-  --ink: #182438;
-  --text: #29364b;
-  --muted: #56667c;
-  --placeholder: #65748a;
-  --icon: #3d5a86;
-  --icon-muted: #71839c;
+  --ink: #21163a;
+  --text: #30274a;
+  --muted: #5e5675;
+  --placeholder: #6b6383;
+  --icon: #5b3a9e;
+  --icon-muted: #7f7598;
 
   /* Lines and control borders */
-  --line: #dce2eb;
-  --line-soft: #e8ecf2;
-  --line-strong: #cbd6e9;
-  --border-control: #b8c3d4;
-  --border-control-hover: #8b9dbc;
+  --line: #e3dcef;
+  --line-soft: #ece7f4;
+  --line-strong: #d2c6e6;
+  --border-control: #c2b6d8;
+  --border-control-hover: #9886ba;
 
-  /* Accent (cobalt) */
-  --accent: #2454d6;
-  --accent-hover: #1943b5;
-  --accent-ink: #233f6b;
-  --accent-border: #b4c5e6;
-  --tint: #edf2ff;
-  --tint-strong: #e5ecf9;
-  --focus: #638dff;
-  --selection: #cbd9ff;
-  --selection-text: #112b6d;
+  /* Accent (violet) */
+  --accent: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-ink: #3d1a7a;
+  --accent-border: #cbb6f3;
+  --tint: #f3edff;
+  --tint-strong: #e9dffd;
+  --focus: #8b5cf6;
+  --selection: #ddd0fb;
+  --selection-text: #2e1065;
 
   /* Navigation rail */
-  --nav: #152034;
-  --nav-hover: #203149;
-  --nav-active: #263e65;
-  --nav-active-border: #355785;
-  --nav-line: #33425a;
-  --nav-text: #e3eaf5;
-  --nav-text-muted: #bccadd;
-  --nav-accent: #a8c5ff;
-  --brand-bg: #274a86;
-  --brand-border: #3d62a3;
+  --nav: #24133f;
+  --nav-hover: #311c54;
+  --nav-active: #3e2569;
+  --nav-active-border: #5b3b93;
+  --nav-line: #3b2a58;
+  --nav-text: #eee7fb;
+  --nav-text-muted: #c8bce2;
+  --nav-accent: #fcd34d;
+  --brand-bg: #fcd34d;
+  --brand-border: #fde68a;
+  --brand-ink: #2e1065;
+
+  /* Gold: secondary accent for highlights (streak, current position, brand).
+     Never put white text on it; pair fills with --gold-ink or --on-gold. */
+  --gold: #f5b700;
+  --gold-bg: #fff6d6;
+  --gold-border: #f1d27a;
+  --gold-ink: #7a5300;
+  --on-gold: #2e1065;
 
   /* States: always pair with visible text (DESIGN.md, State Evidence Rule) */
   --success: #26724c;
@@ -79,8 +89,8 @@
   --listening-bg: #e2f4f4;
   --speaking: #c4560f;
   --speaking-bg: #fdede1;
-  --reading: #6544cf;
-  --reading-bg: #efeafd;
+  --reading: #2456c9;
+  --reading-bg: #e7eefc;
   --writing: #2b7d45;
   --writing-bg: #e5f3e9;
 
@@ -102,43 +112,50 @@
  * and the viewer has not forced light. Same token names; components need no changes.
  */
 :root[data-theme='dark'] {
-  --paper: #0f1522;
-  --sheet: #172031;
-  --surface-subtle: #1b2638;
-  --surface-hover: #202d43;
-  --surface-muted: #1d2739;
+  --paper: #130e1f;
+  --sheet: #1c152e;
+  --surface-subtle: #221a38;
+  --surface-hover: #2a2045;
+  --surface-muted: #241c37;
 
-  --ink: #e9eef7;
-  --text: #cbd4e2;
-  --muted: #98a6bb;
-  --placeholder: #7f8ea5;
-  --icon: #a3bbe8;
-  --icon-muted: #8193ae;
+  --ink: #f1ecfb;
+  --text: #d7d0e7;
+  --muted: #a89fbf;
+  --placeholder: #8d84a6;
+  --icon: #c6b1f7;
+  --icon-muted: #9086ab;
 
-  --line: #2a364b;
-  --line-soft: #233044;
-  --line-strong: #35445d;
-  --border-control: #45546e;
-  --border-control-hover: #62749a;
+  --line: #33294a;
+  --line-soft: #2b2240;
+  --line-strong: #41355d;
+  --border-control: #55486f;
+  --border-control-hover: #7666a1;
 
-  --accent: #6f9bff;
-  --accent-hover: #8fb1ff;
-  --accent-ink: #c9d8ff;
-  --accent-border: #3d5994;
-  --tint: #1b2a4a;
-  --tint-strong: #233660;
-  --focus: #8fb1ff;
-  --selection: #2d4680;
-  --selection-text: #f0f4fb;
+  --accent: #b794ff;
+  --accent-hover: #ccb3ff;
+  --accent-ink: #e4d8ff;
+  --accent-border: #5c4494;
+  --tint: #2a1f4b;
+  --tint-strong: #35275f;
+  --focus: #c4a8ff;
+  --selection: #4b3685;
+  --selection-text: #f6f1ff;
 
-  --nav: #0a0f19;
-  --nav-hover: #151f31;
-  --nav-active: #1b2b47;
-  --nav-active-border: #2c4470;
-  --nav-line: #1f2a3d;
-  --nav-text: #dbe4f2;
-  --nav-text-muted: #9fb0c8;
-  --nav-accent: #9dbcff;
+  --nav: #0e0919;
+  --nav-hover: #1b1230;
+  --nav-active: #2a1b4a;
+  --nav-active-border: #44306f;
+  --nav-line: #241a38;
+  --nav-text: #e7dff7;
+  --nav-text-muted: #ae9fcc;
+  --nav-accent: #fcd34d;
+  --brand-bg: #f5c542;
+  --brand-border: #fbe08f;
+
+  --gold: #fcd34d;
+  --gold-bg: #3a2e0c;
+  --gold-border: #6b5517;
+  --gold-ink: #fde68a;
 
   --success: #5fc78c;
   --success-bg: #14301f;
@@ -152,15 +169,15 @@
   --listening-bg: #12302f;
   --speaking: #f29a5f;
   --speaking-bg: #3a2414;
-  --reading: #a993ff;
-  --reading-bg: #262046;
+  --reading: #7ea6ff;
+  --reading-bg: #17264a;
   --writing: #72d193;
   --writing-bg: #15301f;
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 35%);
   --shadow-hover: 0 10px 24px -8px rgb(0 0 0 / 65%);
 
-  --on-accent: #0b1220;
+  --on-accent: #170b2e;
 
   color-scheme: dark;
 }

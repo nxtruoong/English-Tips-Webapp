@@ -12,10 +12,14 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   BookOpenText,
+  Wrench,
+  WalletCards,
+  MessageSquareText,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
 import { useStudyData } from './useStudyData';
+import { adjustStudyDay, dayKey } from './streak';
 import { CourseLoader } from './CourseReader';
 import {
   lessonIndex as lessons,
@@ -35,6 +39,11 @@ import { DataSettings } from './pages/DataSettings';
 import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import { ToolsPage } from './pages/ToolsPage';
+import { CardsPage } from './pages/CardsPage';
+import { addCards, cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
+import { suggestedLessons, type Level } from './content/levels';
+import { FEEDBACK_FORM_URL, feedbackReady } from './config';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
@@ -113,12 +122,17 @@ export default function App() {
     return () => window.removeEventListener('hashchange', change);
   }, []);
   function updateAttempt(id: string, patch: Partial<Attempt>) {
-    mutate(old => ({
-      ...old,
-      attempts: old.attempts.map(a =>
-        a.id === id ? { ...a, ...patch, updatedAt: new Date().toISOString() } : a,
-      ),
-    }));
+    mutate(old => {
+      const finished =
+        patch.status === 'completed' && old.attempts.some(a => a.id === id && a.status !== 'completed');
+      return {
+        ...old,
+        attempts: old.attempts.map(a =>
+          a.id === id ? { ...a, ...patch, updatedAt: new Date().toISOString() } : a,
+        ),
+        studyDays: finished ? adjustStudyDay(old.studyDays, dayKey(new Date()), 1) : old.studyDays,
+      };
+    });
   }
   function go(destination: string) {
     location.hash = destination;
@@ -135,9 +149,39 @@ export default function App() {
     go(`lesson/${unit.id}/${selected}`);
   }
   function updateLesson(id: string, patch: Partial<LessonProgress>) {
+    mutate(old => {
+      const before = old.lessons[id] || initialLessonProgress();
+      // Marking a step done counts toward today; unmarking takes one back (never below zero).
+      const delta = patch.completed ? patch.completed.length - before.completed.length : 0;
+      return {
+        ...old,
+        lessons: { ...old.lessons, [id]: { ...before, ...patch } },
+        studyDays: delta ? adjustStudyDay(old.studyDays, dayKey(new Date()), delta) : old.studyDays,
+      };
+    });
+  }
+  function addCard(input: CardInput, lessonId?: string) {
+    mutate(old => ({ ...old, cards: [...old.cards, newCard(input, dayKey(new Date()), lessonId)] }));
+  }
+  function addDeck(inputs: CardInput[]): number {
+    const before = data.cards.length;
+    const next = addCards(data.cards, inputs, dayKey(new Date()));
+    mutate(old => ({ ...old, cards: addCards(old.cards, inputs, dayKey(new Date())) }), { immediate: true });
+    return next.length - before;
+  }
+  function editCard(id: string, input: CardInput) {
     mutate(old => ({
       ...old,
-      lessons: { ...old.lessons, [id]: { ...(old.lessons[id] || initialLessonProgress()), ...patch } },
+      cards: old.cards.map(c => (c.id === id ? { ...c, ...cleanInput(input) } : c)),
+    }));
+  }
+  function deleteCard(id: string) {
+    mutate(old => ({ ...old, cards: old.cards.filter(c => c.id !== id) }), { immediate: true });
+  }
+  function answerCard(id: string, remembered: boolean) {
+    mutate(old => ({
+      ...old,
+      cards: old.cards.map(c => (c.id === id ? reviewCard(c, remembered, dayKey(new Date())) : c)),
     }));
   }
   function start(activity: Activity, fresh = false) {
@@ -175,7 +219,14 @@ export default function App() {
     activities[0];
   const attempt = data.attempts.find(a => route === `attempt/${a.id}`);
   const activity = activities.find(a => a.id === attempt?.activityId && a.version === attempt.version);
-  const nextLesson = lessons.find(unit => unit.linkedActivities.includes(next.id)) || lessons[0];
+  // With a chosen level, the hero follows that level's suggested order.
+  const levelNext = data.level && suggestedLessons(data.level, data.lessons)[0];
+  const nextLesson =
+    lessons.find(unit => unit.id === levelNext) ||
+    lessons.find(unit => unit.linkedActivities.includes(next.id)) ||
+    lessons[0];
+  const setLevel = (level: Level) => mutate(old => ({ ...old, level }));
+  const setGoal = (goal: number) => mutate(old => ({ ...old, dailyGoal: goal }));
   const unit = lessons.find(lesson => route.startsWith(`lesson/${lesson.id}/`));
   const requestedStage = route.split('/')[2] || '';
   const lessonStage = isLessonStage(requestedStage) ? requestedStage : 'theory';
@@ -186,12 +237,24 @@ export default function App() {
       : guideRoutes.includes(route)
         ? 'guide'
         : route;
+  useEffect(() => {
+    // On phones the tab row scrolls; keep the current destination in view,
+    // again once web fonts have loaded and widened the labels.
+    const reveal = () =>
+      document
+        .querySelector(`.sidebar nav a[href="#${section}"]`)
+        ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    reveal();
+    void document.fonts?.ready.then(reveal);
+  }, [section]);
   const nav = [
     { id: 'guide', label: 'Cẩm nang', Icon: Lightbulb },
     { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
+    { id: 'cards', label: 'Từ vựng', Icon: WalletCards },
     { id: 'review', label: 'Ôn lại', Icon: History },
+    { id: 'tools', label: 'Công cụ', Icon: Wrench },
   ];
 
   return (
@@ -310,6 +373,8 @@ export default function App() {
                 setPart={setPart}
                 setReviewTab={setReviewTab}
                 go={go}
+                setGoal={setGoal}
+                setLevel={setLevel}
               />
             )}
             {route === 'courses' && (
@@ -325,6 +390,8 @@ export default function App() {
                 onChange={patch => updateLesson(unit.id, patch)}
                 onNavigate={stage => openLesson(unit, stage)}
                 onBack={() => go('courses')}
+                cards={data.cards}
+                onAddCard={input => addCard(input, unit.id)}
                 onPractice={id => {
                   const selected = activities.find(a => a.id === id);
                   if (selected) start(selected);
@@ -387,14 +454,31 @@ export default function App() {
             {route === 'outcomes' && <OutcomesPage />}
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
+            {route === 'tools' && <ToolsPage />}
+            {route === 'cards' && (
+              <CardsPage
+                cards={data.cards}
+                todayKey={dayKey(today)}
+                onAdd={input => addCard(input)}
+                onEdit={editCard}
+                onDelete={deleteCard}
+                onReview={answerCard}
+                onAddDeck={addDeck}
+                level={data.level}
+              />
+            )}
             {route === 'data' && (
               <DataSettings
                 data={data}
+                setGoal={setGoal}
+                setLevel={setLevel}
                 onImport={value => mutate(() => value, { immediate: true })}
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'data', ...guideRoutes].includes(route) &&
+            {!['today', 'courses', 'practice', 'review', 'tools', 'cards', 'data', ...guideRoutes].includes(
+              route,
+            ) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
@@ -405,6 +489,24 @@ export default function App() {
               )}
           </>
         )}
+        <footer className="site-footer">
+          <span>
+            Hiên · Luyện tập độc lập, không liên kết với IELTS.{' '}
+            <span>Dữ liệu được lưu trên thiết bị này.</span>
+          </span>
+          {feedbackReady() ? (
+            <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
+              <MessageSquareText size={16} aria-hidden="true" />
+              Góp ý về cẩm nang
+              <span className="visually-hidden">(mở tab mới)</span>
+            </a>
+          ) : (
+            <span className="feedback-button pending" aria-disabled="true">
+              <MessageSquareText size={16} aria-hidden="true" />
+              Góp ý · form sắp mở
+            </span>
+          )}
+        </footer>
       </main>
     </div>
   );

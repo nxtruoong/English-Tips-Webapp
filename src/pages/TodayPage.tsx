@@ -1,4 +1,4 @@
-import { ArrowRight, Timer } from 'lucide-react';
+import { ArrowRight, Timer, WalletCards } from 'lucide-react';
 import { activities, skills } from '../content/activities';
 import {
   lessonIndex as lessons,
@@ -9,14 +9,18 @@ import {
 } from '../curriculum';
 import type { Activity, Attempt, Skill, StudyData } from '../domain';
 import { skillDescriptions } from '../ui';
+import { dayKey } from '../streak';
+import { StudyStrip } from './StudyStrip';
+import { dueCards } from '../flashcards';
+import { LevelPanel } from './LevelPanel';
+import { UitNote } from './UitNote';
+import type { Level } from '../content/levels';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
   const question = activity?.questions.find(q => q.id === activity.preview?.questionId);
   return activity && question ? { activity, question } : undefined;
 })();
-
-const dayKey = (date: Date) => date.toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
 
 /** Attempts touched on each of the last seven days, oldest first. */
 function lastWeek(attempts: Attempt[], today: Date) {
@@ -47,6 +51,8 @@ export function TodayPage({
   setPart,
   setReviewTab,
   go,
+  setGoal,
+  setLevel,
 }: {
   data: StudyData;
   today: Date;
@@ -59,6 +65,8 @@ export function TodayPage({
   setPart: (part: string) => void;
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
+  setGoal: (goal: number) => void;
+  setLevel: (level: Level) => void;
 }) {
   const progress = data.lessons[nextLesson.id];
   const doneHere = progress?.completed.length || 0;
@@ -69,6 +77,7 @@ export function TodayPage({
   const week = lastWeek(data.attempts, today);
   const weekMax = Math.max(1, ...week.map(d => d.count));
   const weekTotal = week.reduce((n, d) => n + d.count, 0);
+  const dueCount = dueCards(data.cards, dayKey(today)).length;
 
   const links = [
     {
@@ -106,6 +115,26 @@ export function TodayPage({
           }).format(today)}
         </span>
       </header>
+
+      {!data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
+
+      <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal}>
+        <div className="strip-cell">
+          <WalletCards size={22} strokeWidth={1.6} aria-hidden="true" />
+          <div>
+            <span className="strip-label">Thẻ từ vựng cần ôn</span>
+            <strong className="strip-value">{dueCount} thẻ</strong>
+            <small>
+              {data.cards.length
+                ? `${data.cards.length} thẻ trong bộ của bạn.`
+                : 'Chưa có thẻ. Thêm từ khi đọc bài học hoặc ở mục Từ vựng.'}
+            </small>
+            <button className="text-button" onClick={() => go('cards')}>
+              {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'} <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+      </StudyStrip>
 
       <section
         className="hero"
@@ -149,6 +178,8 @@ export function TodayPage({
           </ol>
         )}
       </section>
+
+      {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
 
       <section className="roadmap" aria-labelledby="roadmap-title">
         <div className="roadmap-head">
@@ -236,6 +267,7 @@ export function TodayPage({
         </section>
 
         <aside className="today-side">
+          <UitNote />
           {weekTotal > 0 && (
             <section className="panel">
               <div className="panel-head">
@@ -280,9 +312,6 @@ export function TodayPage({
           )}
         </aside>
       </div>
-      <footer>
-        Hiên · Luyện tập độc lập, không liên kết với IELTS. <span>Dữ liệu được lưu trên thiết bị này.</span>
-      </footer>
     </>
   );
 }

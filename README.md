@@ -2,7 +2,7 @@
 
 A local-first English practice app for Vietnamese university students. React, TypeScript, Vite, ordinary CSS, and IndexedDB. “Hiên” is a provisional working name.
 
-The current theme targets students in technology-related majors: graphite navigation, cool white study panels, cobalt actions, sans-serif typography, direct labels, and real progress information. The previous campus-journal theme has been replaced. Learning data, existing attempts, and backup formats are unchanged.
+The current theme targets students in technology-related majors: deep violet navigation, white study panels, violet actions with gold highlights, sans-serif typography, direct labels, and real progress information. The previous campus-journal theme has been replaced. Learning data, existing attempts, and backup formats are unchanged.
 
 ## Run
 
@@ -35,6 +35,16 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the format check, lint, build, 
 
 Production output is `dist/`; publish that directory to a static host. The build uses a relative base, so it works at the site root or under a sub-path such as GitHub Pages. Reference public files through `asset()` in `src/asset.ts`, never as hard-coded `/media/...` URLs. No public deployment has been made.
 
+### Deploying to Netlify or Vercel
+
+The app uses hash routes (`#today`, `#tools`…), so no rewrite rules are needed. Both hosts serve HTTPS, which the microphone recorder requires.
+
+- **Netlify, no build settings:** run `npm run build`, open https://app.netlify.com/drop and drag the `dist/` folder onto the page. Netlify returns a public `*.netlify.app` link. Drag a new build onto the same site to update it.
+- **Netlify or Vercel from GitHub:** import the repository, set the build command to `npm run build`, the output/publish directory to `dist`, and Node.js to 22 or later. Each push to the chosen branch redeploys.
+- **Vercel CLI:** run `npm run build`, then `npx vercel deploy dist --prod` and follow the login prompt.
+
+Before a public link goes into slides, replace `FEEDBACK_FORM_URL` and review the release items below.
+
 ## Lesson library and interactive practice
 
 Open **Bài học** in the navigation, or `http://127.0.0.1:5173/#courses`. The library imports all seven instructional skill guides into 17 modules: four Listening parts, three Speaking parts, two Writing tasks, and eight Reading question types.
@@ -51,9 +61,20 @@ Most imported exercises use a saved answer notebook and the source answer key. T
 
 The app labels imported practice content and verification limits. It does not provide official IELTS scores. Reading includes the available source exercises across eight question types; longer and more varied Reading practice will be added later.
 
+## Study habits and self-study tools
+
+These features respond to the project's survey of 132 students (42.4% name low motivation as the main barrier, 70.5% self-study under 2 hours a week, 54.5% struggle to remember vocabulary, 43.9% hesitate to speak, 61.1% spend nothing on learning, 60.6% want a clear roadmap).
+
+- **Streak and daily goal** (Tổng quan): a day counts as studied when a lesson step is marked done or a practice attempt is completed. The page shows the current and longest streak and a daily goal of 1–3 steps (about 20 minutes each, default 1). Unmarking a step removes one from today's count. Days use Vietnam time. Logic: `src/streak.ts`.
+- **Vocabulary flashcards** (`#cards`, Từ vựng): learners add a word, meaning and optional example, or use **Thêm từ vựng** inside a lesson, where selected text prefills the word. Review uses levels 1–5 with 1, 3, 7, 14 and 30 day gaps: remembered moves up one level, forgotten returns to level 1 (due tomorrow). New cards are due the day they are added. Tổng quan shows how many cards are due. Five sample decks (everyday speaking, TOEIC office, academic words, describing charts, IT terms; 66 cards with original example sentences) can be copied into the learner's cards in one click; words already present are skipped, and decks whose main level matches the learner's come first. Logic: `src/flashcards.ts`; decks: `src/content/sampleDecks.ts`.
+- **Level suggestions**: on first visit Tổng quan asks for Mới bắt đầu / Trung bình / Khá, each described by what learners at that level can usually do. Unsure learners can answer five yes/no self-check questions (0–1 yes: beginner, 2–3: intermediate, 4–5: advanced), see the recommended level with a preview of what changes, and confirm or pick another. **Để sau** collapses the prompt to one line. The choice can be changed under Cài đặt & dữ liệu (`#data`), which also offers the self-check. It reorders the suggested lessons, picks the hero's next lesson and shows three level-specific tips. Nothing is locked. Content: `src/content/levels.ts`.
+- **Free tools** (`#tools`, Công cụ): 11 free tools grouped by task with a one-line use, related skills, a skill filter and links that open in a new tab, plus free places to practise speaking (Discord exchange groups, language clubs, study groups). Content: `src/content/tools.ts`; URLs and icons are shared with the Cẩm nang resource list in `src/content/guide.ts`.
+- **UIT outcome note** (Tổng quan): UIT standard programmes (2024 intake onward) require TOEIC Listening–Reading ≥ 450 and Speaking–Writing ≥ 185. The note reads these values from `src/content/outcomes.ts` and explains that the IELTS-format lessons still train the four underlying skills.
+- **Feedback**: every page ends with a **Góp ý** button. Set the team's Google Form link in `FEEDBACK_FORM_URL` in `src/config.ts` (marked TODO). While it is still the placeholder, the button shows "form sắp mở" instead of linking to a dead page.
+
 ## Saved work
 
-Attempts, draft responses, saved questions, lesson-stage progress, lesson answers/notes, and recording blobs live in IndexedDB in the current browser profile and origin. They survive ordinary refreshes but are not cloud-synced. Export backups from the device-data control; backups include recordings and lesson progress. Older backups without lesson fields still import. Import validates version and structure, then replaces local study data after confirmation. File import is limited to 100 MB. Clearing site storage removes local work.
+Attempts, draft responses, saved questions, lesson-stage progress, lesson answers/notes, recording blobs, study days, the daily goal, flashcards and the chosen level live in IndexedDB in the current browser profile and origin. They survive ordinary refreshes but are not cloud-synced. Export backups from Cài đặt & dữ liệu; backups include every one of these fields. The backup format stays at schema 1: fields added later are optional, so older backups without lessons, study days, cards or a level still import with empty defaults. Import validates version and structure, then replaces local study data after confirmation. File import is limited to 100 MB. Clearing site storage removes local work.
 
 Browser permission denial, missing audio, failed storage, empty history, and empty searches have recovery states. The app is local-first, not a full offline PWA: assets still require the app server or deployed site.
 

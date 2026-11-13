@@ -32,6 +32,12 @@ Students study on mobile and desktop. Vietnamese navigation and explanations sup
 - A source-backed lesson library has 17 modules: four Listening parts, three Speaking parts, two Writing tasks, and eight Reading question-type modules.
 - Each module exposes theory, exercise/planning guide, small exercises, full exercises, and answer review. Source tables, figures, and audio remain available. “Full exercise” follows the source terminology and does not imply a complete mock test.
 - Lesson stages, self-marked completion, per-exercise answers, and notes save locally and enter backups. Most imported exercises use an answer notebook and the original key; six curated workspaces provide the existing structured practice controls. Do not imply that all imported tasks auto-grade.
+- Study habits: a study day is recorded when a lesson step is marked done or a practice attempt is completed; Tổng quan shows the streak and a small daily goal (default 1 step, about 20 minutes). The app does not time sessions, so minutes are an estimate per step.
+- Learner-made vocabulary flashcards with a fixed 1–3–7–14–30 day schedule (remembered: up one level; forgotten: back to level 1), quick-add from lessons, a due count on Tổng quan, and five optional sample decks the learner can copy in.
+- A self-reported level (Mới bắt đầu, Trung bình, Khá) reorders suggested lessons and tips. Learners can choose directly or answer a five-question yes/no self-check that recommends a level they then confirm. It is a suggestion, never a lock or an assessment, and the self-check is not a placement test.
+- A free tools page (`#tools`) and suggestions for free speaking practice. Free options come first because most surveyed students spend nothing on learning.
+- A short note that UIT's outcome is measured in TOEIC (standard programmes, 2024 intake onward: Listening–Reading ≥ 450, Speaking–Writing ≥ 185) and that the IELTS-format lessons still train the same four skills.
+- A feedback button on every page opens the team's Google Form (link set in `src/config.ts`).
 - Automatically mark objective questions using checked, question-specific rules.
 - Speaking supports preparation, recording, playback, download, deletion, and guided self-review.
 - Writing supports planning, autosaved drafts, word counts, revisions, and model comparison.
@@ -43,9 +49,11 @@ Students study on mobile and desktop. Vietnamese navigation and explanations sup
 
 ## Brand Commitments
 
-The owner rejected the campus-journal aesthetic. The replacement is a practical technical field-manual interface: graphite navigation, cool white workspaces, cobalt actions, clear sans-serif typography, direct interface copy, and useful study information. Avoid botanical decoration, literary styling, motivational slogans, and decorative code. Audience relevance comes through task clarity, not gender stereotypes. See `DESIGN.md` for implementation tokens. Hiên remains a provisional working name.
+The owner rejected the campus-journal aesthetic. The replacement is a practical technical field-manual interface. Its colours are violet (primary, chosen by the owner) and gold (secondary highlight): deep violet navigation, white workspaces, violet actions, sparing gold highlights, clear sans-serif typography, direct interface copy, and useful study information. Avoid botanical decoration, literary styling, motivational slogans, and decorative code. Audience relevance comes through task clarity, not gender stereotypes. See `DESIGN.md` for implementation tokens. Hiên remains a provisional working name.
 
 ## Evidence on Hand
+
+The project survey of 132 students reports: 42.4% name low motivation as the largest barrier, 70.5% self-study under 2 hours a week, 54.5% find vocabulary hard to remember, 43.9% hesitate to speak, 61.1% spend nothing on learning, and 60.6% want a clear roadmap. Streaks and goals, flashcards, speaking suggestions, free tools and level-based suggestions respond to these findings respectively. These are survey results, not measured outcomes of the app.
 
 Eight DOCX files, 76 MP3 files, and one eight-page PDF in the original skill and research directories. See `docs/content-audit.md` for findings and verification limits. Research documents are supplied evidence, not independently validated product claims.
 
@@ -65,4 +73,4 @@ Support keyboard operation, visible focus, readable typography, responsive layou
 
 Pilot with 5–8 students. Observe whether students finish an activity, use feedback, retry, and return. Do not invent numerical success thresholds before collecting a baseline.
 
-Open: product name, hosting provider, broader browser support matrix, content publication permissions, verified audio alignment, and future sync requirements. Chromium desktop/mobile flows have been tested; this does not establish cross-browser coverage.
+Open: product name, hosting provider (Netlify or Vercel steps are in `README.md`), the feedback form link, broader browser support matrix, content publication permissions, verified audio alignment, and future sync requirements. Chromium desktop/mobile flows have been tested; this does not establish cross-browser coverage.

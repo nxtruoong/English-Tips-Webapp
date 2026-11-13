@@ -1,5 +1,8 @@
 import { emptyData, type StudyData, type Attempt } from './domain';
 import { isLessonStage, type LessonProgress } from './curriculum';
+import { defaultDailyGoal, isDayKey, isGoal } from './streak';
+import { limits, maxLevel, type Flashcard } from './flashcards';
+import { isLevel } from './content/levels';
 
 let database: Promise<IDBDatabase> | undefined;
 function db(): Promise<IDBDatabase> {
@@ -116,7 +119,70 @@ export function validateData(value: unknown, allowBlobs = false): StudyData {
       };
     }
   }
-  return { schema: 1, attempts, saved: [...new Set(value.saved)], lessons };
+  // Fields added after the first release are optional so older backups still import.
+  const studyDays: Record<string, number> = {};
+  if (value.studyDays !== undefined) {
+    if (!record(value.studyDays)) throw new Error('Lịch sử ngày học không hợp lệ.');
+    for (const [key, count] of Object.entries(value.studyDays)) {
+      if (!isDayKey(key) || typeof count !== 'number' || !Number.isInteger(count) || count < 0)
+        throw new Error('Lịch sử ngày học không hợp lệ.');
+      if (count) studyDays[key] = count;
+    }
+  }
+  if (value.dailyGoal !== undefined && !isGoal(value.dailyGoal))
+    throw new Error('Mục tiêu mỗi ngày không hợp lệ.');
+  const dailyGoal = isGoal(value.dailyGoal) ? value.dailyGoal : defaultDailyGoal;
+  const cardIds = new Set<string>();
+  let cards: Flashcard[] = [];
+  if (value.cards !== undefined) {
+    if (!Array.isArray(value.cards)) throw new Error('Thẻ từ vựng không hợp lệ.');
+    cards = value.cards.map((item: unknown): Flashcard => {
+      if (
+        !record(item) ||
+        typeof item.id !== 'string' ||
+        !item.id ||
+        cardIds.has(item.id) ||
+        typeof item.word !== 'string' ||
+        !item.word.trim() ||
+        item.word.length > limits.word ||
+        typeof item.meaning !== 'string' ||
+        item.meaning.length > limits.meaning ||
+        typeof item.example !== 'string' ||
+        item.example.length > limits.example ||
+        typeof item.level !== 'number' ||
+        !Number.isInteger(item.level) ||
+        item.level < 0 ||
+        item.level > maxLevel ||
+        typeof item.due !== 'string' ||
+        !isDayKey(item.due) ||
+        !date(item.createdAt) ||
+        (item.lessonId !== undefined && typeof item.lessonId !== 'string')
+      )
+        throw new Error('Một thẻ từ vựng trong tệp không hợp lệ.');
+      cardIds.add(item.id);
+      return {
+        id: item.id,
+        word: item.word,
+        meaning: item.meaning,
+        example: item.example,
+        level: item.level,
+        due: item.due,
+        createdAt: item.createdAt,
+        ...(typeof item.lessonId === 'string' ? { lessonId: item.lessonId } : {}),
+      };
+    });
+  }
+  if (value.level !== undefined && !isLevel(value.level)) throw new Error('Trình độ không hợp lệ.');
+  return {
+    schema: 1,
+    attempts,
+    saved: [...new Set(value.saved)],
+    lessons,
+    studyDays,
+    dailyGoal,
+    cards,
+    ...(isLevel(value.level) ? { level: value.level } : {}),
+  };
 }
 export function download(blob: Blob, name: string): void {
   const url = URL.createObjectURL(blob);
