@@ -181,3 +181,40 @@
 
   color-scheme: dark;
 }
+
+/*
+ * Dark theme, less monochrome: neutral slate surfaces instead of violet-on-violet,
+ * so the violet accent, gold highlights and skill colours stand out.
+ */
+:root[data-theme='dark'] {
+  --paper: #111318;
+  --sheet: #1a1d24;
+  --surface-subtle: #20232b;
+  --surface-hover: #262a33;
+  --surface-muted: #23262e;
+
+  --ink: #f2f3f7;
+  --text: #d5d8e0;
+  --muted: #9ba1ae;
+  --placeholder: #7f8593;
+  --icon: #c6b1f7;
+  --icon-muted: #8b91a0;
+
+  --line: #2c3039;
+  --line-soft: #252830;
+  --line-strong: #3a3f4a;
+  --border-control: #474c58;
+  --border-control-hover: #6a7080;
+
+  --tint: #2a2440;
+  --tint-strong: #352c55;
+  --accent-border: #5c4494;
+
+  --nav: #0c0d11;
+  --nav-hover: #191b22;
+  --nav-active: #262033;
+  --nav-active-border: #3d3356;
+  --nav-line: #1f2128;
+  --nav-text: #e6e8ee;
+  --nav-text-muted: #a2a7b4;
+}
