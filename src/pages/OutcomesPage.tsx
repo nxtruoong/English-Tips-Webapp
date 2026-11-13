@@ -92,8 +92,10 @@ function ProgramRow({ program }: { program: Program }) {
 export function OutcomesPage() {
   const [schoolId, setSchoolId] = useState(readSchool);
   const school = schools.find(s => s.id === schoolId) || schools[0];
+  const [groupIndex, setGroupIndex] = useState(0);
   function choose(id: string) {
     setSchoolId(id);
+    setGroupIndex(0);
     try {
       localStorage.setItem(storageKey, id);
     } catch {
@@ -105,11 +107,10 @@ export function OutcomesPage() {
       <GuideTabs current="outcomes" />
       <PageTitle
         title="Chuẩn đầu ra ngoại ngữ"
-        description={`Mức tiếng Anh cần có để tốt nghiệp đại học chính quy tại UIT, HCMUS, HCMUT và UEH. Tổng hợp từ văn bản gốc ngày ${compiledOn}.`}
+        description={`Mức tiếng Anh cần để tốt nghiệp. Cập nhật ${compiledOn}.`}
       />
       <p className="outcome-caution">
-        <strong>Kiểm tra đúng khóa của bạn.</strong> Mức chuẩn thay đổi theo chương trình và khóa tuyển sinh.
-        Điều kiện đầu vào hoặc chuyển giai đoạn không phải chuẩn tốt nghiệp. Mỗi dòng có link tới văn bản gốc.
+        <strong>Xem đúng khóa của bạn</strong> — mức chuẩn khác nhau theo chương trình và năm nhập học.
       </p>
       <div className="outcome-tabs" role="group" aria-label="Chọn trường">
         {schools.map(s => (
@@ -129,21 +130,25 @@ export function OutcomesPage() {
           </button>
         ))}
       </div>
-      <section className="outcome-school" aria-labelledby="outcome-school-name">
-        <header className="outcome-school-head">
-          <span className="outcome-logo outcome-logo-lg">
-            <img src={asset(school.logo)} alt={`Logo ${school.short}`} width={64} height={64} />
-          </span>
-          <div>
-            <h2 id="outcome-school-name">
-              {school.short} <span>· {school.name}</span>
-            </h2>
-            <p>{school.basis}</p>
+      <section className="outcome-school" aria-label={school.name}>
+        <p className="outcome-basis">{school.basis}</p>
+        {school.groups.length > 1 && (
+          <div className="skill-tabs outcome-group-tabs" role="group" aria-label="Nhóm chương trình">
+            {school.groups.map((g, i) => (
+              <button
+                key={g.title}
+                className={i === groupIndex ? 'selected' : ''}
+                aria-pressed={i === groupIndex}
+                onClick={() => setGroupIndex(i)}
+              >
+                {g.title}
+              </button>
+            ))}
           </div>
-        </header>
-        {school.groups.map(group => (
+        )}
+        {[school.groups[groupIndex] ?? school.groups[0]].map(group => (
           <div className="outcome-group" key={group.title}>
-            <h3 className="outcome-group-title">{group.title}</h3>
+            <h3 className="visually-hidden">{group.title}</h3>
             <ul className="outcome-list">
               {group.programs.map(program => (
                 <ProgramRow key={program.name} program={program} />

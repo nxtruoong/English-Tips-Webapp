@@ -1955,3 +1955,47 @@ main .page-heading {
     border-color: var(--accent);
   }
 }
+
+/* Outcomes: compact school tabs and a two-column program list */
+.outcome-caution {
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: var(--text-sm);
+}
+.outcome-tabs {
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.outcome-tabs button {
+  min-height: 0;
+  padding: 6px 12px 6px 6px;
+}
+.outcome-tabs .outcome-logo,
+.outcome-tabs .outcome-logo img {
+  width: 30px;
+  height: 30px;
+}
+.outcome-tabs .outcome-tab-text small {
+  display: none;
+}
+.outcome-basis {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.outcome-group-tabs {
+  margin-bottom: 12px;
+}
+.outcome-group .outcome-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 10px;
+}
+.outcome-group .outcome-list > li {
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .outcome-group .outcome-list {
+    grid-template-columns: 1fr;
+  }
+}
