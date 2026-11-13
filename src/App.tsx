@@ -13,6 +13,7 @@ import {
   PanelLeftOpen,
   BookOpenText,
   Wrench,
+  WalletCards,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -38,6 +39,8 @@ import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ToolsPage } from './pages/ToolsPage';
+import { CardsPage } from './pages/CardsPage';
+import { cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
@@ -154,6 +157,24 @@ export default function App() {
       };
     });
   }
+  function addCard(input: CardInput, lessonId?: string) {
+    mutate(old => ({ ...old, cards: [...old.cards, newCard(input, dayKey(new Date()), lessonId)] }));
+  }
+  function editCard(id: string, input: CardInput) {
+    mutate(old => ({
+      ...old,
+      cards: old.cards.map(c => (c.id === id ? { ...c, ...cleanInput(input) } : c)),
+    }));
+  }
+  function deleteCard(id: string) {
+    mutate(old => ({ ...old, cards: old.cards.filter(c => c.id !== id) }), { immediate: true });
+  }
+  function answerCard(id: string, remembered: boolean) {
+    mutate(old => ({
+      ...old,
+      cards: old.cards.map(c => (c.id === id ? reviewCard(c, remembered, dayKey(new Date())) : c)),
+    }));
+  }
   function start(activity: Activity, fresh = false) {
     const existing = [...data.attempts]
       .reverse()
@@ -215,6 +236,7 @@ export default function App() {
     { id: 'today', label: 'Tổng quan', Icon: LayoutDashboard },
     { id: 'courses', label: 'Bài học', Icon: BookOpenText },
     { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
+    { id: 'cards', label: 'Từ vựng', Icon: WalletCards },
     { id: 'review', label: 'Ôn lại', Icon: History },
     { id: 'tools', label: 'Công cụ', Icon: Wrench },
   ];
@@ -351,6 +373,8 @@ export default function App() {
                 onChange={patch => updateLesson(unit.id, patch)}
                 onNavigate={stage => openLesson(unit, stage)}
                 onBack={() => go('courses')}
+                cards={data.cards}
+                onAddCard={input => addCard(input, unit.id)}
                 onPractice={id => {
                   const selected = activities.find(a => a.id === id);
                   if (selected) start(selected);
@@ -414,6 +438,16 @@ export default function App() {
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
             {route === 'tools' && <ToolsPage />}
+            {route === 'cards' && (
+              <CardsPage
+                cards={data.cards}
+                todayKey={dayKey(today)}
+                onAdd={input => addCard(input)}
+                onEdit={editCard}
+                onDelete={deleteCard}
+                onReview={answerCard}
+              />
+            )}
             {route === 'data' && (
               <DataSettings
                 data={data}
@@ -421,7 +455,9 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'tools', 'data', ...guideRoutes].includes(route) &&
+            {!['today', 'courses', 'practice', 'review', 'tools', 'cards', 'data', ...guideRoutes].includes(
+              route,
+            ) &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty

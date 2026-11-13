@@ -1,5 +1,6 @@
 import type { LessonProgress } from './curriculum';
 import { defaultDailyGoal } from './streak';
+import type { Flashcard } from './flashcards';
 
 export type Skill = 'Listening' | 'Speaking' | 'Reading' | 'Writing';
 export interface Question {
@@ -66,6 +67,8 @@ export interface StudyData {
   studyDays: Record<string, number>;
   /** Steps or attempts that complete the daily goal. */
   dailyGoal: number;
+  /** Learner-made vocabulary flashcards. */
+  cards: Flashcard[];
 }
 export const emptyData = (): StudyData => ({
   schema: 1,
@@ -74,6 +77,7 @@ export const emptyData = (): StudyData => ({
   lessons: {},
   studyDays: {},
   dailyGoal: defaultDailyGoal,
+  cards: [],
 });
 
 export function normalize(value: string, compact = false): string {

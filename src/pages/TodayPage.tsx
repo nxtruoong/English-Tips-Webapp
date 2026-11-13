@@ -1,4 +1,4 @@
-import { ArrowRight, Timer } from 'lucide-react';
+import { ArrowRight, Timer, WalletCards } from 'lucide-react';
 import { activities, skills } from '../content/activities';
 import {
   lessonIndex as lessons,
@@ -11,6 +11,7 @@ import type { Activity, Attempt, Skill, StudyData } from '../domain';
 import { skillDescriptions } from '../ui';
 import { dayKey } from '../streak';
 import { StudyStrip } from './StudyStrip';
+import { dueCards } from '../flashcards';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
@@ -71,6 +72,7 @@ export function TodayPage({
   const week = lastWeek(data.attempts, today);
   const weekMax = Math.max(1, ...week.map(d => d.count));
   const weekTotal = week.reduce((n, d) => n + d.count, 0);
+  const dueCount = dueCards(data.cards, dayKey(today)).length;
 
   const links = [
     {
@@ -109,7 +111,23 @@ export function TodayPage({
         </span>
       </header>
 
-      <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal} />
+      <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal}>
+        <div className="strip-cell">
+          <WalletCards size={22} strokeWidth={1.6} aria-hidden="true" />
+          <div>
+            <span className="strip-label">Thẻ từ vựng cần ôn</span>
+            <strong className="strip-value">{dueCount} thẻ</strong>
+            <small>
+              {data.cards.length
+                ? `${data.cards.length} thẻ trong bộ của bạn.`
+                : 'Chưa có thẻ. Thêm từ khi đọc bài học hoặc ở mục Từ vựng.'}
+            </small>
+            <button className="text-button" onClick={() => go('cards')}>
+              {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'} <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+      </StudyStrip>
 
       <section
         className="hero"

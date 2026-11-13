@@ -1,5 +1,14 @@
-import { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, ChevronDown, FileText, Headphones, PenLine } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookmarkPlus,
+  Check,
+  ChevronDown,
+  FileText,
+  Headphones,
+  PenLine,
+} from 'lucide-react';
 import { activities } from './content/activities';
 import {
   stageLabels,
@@ -12,6 +21,8 @@ import {
 } from './curriculum';
 import { asset } from './asset';
 import { StageBar } from './ui';
+import { CardForm } from './pages/CardsPage';
+import { findWord, limits, type CardInput, type Flashcard } from './flashcards';
 
 const unitCache = new Map<string, Promise<LessonUnit>>();
 function loadUnit(id: string): Promise<LessonUnit> {
@@ -38,6 +49,8 @@ interface ReaderProps {
   onNavigate: (stage: LessonStage) => void;
   onBack: () => void;
   onPractice: (activityId: string) => void;
+  cards: Flashcard[];
+  onAddCard: (input: CardInput) => void;
 }
 export function CourseLoader(props: Omit<ReaderProps, 'unit'> & { unit: LessonMeta }) {
   const [unit, setUnit] = useState<LessonUnit>();
@@ -225,6 +238,60 @@ export function sourceSections(blocks: ContentBlock[]): Section[] {
   return sections;
 }
 
+/** Save a word from the lesson as a flashcard; text selected in the lesson prefills the word. */
+function QuickWord({ cards, onAdd }: { cards: Flashcard[]; onAdd: (input: CardInput) => void }) {
+  const [open, setOpen] = useState(false);
+  const [initial, setInitial] = useState<CardInput>({ word: '', meaning: '', example: '' });
+  const [added, setAdded] = useState('');
+  const selection = useRef('');
+  const selected = () =>
+    window.getSelection()?.toString().trim().replace(/\s+/g, ' ').slice(0, limits.word) || '';
+  return (
+    <div className="quick-word">
+      <button
+        className="text-button"
+        aria-expanded={open}
+        onPointerDown={() => {
+          // Clicking clears the selection, so read it before the click lands.
+          selection.current = selected();
+        }}
+        onClick={() => {
+          if (!open) setInitial({ word: selection.current || selected(), meaning: '', example: '' });
+          selection.current = '';
+          setAdded('');
+          setOpen(!open);
+        }}
+      >
+        <BookmarkPlus size={17} />
+        Thêm từ vựng
+      </button>
+      {added && (
+        <p role="status" className="small">
+          Đã thêm “{added}”. Ôn ở mục <a href="#cards">Từ vựng</a>.
+        </p>
+      )}
+      {open && (
+        <CardForm
+          key={initial.word}
+          idPrefix="quick-card"
+          initial={initial}
+          submitLabel="Thêm thẻ"
+          onSubmit={input => {
+            onAdd(input);
+            setAdded(input.word.trim());
+            setOpen(false);
+          }}
+          onCancel={() => setOpen(false)}
+          duplicate={word => {
+            const found = findWord(cards, word);
+            return found ? `“${found.word}” đã có trong bộ thẻ.` : undefined;
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
 export default function CourseReader({
   unit,
   stage,
@@ -234,6 +301,8 @@ export default function CourseReader({
   onNavigate,
   onBack,
   onPractice,
+  cards,
+  onAddCard,
 }: ReaderProps) {
   const [query, setQuery] = useState('');
   const blocks = unit.stages[stage];
@@ -306,6 +375,7 @@ export default function CourseReader({
           <span>{done}/5 bước đã xong</span>
           <span role="status">{saveState}</span>
         </div>
+        <QuickWord cards={cards} onAdd={onAddCard} />
       </header>
 
       <div className="lesson-shell">
