@@ -3,8 +3,15 @@ import react from '@vitejs/plugin-react';
 
 // Relative base: the build works at any URL path (root, GitHub Pages sub-path, file share).
 // The app routes with location.hash, so the page itself is always index.html.
+// The community board talks to the serverless function on the deployed site; in dev, proxy to it.
 export default defineConfig({
   base: './',
   plugins: [react()],
-  server: { port: 5173, strictPort: true },
+  server: {
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      '/api': { target: 'https://english-tips-webapp.vercel.app', changeOrigin: true, secure: true },
+    },
+  },
 });

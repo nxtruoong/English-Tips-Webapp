@@ -51,7 +51,6 @@ export function TodayPage({
   setPart,
   setReviewTab,
   go,
-  setGoal,
   setLevel,
 }: {
   data: StudyData;
@@ -65,7 +64,6 @@ export function TodayPage({
   setPart: (part: string) => void;
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
-  setGoal: (goal: number) => void;
   setLevel: (level: Level) => void;
 }) {
   const progress = data.lessons[nextLesson.id];
@@ -104,7 +102,6 @@ export function TodayPage({
       <header className="daily-heading">
         <div>
           <h1>Tổng quan học tập</h1>
-          <p>Học tiếp từ chỗ dừng, hoặc chọn kỹ năng muốn luyện.</p>
         </div>
         <span className="date">
           {new Intl.DateTimeFormat('vi-VN', {
@@ -118,68 +115,65 @@ export function TodayPage({
 
       {!data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
 
-      <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal}>
-        <div className="strip-cell">
-          <WalletCards size={22} strokeWidth={1.6} aria-hidden="true" />
-          <div>
-            <span className="strip-label">Thẻ từ vựng cần ôn</span>
-            <strong className="strip-value">{dueCount} thẻ</strong>
-            <small>
-              {data.cards.length
-                ? `${data.cards.length} thẻ trong bộ của bạn.`
-                : 'Chưa có thẻ. Thêm từ khi đọc bài học hoặc ở mục Từ vựng.'}
-            </small>
-            <button className="text-button" onClick={() => go('cards')}>
-              {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'} <ArrowRight size={16} />
+      <div className="today-top">
+        <section
+          className="hero"
+          data-skill={(pending ? next.skill : nextLesson.skill).toLowerCase()}
+          aria-labelledby="hero-title"
+        >
+          <div className="hero-main">
+            <div className="hero-copy">
+              <span className="eyebrow">
+                {pending ? 'Bài luyện đang làm dở' : doneHere ? 'Học tiếp' : 'Gợi ý bắt đầu'}
+              </span>
+              <h2 id="hero-title">{pending ? next.title : `${nextLesson.skill} · ${nextLesson.part}`}</h2>
+              <p>{pending ? next.description : nextLesson.title}</p>
+              <span className="hero-meta">
+                <Timer size={15} aria-hidden="true" />
+                {pending ? `${next.minutes} phút` : `${doneHere}/5 bước đã xong`}
+              </span>
+            </div>
+            <button
+              className="primary hero-cta"
+              onClick={() => (pending ? start(next) : openLesson(nextLesson))}
+            >
+              {pending || doneHere ? 'Học tiếp' : 'Bắt đầu học'}
+              <ArrowRight size={18} />
             </button>
           </div>
-        </div>
-      </StudyStrip>
-
-      <section
-        className="hero"
-        data-skill={(pending ? next.skill : nextLesson.skill).toLowerCase()}
-        aria-labelledby="hero-title"
-      >
-        <div className="hero-main">
-          <div className="hero-copy">
-            <span className="eyebrow">
-              {pending ? 'Bài luyện đang làm dở' : doneHere ? 'Học tiếp' : 'Gợi ý bắt đầu'}
-            </span>
-            <h2 id="hero-title">{pending ? next.title : `${nextLesson.skill} · ${nextLesson.part}`}</h2>
-            <p>{pending ? next.description : nextLesson.title}</p>
-            <span className="hero-meta">
-              <Timer size={15} aria-hidden="true" />
-              {pending ? `${next.minutes} phút` : `${doneHere}/5 bước đã xong`}
-            </span>
+          {!pending && (
+            <ol className="hero-steps" aria-label="5 bước của bài học">
+              {stages.map((step, i) => {
+                const done = progress?.completed.includes(step);
+                const state = done ? 'done' : i === currentIndex ? 'current' : '';
+                return (
+                  <li key={step} className={state}>
+                    <button onClick={() => openLesson(nextLesson, step)}>
+                      <span className="step-dot">{done ? '✓' : i + 1}</span>
+                      {stageLabels[step]}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+        </section>
+        <StudyStrip data={data} todayKey={dayKey(today)}>
+          <div className="strip-cell">
+            <WalletCards size={22} strokeWidth={1.6} aria-hidden="true" />
+            <div>
+              <span className="strip-label">Thẻ từ vựng cần ôn</span>
+              <strong className="strip-value">
+                {dueCount} thẻ
+                <button className="text-button" onClick={() => go('cards')}>
+                  {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'}{' '}
+                  <ArrowRight size={16} />
+                </button>
+              </strong>
+            </div>
           </div>
-          <button
-            className="primary hero-cta"
-            onClick={() => (pending ? start(next) : openLesson(nextLesson))}
-          >
-            {pending || doneHere ? 'Học tiếp' : 'Bắt đầu học'}
-            <ArrowRight size={18} />
-          </button>
-        </div>
-        {!pending && (
-          <ol className="hero-steps" aria-label="5 bước của bài học">
-            {stages.map((step, i) => {
-              const done = progress?.completed.includes(step);
-              const state = done ? 'done' : i === currentIndex ? 'current' : '';
-              return (
-                <li key={step} className={state}>
-                  <button onClick={() => openLesson(nextLesson, step)}>
-                    <span className="step-dot">{done ? '✓' : i + 1}</span>
-                    {stageLabels[step]}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        )}
-      </section>
-
-      {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
+        </StudyStrip>
+      </div>
 
       <section className="roadmap" aria-labelledby="roadmap-title">
         <div className="roadmap-head">
@@ -227,47 +221,49 @@ export function TodayPage({
       </section>
 
       <div className="today-grid">
-        <section aria-labelledby="skills-title">
-          <div className="section-heading">
-            <h2 id="skills-title">Học theo kỹ năng</h2>
-            <span>{lessons.length} bài học</span>
-          </div>
-          <ul className="skill-table">
-            {skills.map(skill => {
-              const own = lessons.filter(l => l.skill === skill);
-              const done = own.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
-              const total = own.length * 5;
-              return (
-                <li key={skill} data-skill={skill.toLowerCase()}>
-                  <button
-                    onClick={() => {
-                      setFilter(skill);
-                      setPart('all');
-                      go('courses');
-                    }}
-                  >
-                    <span className="skill-name">
-                      <strong>{skill}</strong>
-                      <span>{skillDescriptions[skill]}</span>
-                    </span>
-                    <span className="skill-progress">
-                      <span className="meter" aria-hidden="true">
-                        <span style={{ width: `${(done / total) * 100}%` }} />
+        <div className="today-main">
+          {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
+          <section aria-labelledby="skills-title">
+            <div className="section-heading">
+              <h2 id="skills-title">Học theo kỹ năng</h2>
+              <span>{lessons.length} bài học</span>
+            </div>
+            <ul className="skill-table">
+              {skills.map(skill => {
+                const own = lessons.filter(l => l.skill === skill);
+                const done = own.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
+                const total = own.length * 5;
+                return (
+                  <li key={skill} data-skill={skill.toLowerCase()}>
+                    <button
+                      onClick={() => {
+                        setFilter(skill);
+                        setPart('all');
+                        go('courses');
+                      }}
+                    >
+                      <span className="skill-name">
+                        <strong>{skill}</strong>
+                        <span>{skillDescriptions[skill]}</span>
                       </span>
-                      <small>
-                        {done}/{total} bước · {own.length} bài
-                      </small>
-                    </span>
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+                      <span className="skill-progress">
+                        <span className="meter" aria-hidden="true">
+                          <span style={{ width: `${(done / total) * 100}%` }} />
+                        </span>
+                        <small>
+                          {done}/{total} bước · {own.length} bài
+                        </small>
+                      </span>
+                      <ArrowRight size={18} aria-hidden="true" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </div>
 
         <aside className="today-side">
-          <UitNote />
           {weekTotal > 0 && (
             <section className="panel">
               <div className="panel-head">
@@ -310,6 +306,7 @@ export function TodayPage({
               </button>
             </section>
           )}
+          <UitNote />
         </aside>
       </div>
     </>

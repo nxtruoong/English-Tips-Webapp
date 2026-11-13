@@ -18,10 +18,7 @@ export function CoursesPage({
   const shown = lessons.filter(lesson => filter === 'all' || lesson.skill === filter);
   return (
     <>
-      <PageTitle
-        title="Bài học theo lộ trình"
-        description="Mỗi bài có 5 bước: Lý thuyết → Hướng dẫn → Bài tập nhỏ → Bài tập đầy đủ → Đáp án."
-      />
+      <PageTitle title="Bài học theo lộ trình" />
       <div className="pill-tabs" role="group" aria-label="Lọc bài học">
         {(['all', ...skills] as const).map(skill => (
           <button

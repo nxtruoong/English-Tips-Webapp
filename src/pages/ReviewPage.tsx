@@ -21,10 +21,7 @@ export function ReviewPage({
 }) {
   return (
     <>
-      <PageTitle
-        title="Ôn tập & lịch sử"
-        description="Xem lại câu đã lưu, tiếp tục bản nháp hoặc kiểm tra bài đã làm."
-      />
+      <PageTitle title="Ôn tập & lịch sử" />
       <div className="skill-tabs">
         <button
           className={reviewTab === 'saved' ? 'selected' : ''}

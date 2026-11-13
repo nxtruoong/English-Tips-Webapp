@@ -15,6 +15,7 @@ import {
   Wrench,
   WalletCards,
   MessageSquareText,
+  Users,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -40,17 +41,21 @@ import { OutcomesPage } from './pages/OutcomesPage';
 import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ToolsPage } from './pages/ToolsPage';
+import { StartPage, startSeen } from './pages/StartPage';
 import { CardsPage } from './pages/CardsPage';
 import { addCards, cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
 import { suggestedLessons, type Level } from './content/levels';
 import { FEEDBACK_FORM_URL, feedbackReady } from './config';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
+import { CommunityPage } from './pages/CommunityPage';
 
 const getRoute = () => location.hash.slice(1) || 'today';
 
 export default function App() {
   const { data, ready, saveState, storageError, conflict, mutate, reload, dismissConflict } = useStudyData();
   const [route, setRoute] = useState(getRoute);
+  // Opened without a destination: a first-time visitor is sent to the start guide once data loads.
+  const [landing] = useState(() => !location.hash.slice(1));
   const [filter, setFilter] = useState<Skill | 'all'>('all');
   const [query, setQuery] = useState('');
   const [part, setPart] = useState('all');
@@ -121,6 +126,13 @@ export default function App() {
     window.addEventListener('hashchange', change);
     return () => window.removeEventListener('hashchange', change);
   }, []);
+  useEffect(() => {
+    if (!ready || !landing || startSeen() || data.level) return;
+    const used = data.attempts.length || Object.keys(data.lessons).length || data.cards.length;
+    if (!used) location.replace('#start');
+    // Only the first load decides; later data changes must not redirect.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
   function updateAttempt(id: string, patch: Partial<Attempt>) {
     mutate(old => {
       const finished =
@@ -234,9 +246,11 @@ export default function App() {
     ? 'practice'
     : route.startsWith('lesson/')
       ? 'courses'
-      : guideRoutes.includes(route)
-        ? 'guide'
-        : route;
+      : route.startsWith('community/')
+        ? 'community'
+        : guideRoutes.includes(route)
+          ? 'guide'
+          : route;
   useEffect(() => {
     // On phones the tab row scrolls; keep the current destination in view,
     // again once web fonts have loaded and widened the labels.
@@ -254,6 +268,7 @@ export default function App() {
     { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
     { id: 'cards', label: 'Từ vựng', Icon: WalletCards },
     { id: 'review', label: 'Ôn lại', Icon: History },
+    { id: 'community', label: 'Cộng đồng', Icon: Users },
     { id: 'tools', label: 'Công cụ', Icon: Wrench },
   ];
 
@@ -293,14 +308,6 @@ export default function App() {
             </a>
           ))}
         </nav>
-        <div className="sidebar-note">
-          <strong>IELTS Academic</strong>
-          <span>
-            Luyện theo kỹ năng.
-            <br />
-            Theo dõi bài đã làm.
-          </span>
-        </div>
         <button
           className="sidebar-toggle theme-toggle"
           onClick={toggleTheme}
@@ -373,7 +380,6 @@ export default function App() {
                 setPart={setPart}
                 setReviewTab={setReviewTab}
                 go={go}
-                setGoal={setGoal}
                 setLevel={setLevel}
               />
             )}
@@ -455,6 +461,12 @@ export default function App() {
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
             {route === 'tools' && <ToolsPage />}
+            {(route === 'community' || route.startsWith('community/')) && (
+              <CommunityPage key={route} threadId={route.split('/')[1] || undefined} />
+            )}
+            {route === 'start' && (
+              <StartPage data={data} setLevel={setLevel} setGoal={setGoal} openLesson={openLesson} go={go} />
+            )}
             {route === 'cards' && (
               <CardsPage
                 cards={data.cards}
@@ -476,9 +488,19 @@ export default function App() {
                 onClear={() => mutate(emptyData, { immediate: true })}
               />
             )}
-            {!['today', 'courses', 'practice', 'review', 'tools', 'cards', 'data', ...guideRoutes].includes(
-              route,
-            ) &&
+            {![
+              'today',
+              'courses',
+              'practice',
+              'review',
+              'tools',
+              'cards',
+              'start',
+              'data',
+              'community',
+              ...guideRoutes,
+            ].includes(route) &&
+              !route.startsWith('community/') &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
@@ -490,10 +512,7 @@ export default function App() {
           </>
         )}
         <footer className="site-footer">
-          <span>
-            Hiên · Luyện tập độc lập, không liên kết với IELTS.{' '}
-            <span>Dữ liệu được lưu trên thiết bị này.</span>
-          </span>
+          <span>Hiên · Không liên kết với IELTS.</span>
           {feedbackReady() ? (
             <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
               <MessageSquareText size={16} aria-hidden="true" />
