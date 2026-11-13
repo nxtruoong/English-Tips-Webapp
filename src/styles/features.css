@@ -1365,3 +1365,12 @@ main .page-heading {
     max-height: 65dvh;
   }
 }
+/* Account for main padding, tabs, toolbar and footer so the page itself does not scroll. */
+.card-grid {
+  max-height: calc(100dvh - 450px);
+  min-height: 200px;
+}
+.sample-decks .sample-grid {
+  max-height: calc(100dvh - 400px);
+  min-height: 200px;
+}
