@@ -1822,3 +1822,17 @@ main .page-heading {
   max-height: calc(100dvh - 400px);
   min-height: 200px;
 }
+
+/* Footer: note and feedback button on one centred line */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding: 14px 0 0;
+}
+.site-footer > span:first-child {
+  line-height: 1;
+}

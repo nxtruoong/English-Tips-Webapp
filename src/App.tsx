@@ -512,7 +512,7 @@ export default function App() {
           </>
         )}
         <footer className="site-footer">
-          <span>Hiên · Không liên kết với IELTS.</span>
+          <span>Hiên · Ứng dụng tự luyện của sinh viên, không thuộc tổ chức thi IELTS.</span>
           {feedbackReady() ? (
             <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
               <MessageSquareText size={16} aria-hidden="true" />
