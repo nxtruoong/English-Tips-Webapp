@@ -134,7 +134,7 @@ test('lesson notes and stage progress survive backup export and import', async (
   await saved(page);
   page.once('dialog', dialog => dialog.accept());
   await page.locator('input[type=file]').setInputFiles(path);
-  await expect(page.getByRole('status')).toContainText('Đã đọc tệp');
+  await expect(page.getByRole('status')).toContainText('Đã nhập xong');
   await saved(page);
   await page.goto('/#lesson/reading-1/guide');
   await expect(page.getByRole('textbox', { name: 'Ghi chú của bước này' })).toHaveValue(

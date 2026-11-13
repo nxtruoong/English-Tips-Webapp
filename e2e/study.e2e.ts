@@ -146,7 +146,7 @@ test('recording persists and backup round-trips recordings, drafts and mistakes'
   await saved(page);
   page.once('dialog', dialog => dialog.accept());
   await page.locator('input[type=file]').setInputFiles(path);
-  await expect(page.getByRole('status')).toContainText('Đã đọc tệp');
+  await expect(page.getByRole('status')).toContainText('Đã nhập xong');
   await saved(page);
   await page.reload();
   await expect(page.getByText('1 lượt học · 0 câu đã lưu · 1 bản ghi âm')).toBeVisible();
