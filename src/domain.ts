@@ -1,4 +1,5 @@
 import type { LessonProgress } from './curriculum';
+import { defaultDailyGoal } from './streak';
 
 export type Skill = 'Listening' | 'Speaking' | 'Reading' | 'Writing';
 export interface Question {
@@ -61,8 +62,19 @@ export interface StudyData {
   attempts: Attempt[];
   saved: string[];
   lessons: Record<string, LessonProgress>;
+  /** Finished lesson steps and practice attempts per day (YYYY-MM-DD, Vietnam time). */
+  studyDays: Record<string, number>;
+  /** Steps or attempts that complete the daily goal. */
+  dailyGoal: number;
 }
-export const emptyData = (): StudyData => ({ schema: 1, attempts: [], saved: [], lessons: {} });
+export const emptyData = (): StudyData => ({
+  schema: 1,
+  attempts: [],
+  saved: [],
+  lessons: {},
+  studyDays: {},
+  dailyGoal: defaultDailyGoal,
+});
 
 export function normalize(value: string, compact = false): string {
   const text = value.normalize('NFKC').trim().toLocaleLowerCase('en').replace(/\s+/g, ' ');

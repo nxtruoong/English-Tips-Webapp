@@ -34,9 +34,8 @@ export function DataSettings({
         }),
       );
       download(
-        new Blob([JSON.stringify({ schema: 1, saved: data.saved, attempts, lessons: data.lessons })], {
-          type: 'application/json',
-        }),
+        // Every StudyData field goes into the backup; only attempts need recording conversion.
+        new Blob([JSON.stringify({ ...data, attempts })], { type: 'application/json' }),
         `hien-backup-${new Date().toISOString().slice(0, 10)}.json`,
       );
       setMessage('Đã tạo tệp sao lưu, gồm cả bản ghi âm. Giữ tệp ở nơi riêng tư.');

@@ -16,6 +16,7 @@ import {
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
 import { useStudyData } from './useStudyData';
+import { adjustStudyDay, dayKey } from './streak';
 import { CourseLoader } from './CourseReader';
 import {
   lessonIndex as lessons,
@@ -113,12 +114,17 @@ export default function App() {
     return () => window.removeEventListener('hashchange', change);
   }, []);
   function updateAttempt(id: string, patch: Partial<Attempt>) {
-    mutate(old => ({
-      ...old,
-      attempts: old.attempts.map(a =>
-        a.id === id ? { ...a, ...patch, updatedAt: new Date().toISOString() } : a,
-      ),
-    }));
+    mutate(old => {
+      const finished =
+        patch.status === 'completed' && old.attempts.some(a => a.id === id && a.status !== 'completed');
+      return {
+        ...old,
+        attempts: old.attempts.map(a =>
+          a.id === id ? { ...a, ...patch, updatedAt: new Date().toISOString() } : a,
+        ),
+        studyDays: finished ? adjustStudyDay(old.studyDays, dayKey(new Date()), 1) : old.studyDays,
+      };
+    });
   }
   function go(destination: string) {
     location.hash = destination;
@@ -135,10 +141,16 @@ export default function App() {
     go(`lesson/${unit.id}/${selected}`);
   }
   function updateLesson(id: string, patch: Partial<LessonProgress>) {
-    mutate(old => ({
-      ...old,
-      lessons: { ...old.lessons, [id]: { ...(old.lessons[id] || initialLessonProgress()), ...patch } },
-    }));
+    mutate(old => {
+      const before = old.lessons[id] || initialLessonProgress();
+      // Marking a step done counts toward today; unmarking takes one back (never below zero).
+      const delta = patch.completed ? patch.completed.length - before.completed.length : 0;
+      return {
+        ...old,
+        lessons: { ...old.lessons, [id]: { ...before, ...patch } },
+        studyDays: delta ? adjustStudyDay(old.studyDays, dayKey(new Date()), delta) : old.studyDays,
+      };
+    });
   }
   function start(activity: Activity, fresh = false) {
     const existing = [...data.attempts]
@@ -310,6 +322,7 @@ export default function App() {
                 setPart={setPart}
                 setReviewTab={setReviewTab}
                 go={go}
+                setGoal={goal => mutate(old => ({ ...old, dailyGoal: goal }))}
               />
             )}
             {route === 'courses' && (

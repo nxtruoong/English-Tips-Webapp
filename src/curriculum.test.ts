@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { lessons, stages } from './curriculum';
 import { validateData } from './storage';
+import { emptyData } from './domain';
 import { sourceSections } from './CourseReader';
 
 describe('source-backed learning sequence', () => {
@@ -38,11 +39,10 @@ describe('source-backed learning sequence', () => {
 
 describe('lesson progress migration and backups', () => {
   it('loads old backups without losing existing attempt metadata', () => {
+    // Every field added later falls back to its empty default.
     expect(validateData({ schema: 1, attempts: [], saved: ['reading-museum@1/r1'] })).toEqual({
-      schema: 1,
-      attempts: [],
+      ...emptyData(),
       saved: ['reading-museum@1/r1'],
-      lessons: {},
     });
   });
   it('round-trips stage notes and rejects invalid stage values', () => {

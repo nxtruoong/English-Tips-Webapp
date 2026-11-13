@@ -1,5 +1,6 @@
 import { emptyData, type StudyData, type Attempt } from './domain';
 import { isLessonStage, type LessonProgress } from './curriculum';
+import { defaultDailyGoal, isDayKey, isGoal } from './streak';
 
 let database: Promise<IDBDatabase> | undefined;
 function db(): Promise<IDBDatabase> {
@@ -116,7 +117,20 @@ export function validateData(value: unknown, allowBlobs = false): StudyData {
       };
     }
   }
-  return { schema: 1, attempts, saved: [...new Set(value.saved)], lessons };
+  // Fields added after the first release are optional so older backups still import.
+  const studyDays: Record<string, number> = {};
+  if (value.studyDays !== undefined) {
+    if (!record(value.studyDays)) throw new Error('Lịch sử ngày học không hợp lệ.');
+    for (const [key, count] of Object.entries(value.studyDays)) {
+      if (!isDayKey(key) || typeof count !== 'number' || !Number.isInteger(count) || count < 0)
+        throw new Error('Lịch sử ngày học không hợp lệ.');
+      if (count) studyDays[key] = count;
+    }
+  }
+  if (value.dailyGoal !== undefined && !isGoal(value.dailyGoal))
+    throw new Error('Mục tiêu mỗi ngày không hợp lệ.');
+  const dailyGoal = isGoal(value.dailyGoal) ? value.dailyGoal : defaultDailyGoal;
+  return { schema: 1, attempts, saved: [...new Set(value.saved)], lessons, studyDays, dailyGoal };
 }
 export function download(blob: Blob, name: string): void {
   const url = URL.createObjectURL(blob);

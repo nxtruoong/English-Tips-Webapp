@@ -9,14 +9,14 @@ import {
 } from '../curriculum';
 import type { Activity, Attempt, Skill, StudyData } from '../domain';
 import { skillDescriptions } from '../ui';
+import { dayKey } from '../streak';
+import { StudyStrip } from './StudyStrip';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
   const question = activity?.questions.find(q => q.id === activity.preview?.questionId);
   return activity && question ? { activity, question } : undefined;
 })();
-
-const dayKey = (date: Date) => date.toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
 
 /** Attempts touched on each of the last seven days, oldest first. */
 function lastWeek(attempts: Attempt[], today: Date) {
@@ -47,6 +47,7 @@ export function TodayPage({
   setPart,
   setReviewTab,
   go,
+  setGoal,
 }: {
   data: StudyData;
   today: Date;
@@ -59,6 +60,7 @@ export function TodayPage({
   setPart: (part: string) => void;
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
+  setGoal: (goal: number) => void;
 }) {
   const progress = data.lessons[nextLesson.id];
   const doneHere = progress?.completed.length || 0;
@@ -106,6 +108,8 @@ export function TodayPage({
           }).format(today)}
         </span>
       </header>
+
+      <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal} />
 
       <section
         className="hero"
