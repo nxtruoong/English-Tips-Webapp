@@ -1836,3 +1836,53 @@ main .page-heading {
 .site-footer > span:first-child {
   line-height: 1;
 }
+
+/* Phones: main destinations live in a bottom tab bar within thumb reach */
+@media (max-width: 760px) {
+  .sidebar nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+    background: var(--nav);
+    border-top: 1px solid var(--nav-line);
+    overflow-x: auto;
+    scrollbar-width: none;
+    box-shadow: 0 -6px 18px rgb(0 0 0 / 18%);
+  }
+  .sidebar nav::-webkit-scrollbar {
+    display: none;
+  }
+  .sidebar nav a {
+    flex: 1 0 64px;
+    flex-direction: column;
+    gap: 3px;
+    min-height: 54px;
+    padding: 6px 4px;
+    font-size: 11px;
+    line-height: 1.2;
+    border: 0;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .sidebar nav a svg {
+    width: 21px;
+    height: 21px;
+  }
+  .sidebar nav a.active {
+    background: var(--nav-active);
+  }
+  .sidebar {
+    padding-bottom: 14px;
+  }
+  main {
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+}
