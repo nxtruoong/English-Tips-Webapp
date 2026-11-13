@@ -258,3 +258,16 @@
   --nav-active: #362c52;
   --nav-active-border: #b794ff;
 }
+
+/* Dark mode: lavender rail in the dark-mode accent colour, with dark text for contrast. */
+:root[data-theme='dark'] {
+  --nav: #b794ff;
+  --nav-hover: #c6abff;
+  --nav-active: #d8c6ff;
+  --nav-active-border: #8b5cf6;
+  --nav-line: #a07ff0;
+  --nav-text: #1d1238;
+  --nav-text-muted: #2f2055;
+  --nav-strong: #140a2b;
+  --nav-accent: #4c1d95;
+}
