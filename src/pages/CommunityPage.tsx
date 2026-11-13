@@ -4,6 +4,7 @@ import {
   categories,
   LIMITS,
   loadBoard,
+  offline,
   sendAction,
   timeAgo,
   type Board,
@@ -453,6 +454,11 @@ export function CommunityPage({ threadId }: { threadId?: string }) {
         </button>
       )}
 
+      {offline && (
+        <p className="community-rules">
+          Đang dùng dữ liệu mẫu: bài bạn đăng chỉ lưu trên trình duyệt này, người khác không thấy.
+        </p>
+      )}
       <p className="community-rules">
         Bài đăng ai cũng xem được. Đừng để số điện thoại, địa chỉ hay đề thi có bản quyền. Bạn chỉ xóa được
         bài đăng từ trình duyệt này.

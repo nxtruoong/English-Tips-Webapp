@@ -17,7 +17,13 @@ export type CommunityAction =
   | { action: 'reply'; nickname: string; threadId: string; body: string }
   | { action: 'delete' | 'report'; threadId: string; replyId?: string };
 
+import { mockAction, mockBoard } from './communityMock';
+
 export const LIMITS = { nameMin: 2, nameMax: 32, titleMin: 3, titleMax: 120, body: 3000 };
+
+class Missing extends Error {}
+/** True once the server turned out to be absent; the board then runs on local sample data. */
+export let offline = false;
 
 async function call<T>(method: 'GET' | 'POST', body?: CommunityAction): Promise<T> {
   let response: Response;
@@ -32,7 +38,10 @@ async function call<T>(method: 'GET' | 'POST', body?: CommunityAction): Promise<
   } catch {
     throw new Error('Không kết nối được. Kiểm tra mạng rồi thử lại.');
   }
+  // No function deployed (404 or an HTML page instead of JSON): switch to local sample data.
+  if (response.status === 404) throw new Missing();
   const result = await response.json().catch(() => null);
+  if (result === null && response.ok) throw new Missing();
   if (!response.ok || !result || result.error) {
     throw new Error(result?.error || 'Máy chủ đang bận. Thử lại sau ít phút.');
   }
@@ -40,14 +49,23 @@ async function call<T>(method: 'GET' | 'POST', body?: CommunityAction): Promise<
 }
 
 export async function loadBoard(): Promise<Board> {
-  const board = await call<Board>('GET');
+  if (offline) return mockBoard();
+  let board: Board;
+  try {
+    board = await call<Board>('GET');
+  } catch (e) {
+    if (!(e instanceof Missing)) throw e;
+    offline = true;
+    return mockBoard();
+  }
   if (!Array.isArray(board.threads) || typeof board.viewerId !== 'string') {
     throw new Error('Dữ liệu nhận về bị lỗi. Thử tải lại.');
   }
   return board;
 }
 
-export const sendAction = (action: CommunityAction) => call<{ id?: string }>('POST', action);
+export const sendAction = async (action: CommunityAction) =>
+  offline ? mockAction(action) : call<{ id?: string }>('POST', action);
 
 const relative = new Intl.RelativeTimeFormat('vi', { numeric: 'auto' });
 const fullDate = new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'numeric', year: 'numeric' });
