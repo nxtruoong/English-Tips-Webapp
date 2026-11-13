@@ -240,3 +240,14 @@
   --nav-text: #f0ecff;
   --nav-text-muted: #c8bff0;
 }
+
+/* Softer, less saturated dusky violet for the dark rail. */
+:root[data-theme='dark'] {
+  --nav: #29243d;
+  --nav-hover: #332d4a;
+  --nav-active: #3f3759;
+  --nav-active-border: #574d78;
+  --nav-line: #36304c;
+  --nav-text: #ece9f4;
+  --nav-text-muted: #b8b2cc;
+}
