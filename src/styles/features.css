@@ -1037,6 +1037,9 @@ a.feedback-button:hover {
 }
 .flip-scene {
   position: relative;
+  width: 100%;
+  align-self: stretch;
+  box-sizing: border-box;
   perspective: 1200px;
   margin-bottom: 18px;
 }
@@ -1093,7 +1096,8 @@ a.feedback-button:hover {
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.02em;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 .flip-word.small {
   font-size: var(--text-lg);
