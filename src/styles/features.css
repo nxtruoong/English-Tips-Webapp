@@ -1955,3 +1955,7 @@ main .page-heading {
     border-color: var(--accent);
   }
 }
+
+.outcome-group-tabs {
+  margin: 4px 0 16px;
+}

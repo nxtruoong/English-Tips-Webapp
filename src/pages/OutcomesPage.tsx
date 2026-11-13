@@ -92,8 +92,10 @@ function ProgramRow({ program }: { program: Program }) {
 export function OutcomesPage() {
   const [schoolId, setSchoolId] = useState(readSchool);
   const school = schools.find(s => s.id === schoolId) || schools[0];
+  const [groupIndex, setGroupIndex] = useState(0);
   function choose(id: string) {
     setSchoolId(id);
+    setGroupIndex(0);
     try {
       localStorage.setItem(storageKey, id);
     } catch {
@@ -141,7 +143,21 @@ export function OutcomesPage() {
             <p>{school.basis}</p>
           </div>
         </header>
-        {school.groups.map(group => (
+        {school.groups.length > 1 && (
+          <div className="skill-tabs outcome-group-tabs" role="group" aria-label="Nhóm chương trình">
+            {school.groups.map((g, i) => (
+              <button
+                key={g.title}
+                className={i === groupIndex ? 'selected' : ''}
+                aria-pressed={i === groupIndex}
+                onClick={() => setGroupIndex(i)}
+              >
+                {g.title}
+              </button>
+            ))}
+          </div>
+        )}
+        {[school.groups[groupIndex] ?? school.groups[0]].map(group => (
           <div className="outcome-group" key={group.title}>
             <h3 className="outcome-group-title">{group.title}</h3>
             <ul className="outcome-list">
