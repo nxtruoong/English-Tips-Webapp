@@ -10,7 +10,9 @@ describe('source-backed learning sequence', () => {
     expect(lessons.filter(l => l.skill === 'Speaking')).toHaveLength(3);
     expect(lessons.filter(l => l.skill === 'Writing')).toHaveLength(2);
     expect(lessons.filter(l => l.skill === 'Reading')).toHaveLength(8);
-    for (const lesson of lessons) for (const stage of stages) expect(lesson.stages[stage].length, `${lesson.id}/${stage}`).toBeGreaterThan(0);
+    for (const lesson of lessons)
+      for (const stage of stages)
+        expect(lesson.stages[stage].length, `${lesson.id}/${stage}`).toBeGreaterThan(0);
   });
   it('keeps Listening theory, guide, E1 drills, full form, and answer key separate', () => {
     const unit = lessons.find(l => l.id === 'listening-1')!;
@@ -36,11 +38,25 @@ describe('source-backed learning sequence', () => {
 
 describe('lesson progress migration and backups', () => {
   it('loads old backups without losing existing attempt metadata', () => {
-    expect(validateData({ schema: 1, attempts: [], saved: ['reading-museum@1/r1'] })).toEqual({ schema: 1, attempts: [], saved: ['reading-museum@1/r1'], lessons: {} });
+    expect(validateData({ schema: 1, attempts: [], saved: ['reading-museum@1/r1'] })).toEqual({
+      schema: 1,
+      attempts: [],
+      saved: ['reading-museum@1/r1'],
+      lessons: {},
+    });
   });
   it('round-trips stage notes and rejects invalid stage values', () => {
-    const lessons = { 'listening-1': { stage: 'small', completed: ['theory','guide'], notes: { 'small/ex1': 'My answers' } } };
-    expect(validateData({ schema: 1, attempts: [], saved: [], lessons }).lessons).toEqual(lessons);
-    expect(() => validateData({ schema: 1, attempts: [], saved: [], lessons: { 'listening-1': { ...lessons['listening-1'], stage: 'fake' } } })).toThrow();
+    const progress = {
+      'listening-1': { stage: 'small', completed: ['theory', 'guide'], notes: { 'small/ex1': 'My answers' } },
+    };
+    expect(validateData({ schema: 1, attempts: [], saved: [], lessons: progress }).lessons).toEqual(progress);
+    expect(() =>
+      validateData({
+        schema: 1,
+        attempts: [],
+        saved: [],
+        lessons: { 'listening-1': { ...progress['listening-1'], stage: 'fake' } },
+      }),
+    ).toThrow();
   });
 });

@@ -6,19 +6,24 @@ async function openActivity(page: Page, title: string) {
   await page.locator('.activity-row').filter({ hasText: title }).click();
   await expect(page.locator('.workspace-heading h1')).toHaveText(title);
 }
-async function saved(page: Page) { await expect(page.locator('.device-button')).toContainText('Đã lưu trên thiết bị này'); }
+async function saved(page: Page) {
+  await expect(page.locator('.device-button')).toContainText('Đã lưu trên thiết bị này');
+}
 
 test('desktop and mobile surfaces, real source assets, and no horizontal overflow', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  for (const width of [1440,390]) {
+  for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto('/#today');
     await expect(page.getByRole('heading', { name: 'Tổng quan học tập' })).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator('.feature-copy')).toBeVisible();
+    await expect(page.locator('.hero')).toBeVisible();
     await expect(page.locator('img[src^="/art/"]')).toHaveCount(0);
-    await page.screenshot({ path: `.impeccable/review/${width === 1440 ? 'desktop' : 'mobile'}.png`, fullPage: true });
+    await page.screenshot({
+      path: `.impeccable/review/${width === 1440 ? 'desktop' : 'mobile'}.png`,
+      fullPage: true,
+    });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await openActivity(page, 'Westlake Sports Club');
     const audio = page.locator('audio');
@@ -31,9 +36,22 @@ test('desktop and mobile surfaces, real source assets, and no horizontal overflo
 
 test('Listening draft survives refresh; marking, saved mistake and retry work', async ({ page }) => {
   await openActivity(page, 'Westlake Sports Club');
-  const answers = ['braithwaite','August','07700900452','Fairview','KF48BL','Silver','swimming','shoulder','monthly','60'];
-  for (let i=0; i<answers.length; i++) await page.getByRole('textbox', { name: new RegExp(`^Câu ${i+1}:`) }).fill(answers[i]);
-  await saved(page); await page.reload();
+  const answers = [
+    'braithwaite',
+    'August',
+    '07700900452',
+    'Fairview',
+    'KF48BL',
+    'Silver',
+    'swimming',
+    'shoulder',
+    'monthly',
+    '60',
+  ];
+  for (let i = 0; i < answers.length; i++)
+    await page.getByRole('textbox', { name: new RegExp(`^Câu ${i + 1}:`) }).fill(answers[i]);
+  await saved(page);
+  await page.reload();
   await expect(page.getByRole('textbox', { name: /^Câu 7:/ })).toHaveValue('swimming');
   await page.getByRole('button', { name: 'Nộp bài', exact: true }).click();
   await expect(page.getByRole('heading', { name: '9/10 câu đúng.' })).toBeVisible();
@@ -55,7 +73,9 @@ test('mobile Reading answers survive source/work tabs and produce evidence revie
   await page.getByRole('button', { name: 'Đề & tài liệu', exact: true }).click();
   await expect(page.locator('.passage')).toContainText('museum opened in 2004');
   await page.getByRole('button', { name: 'Bài làm của bạn', exact: true }).click();
-  await expect(page.locator('.question').nth(1).getByRole('radio', { name: 'FALSE', exact: true })).toBeChecked();
+  await expect(
+    page.locator('.question').nth(1).getByRole('radio', { name: 'FALSE', exact: true }),
+  ).toBeChecked();
   await page.getByRole('button', { name: 'Nộp bài', exact: true }).click();
   await expect(page.getByRole('heading', { name: '3/3 câu đúng.' })).toBeVisible();
   await expect(page.locator('.answer-review').nth(2)).toContainText('không đề cập');
@@ -64,28 +84,44 @@ test('mobile Reading answers survive source/work tabs and produce evidence revie
 test('Writing autosave, revisions, source chart and reveal tracking', async ({ page }) => {
   await openActivity(page, 'Food waste');
   await page.getByLabel('Dàn ý của bạn').fill('Causes: overbuying. Solutions: shopping lists.');
-  await page.getByLabel('Bài viết của bạn', { exact: true }).fill('Households can reduce food waste by planning purchases.');
+  await page
+    .getByLabel('Bài viết của bạn', { exact: true })
+    .fill('Households can reduce food waste by planning purchases.');
   await page.getByRole('button', { name: /Giữ một phiên bản/ }).click();
-  await saved(page); await page.reload();
-  await expect(page.getByLabel('Bài viết của bạn', { exact: true })).toHaveValue('Households can reduce food waste by planning purchases.');
+  await saved(page);
+  await page.reload();
+  await expect(page.getByLabel('Bài viết của bạn', { exact: true })).toHaveValue(
+    'Households can reduce food waste by planning purchases.',
+  );
   await expect(page.getByText('Các phiên bản đã giữ (1)', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Mở sớm bài mẫu' }).click();
   await page.getByRole('button', { name: 'Hoàn thành lượt luyện' }).click();
   await expect(page.locator('.result-banner')).toContainText('đã xem gợi ý hoặc bài mẫu');
   await openActivity(page, 'Three London bakeries');
   await expect(page.locator('.task-image')).toBeVisible();
-  expect(await page.locator('.task-image').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  expect(
+    await page
+      .locator('.task-image')
+      .evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
+  ).toBe(true);
 });
 
 test('microphone denial has a usable recovery path', async ({ page }) => {
-  await page.addInitScript(() => { navigator.mediaDevices.getUserMedia = async () => { throw new DOMException('denied','NotAllowedError'); }; });
+  await page.addInitScript(() => {
+    navigator.mediaDevices.getUserMedia = async () => {
+      throw new DOMException('denied', 'NotAllowedError');
+    };
+  });
   await openActivity(page, 'Study & university life');
   await page.getByRole('button', { name: 'Bắt đầu ghi âm', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Chưa truy cập được micro');
   await expect(page.getByLabel('Vài từ khóa trước khi nói')).toBeEnabled();
 });
 
-test('recording persists and backup round-trips recordings, drafts and mistakes', async ({ page, context }) => {
+test('recording persists and backup round-trips recordings, drafts and mistakes', async ({
+  page,
+  context,
+}) => {
   await context.grantPermissions(['microphone']);
   await openActivity(page, 'Study & university life');
   await page.getByRole('button', { name: 'Bắt đầu ghi âm', exact: true }).click();
@@ -93,11 +129,16 @@ test('recording persists and backup round-trips recordings, drafts and mistakes'
   await page.waitForTimeout(400);
   await page.getByRole('button', { name: /Dừng ghi âm/ }).click();
   await expect(page.getByRole('button', { name: 'Tải bản ghi' })).toBeVisible();
-  await saved(page); await page.reload();
+  await saved(page);
+  await page.reload();
   await expect(page.getByRole('button', { name: 'Tải bản ghi' })).toBeVisible();
   await page.locator('.device-button').click();
-  const [file] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Xuất toàn bộ dữ liệu' }).click()]);
-  const path = await file.path(); if (!path) throw new Error('Missing download');
+  const [file] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Xuất toàn bộ dữ liệu' }).click(),
+  ]);
+  const path = await file.path();
+  if (!path) throw new Error('Missing download');
   const backup = JSON.parse(await readFile(path, 'utf-8'));
   expect(backup.attempts[0].recordingData).toMatch(/^data:audio\//);
   page.once('dialog', dialog => dialog.accept());
@@ -106,7 +147,8 @@ test('recording persists and backup round-trips recordings, drafts and mistakes'
   page.once('dialog', dialog => dialog.accept());
   await page.locator('input[type=file]').setInputFiles(path);
   await expect(page.getByRole('status')).toContainText('Đã đọc tệp');
-  await saved(page); await page.reload();
+  await saved(page);
+  await page.reload();
   await expect(page.getByText('1 lượt học · 0 câu đã lưu · 1 bản ghi âm')).toBeVisible();
 });
 
@@ -126,7 +168,11 @@ test('keyboard skip preserves route; empty search is recoverable', async ({ page
 });
 
 test('storage and audio failures are visible and do not claim saved work', async ({ page }) => {
-  await page.addInitScript(() => { IDBObjectStore.prototype.put = () => { throw new DOMException('quota','QuotaExceededError'); }; });
+  await page.addInitScript(() => {
+    IDBObjectStore.prototype.put = () => {
+      throw new DOMException('quota', 'QuotaExceededError');
+    };
+  });
   await page.route('**/media/listening-part1.mp3', route => route.abort());
   await openActivity(page, 'Westlake Sports Club');
   await expect(page.locator('.storage-error')).toContainText('Chưa lưu được thay đổi');

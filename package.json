@@ -10,7 +10,10 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "content:import": "python scripts/import_sources.py",
-    "curriculum:import": "python scripts/import_curriculum.py"
+    "curriculum:import": "python scripts/import_curriculum.py",
+    "lint": "oxlint src e2e",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@fontsource/be-vietnam-pro": "^5.2.0",
@@ -23,6 +26,8 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "oxlint": "^1.92.0",
+    "prettier": "^3.9.10",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"

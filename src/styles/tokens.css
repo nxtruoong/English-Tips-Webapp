@@ -1,0 +1,166 @@
+/*
+ * Design tokens for Hiên. Source of truth: DESIGN.md.
+ * Use these variables instead of raw hex values or pixel font sizes.
+ *
+ * Breakpoints (CSS variables cannot be used inside @media, so use these literals):
+ *   mobile  max-width: 760px   navigation above content, one pane at a time
+ *   compact max-width: 1200px  narrow rail, stacked dashboard, single-column lesson
+ *   wide    min-width: 1600px  roomier padding and supporting column
+ */
+:root {
+  /* Surfaces */
+  --paper: #f3f5f9;
+  --sheet: #fff;
+  --surface-subtle: #f5f8ff;
+  --surface-hover: #f3f7ff;
+  --surface-muted: #f0f3f8;
+
+  /* Text */
+  --ink: #182438;
+  --text: #29364b;
+  --muted: #56667c;
+  --placeholder: #65748a;
+  --icon: #3d5a86;
+  --icon-muted: #71839c;
+
+  /* Lines and control borders */
+  --line: #dce2eb;
+  --line-soft: #e8ecf2;
+  --line-strong: #cbd6e9;
+  --border-control: #b8c3d4;
+  --border-control-hover: #8b9dbc;
+
+  /* Accent (cobalt) */
+  --accent: #2454d6;
+  --accent-hover: #1943b5;
+  --accent-ink: #233f6b;
+  --accent-border: #b4c5e6;
+  --tint: #edf2ff;
+  --tint-strong: #e5ecf9;
+  --focus: #638dff;
+  --selection: #cbd9ff;
+  --selection-text: #112b6d;
+
+  /* Navigation rail */
+  --nav: #152034;
+  --nav-hover: #203149;
+  --nav-active: #263e65;
+  --nav-active-border: #355785;
+  --nav-line: #33425a;
+  --nav-text: #e3eaf5;
+  --nav-text-muted: #bccadd;
+  --nav-accent: #a8c5ff;
+  --brand-bg: #274a86;
+  --brand-border: #3d62a3;
+
+  /* States: always pair with visible text (DESIGN.md, State Evidence Rule) */
+  --success: #26724c;
+  --success-bg: #edf7f1;
+  --success-border: #bcdac8;
+  --danger: #b02c2c;
+  --danger-ink: #962626;
+  --danger-bg: #fff0ef;
+  --danger-border: #dfa5a2;
+
+  /* Type scale (minimum 12px for readability) */
+  --text-xs: 12px; /* metadata, captions, counters */
+  --text-sm: 13px; /* instructions, secondary copy */
+  --text-md: 14px; /* body */
+  --text-lg: 16px; /* passages, panel headings */
+  --text-xl: 18px; /* titles */
+  --text-2xl: 22px; /* section headings */
+  --text-3xl: 26px; /* page headings on mobile, feature heading */
+  --text-4xl: 30px; /* page headings */
+
+  --sans: 'Be Vietnam Pro', sans-serif;
+
+  /* Skill identity: icon tiles, progress, filters. Always paired with the skill name. */
+  --listening: #0b7f86;
+  --listening-bg: #e2f4f4;
+  --speaking: #c4560f;
+  --speaking-bg: #fdede1;
+  --reading: #6544cf;
+  --reading-bg: #efeafd;
+  --writing: #2b7d45;
+  --writing-bg: #e5f3e9;
+
+  /* Shape and depth */
+  --radius-card: 12px;
+  --radius-tile: 10px;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 5%);
+  --shadow-hover: 0 8px 22px -8px rgb(24 36 56 / 22%);
+
+  /* Text on filled accent/state backgrounds, and strong text on the nav rail */
+  --on-accent: #fff;
+  --nav-strong: #fff;
+
+  color-scheme: light;
+}
+
+/*
+ * Dark theme. Applied when the viewer chose dark, or when the system is dark
+ * and the viewer has not forced light. Same token names; components need no changes.
+ */
+:root[data-theme='dark'] {
+  --paper: #0f1522;
+  --sheet: #172031;
+  --surface-subtle: #1b2638;
+  --surface-hover: #202d43;
+  --surface-muted: #1d2739;
+
+  --ink: #e9eef7;
+  --text: #cbd4e2;
+  --muted: #98a6bb;
+  --placeholder: #7f8ea5;
+  --icon: #a3bbe8;
+  --icon-muted: #8193ae;
+
+  --line: #2a364b;
+  --line-soft: #233044;
+  --line-strong: #35445d;
+  --border-control: #45546e;
+  --border-control-hover: #62749a;
+
+  --accent: #6f9bff;
+  --accent-hover: #8fb1ff;
+  --accent-ink: #c9d8ff;
+  --accent-border: #3d5994;
+  --tint: #1b2a4a;
+  --tint-strong: #233660;
+  --focus: #8fb1ff;
+  --selection: #2d4680;
+  --selection-text: #f0f4fb;
+
+  --nav: #0a0f19;
+  --nav-hover: #151f31;
+  --nav-active: #1b2b47;
+  --nav-active-border: #2c4470;
+  --nav-line: #1f2a3d;
+  --nav-text: #dbe4f2;
+  --nav-text-muted: #9fb0c8;
+  --nav-accent: #9dbcff;
+
+  --success: #5fc78c;
+  --success-bg: #14301f;
+  --success-border: #25573b;
+  --danger: #ff7b7b;
+  --danger-ink: #ff9d9d;
+  --danger-bg: #3a1a1d;
+  --danger-border: #6f3035;
+
+  --listening: #4ec5cb;
+  --listening-bg: #12302f;
+  --speaking: #f29a5f;
+  --speaking-bg: #3a2414;
+  --reading: #a993ff;
+  --reading-bg: #262046;
+  --writing: #72d193;
+  --writing-bg: #15301f;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 35%);
+  --shadow-hover: 0 10px 24px -8px rgb(0 0 0 / 65%);
+
+  --on-accent: #0b1220;
+
+  color-scheme: dark;
+}
