@@ -1,18 +1,16 @@
 import { CalendarCheck, Target } from 'lucide-react';
 import type { ReactNode } from 'react';
 import type { StudyData } from '../domain';
-import { currentStreak, goalOptions, longestStreak, minutesPerStep } from '../streak';
+import { currentStreak, longestStreak } from '../streak';
 
 /** Streak, today's goal and any extra daily counters, shown at the top of Hôm nay. */
 export function StudyStrip({
   data,
   todayKey,
-  setGoal,
   children,
 }: {
   data: StudyData;
   todayKey: string;
-  setGoal: (goal: number) => void;
   children?: ReactNode;
 }) {
   const streak = currentStreak(data.studyDays, todayKey);
@@ -48,16 +46,6 @@ export function StudyStrip({
           >
             <span style={{ width: `${Math.min(1, doneToday / goal) * 100}%` }} />
           </span>
-          <label className="strip-goal">
-            <span>Mỗi ngày</span>
-            <select value={goal} onChange={e => setGoal(Number(e.target.value))}>
-              {goalOptions.map(option => (
-                <option key={option} value={option}>
-                  {option} bước · khoảng {option * minutesPerStep} phút
-                </option>
-              ))}
-            </select>
-          </label>
         </div>
       </div>
       {children}

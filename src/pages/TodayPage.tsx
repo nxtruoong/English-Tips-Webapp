@@ -51,7 +51,6 @@ export function TodayPage({
   setPart,
   setReviewTab,
   go,
-  setGoal,
   setLevel,
 }: {
   data: StudyData;
@@ -65,7 +64,6 @@ export function TodayPage({
   setPart: (part: string) => void;
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
-  setGoal: (goal: number) => void;
   setLevel: (level: Level) => void;
 }) {
   const progress = data.lessons[nextLesson.id];
@@ -160,16 +158,18 @@ export function TodayPage({
             </ol>
           )}
         </section>
-        <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal}>
+        <StudyStrip data={data} todayKey={dayKey(today)}>
           <div className="strip-cell">
             <WalletCards size={22} strokeWidth={1.6} aria-hidden="true" />
             <div>
               <span className="strip-label">Thẻ từ vựng cần ôn</span>
-              <strong className="strip-value">{dueCount} thẻ</strong>
-              <button className="text-button" onClick={() => go('cards')}>
-                {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'}{' '}
-                <ArrowRight size={16} />
-              </button>
+              <strong className="strip-value">
+                {dueCount} thẻ
+                <button className="text-button" onClick={() => go('cards')}>
+                  {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'}{' '}
+                  <ArrowRight size={16} />
+                </button>
+              </strong>
             </div>
           </div>
         </StudyStrip>

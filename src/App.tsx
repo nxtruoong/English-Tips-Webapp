@@ -365,7 +365,6 @@ export default function App() {
                 setPart={setPart}
                 setReviewTab={setReviewTab}
                 go={go}
-                setGoal={setGoal}
                 setLevel={setLevel}
               />
             )}
