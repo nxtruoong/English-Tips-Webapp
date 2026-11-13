@@ -46,9 +46,9 @@ export function DataSettings({
         new Blob([JSON.stringify({ ...data, attempts })], { type: 'application/json' }),
         `hien-backup-${new Date().toISOString().slice(0, 10)}.json`,
       );
-      setMessage('Đã tạo tệp sao lưu, gồm cả bản ghi âm. Giữ tệp ở nơi riêng tư.');
+      setMessage('Đã tải tệp sao lưu (có cả bản ghi âm).');
     } catch {
-      setMessage('Chưa xuất được dữ liệu. Hãy thử lại.');
+      setMessage('Chưa xuất được. Thử lại nhé.');
     } finally {
       setBusy(false);
     }
@@ -83,7 +83,7 @@ export function DataSettings({
       )
         return;
       onImport(validated);
-      setMessage('Đã đọc tệp. Kiểm tra trạng thái lưu ở thanh điều hướng trước khi rời trang.');
+      setMessage('Đã nhập xong. Đợi thanh bên báo “Đã lưu” rồi hãy đóng trang.');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Không đọc được tệp.');
     } finally {
@@ -169,7 +169,7 @@ export function DataSettings({
             onClick={() => {
               if (confirm('Xóa toàn bộ dữ liệu Hiên trên thiết bị này? Thao tác không thể hoàn tác.')) {
                 onClear();
-                setMessage('Đã yêu cầu xóa. Kiểm tra trạng thái lưu trước khi rời trang.');
+                setMessage('Đã xóa. Đợi thanh bên báo “Đã lưu” rồi hãy đóng trang.');
               }
             }}
           >

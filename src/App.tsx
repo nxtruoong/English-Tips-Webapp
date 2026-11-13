@@ -291,7 +291,7 @@ export default function App() {
             <Layers size={23} strokeWidth={1.8} />
           </span>
           <span>
-            Hiên<small>English practice</small>
+            Hiên<small>Luyện tiếng Anh</small>
           </span>
         </a>
         <nav aria-label="Điều hướng chính">
@@ -363,7 +363,7 @@ export default function App() {
         {!ready ? (
           <div className="empty" role="status">
             <Layers />
-            <h1>Đang tải dữ liệu học…</h1>
+            <h1>Đang tải…</h1>
           </div>
         ) : (
           <>

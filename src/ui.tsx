@@ -3,10 +3,10 @@ import type { Activity, Skill } from './domain';
 
 export const icons = { Listening: Headphones, Speaking: MessageCircle, Reading: BookOpen, Writing: PenLine };
 export const skillDescriptions: Record<Skill, string> = {
-  Listening: 'Điền thông tin và phân biệt đáp án gây nhiễu.',
-  Speaking: 'Phát triển câu trả lời, ghi âm và tự đánh giá.',
-  Reading: 'Đọc hiểu và đối chiếu bằng chứng.',
-  Writing: 'Lập dàn ý, viết bài và so sánh bài mẫu.',
+  Listening: 'Nghe điền tên, số, ngày và tránh bẫy đổi ý.',
+  Speaking: 'Trả lời câu hỏi, ghi âm rồi nghe lại.',
+  Reading: 'Tìm ý trong bài, chọn đáp án có căn cứ.',
+  Writing: 'Lập dàn ý, viết bài rồi so với bài mẫu.',
 };
 export function StageBar({ completed, current }: { completed: number; current?: number }) {
   return (

@@ -26,7 +26,7 @@ function markSeen() {
 const steps = ['Cách dùng', 'Trình độ', 'Bài đầu tiên'];
 
 const howTo = [
-  { Icon: Compass, title: 'Chọn trình độ', text: 'Hiên sắp thứ tự bài và gợi ý cách học theo mức của bạn.' },
+  { Icon: Compass, title: 'Chọn trình độ', text: 'Bài học sẽ xếp theo mức của bạn.' },
   {
     Icon: BookOpenText,
     title: 'Học theo 5 bước',
@@ -35,7 +35,7 @@ const howTo = [
   {
     Icon: WalletCards,
     title: 'Ôn mỗi ngày',
-    text: 'Lưu từ mới vào thẻ, giữ chuỗi ngày học với mục tiêu nhỏ.',
+    text: 'Lưu từ mới thành thẻ, mỗi ngày ôn một ít.',
   },
 ];
 
