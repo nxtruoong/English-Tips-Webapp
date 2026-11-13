@@ -218,3 +218,14 @@
   --nav-text: #e6e8ee;
   --nav-text-muted: #a2a7b4;
 }
+
+/* Keep the violet rail in dark mode too, so both themes share the brand colour. */
+:root[data-theme='dark'] {
+  --nav: #1e1236;
+  --nav-hover: #2a1a48;
+  --nav-active: #3a2563;
+  --nav-active-border: #533a8a;
+  --nav-line: #2e1f4a;
+  --nav-text: #eee7fb;
+  --nav-text-muted: #c3b5e0;
+}
