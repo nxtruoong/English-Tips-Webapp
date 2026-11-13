@@ -15,6 +15,7 @@ import {
   Wrench,
   WalletCards,
   MessageSquareText,
+  Users,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -46,6 +47,7 @@ import { addCards, cleanInput, newCard, reviewCard, type CardInput } from './fla
 import { suggestedLessons, type Level } from './content/levels';
 import { FEEDBACK_FORM_URL, feedbackReady } from './config';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
+import { CommunityPage } from './pages/CommunityPage';
 
 const getRoute = () => location.hash.slice(1) || 'today';
 
@@ -244,9 +246,11 @@ export default function App() {
     ? 'practice'
     : route.startsWith('lesson/')
       ? 'courses'
-      : guideRoutes.includes(route)
-        ? 'guide'
-        : route;
+      : route.startsWith('community/')
+        ? 'community'
+        : guideRoutes.includes(route)
+          ? 'guide'
+          : route;
   useEffect(() => {
     // On phones the tab row scrolls; keep the current destination in view,
     // again once web fonts have loaded and widened the labels.
@@ -264,6 +268,7 @@ export default function App() {
     { id: 'practice', label: 'Luyện tập', Icon: LibraryBig },
     { id: 'cards', label: 'Từ vựng', Icon: WalletCards },
     { id: 'review', label: 'Ôn lại', Icon: History },
+    { id: 'community', label: 'Cộng đồng', Icon: Users },
     { id: 'tools', label: 'Công cụ', Icon: Wrench },
   ];
 
@@ -456,6 +461,9 @@ export default function App() {
             {route === 'methods' && <MethodsPage />}
             {route === 'resources' && <ResourcesPage />}
             {route === 'tools' && <ToolsPage />}
+            {(route === 'community' || route.startsWith('community/')) && (
+              <CommunityPage key={route} threadId={route.split('/')[1] || undefined} />
+            )}
             {route === 'start' && (
               <StartPage data={data} setLevel={setLevel} setGoal={setGoal} openLesson={openLesson} go={go} />
             )}
@@ -489,8 +497,10 @@ export default function App() {
               'cards',
               'start',
               'data',
+              'community',
               ...guideRoutes,
             ].includes(route) &&
+              !route.startsWith('community/') &&
               !route.startsWith('attempt/') &&
               !route.startsWith('lesson/') && (
                 <Empty
