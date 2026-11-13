@@ -1900,3 +1900,21 @@ main .page-heading {
   align-items: start;
   gap: 20px;
 }
+
+/* Today: stack instead of two uneven columns. Level panel full width, side cards in an even row below. */
+.today-grid {
+  display: flex !important;
+  flex-direction: column;
+  gap: 20px;
+}
+.today-grid .today-side {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: stretch;
+  gap: 20px;
+  position: static;
+}
+.today-grid .today-side > * {
+  margin: 0;
+  height: 100%;
+}
