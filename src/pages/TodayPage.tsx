@@ -214,6 +214,9 @@ export function TodayPage({
       <div className="today-grid">
         <div className="today-main">
           {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
+        </div>
+
+        <aside className="today-side">
           {weekTotal > 0 && (
             <section className="panel">
               <div className="panel-head">
@@ -243,9 +246,6 @@ export function TodayPage({
               </button>
             </section>
           )}
-        </div>
-
-        <aside className="today-side">
           <UitNote />
         </aside>
       </div>

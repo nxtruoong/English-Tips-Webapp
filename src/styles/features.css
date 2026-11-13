@@ -1886,3 +1886,17 @@ main .page-heading {
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 }
+
+/* Today: without a level panel the side column takes the full row, cards side by side */
+.today-main:empty {
+  display: none;
+}
+.today-grid:has(.today-main:empty) {
+  grid-template-columns: 1fr;
+}
+.today-grid:has(.today-main:empty) .today-side {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: start;
+  gap: 20px;
+}
