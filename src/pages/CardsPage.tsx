@@ -1,5 +1,5 @@
-import { useRef, useState, type FormEvent } from 'react';
-import { Check, Eye, Pencil, Plus, RotateCcw, Search, Trash2 } from 'lucide-react';
+import { useRef, useState, type FormEvent, type MouseEvent } from 'react';
+import { Check, Eye, Pencil, Plus, RotateCcw, Search, Trash2, Volume2 } from 'lucide-react';
 import {
   dueCards,
   findWord,
@@ -10,6 +10,7 @@ import {
   type Flashcard,
 } from '../flashcards';
 import { PageTitle, formatDate } from '../ui';
+import { sampleDecks } from '../content/sampleDecks';
 import { SampleDecks } from './SampleDecks';
 import type { Level } from '../content/levels';
 
@@ -104,6 +105,11 @@ function Review({
     const upcoming = cards.map(c => c.due).sort()[0];
     return (
       <section className="panel card-review done" aria-label="Ôn thẻ hôm nay" ref={panel} tabIndex={-1}>
+        {session && (
+          <div className="flip-celebrate" aria-hidden="true">
+            🎉
+          </div>
+        )}
         <h2>{session ? 'Đã ôn xong lượt này' : 'Không có thẻ cần ôn hôm nay'}</h2>
         {session && (
           <p>
@@ -140,50 +146,98 @@ function Review({
     setPosition(p => p + 1);
     refocus();
   }
+  function flip() {
+    if (!session) setSession(queue);
+    setShown(s => !s);
+  }
+  function speak(event: MouseEvent) {
+    event.stopPropagation();
+    try {
+      const utterance = new SpeechSynthesisUtterance(card!.word);
+      utterance.lang = 'en-US';
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    } catch {
+      // Speech not supported; the button simply does nothing.
+    }
+  }
+  const progress = Math.round((position / Math.max(queue.length, 1)) * 100);
   return (
-    <section className="panel card-review" aria-label="Ôn thẻ hôm nay" ref={panel}>
+    <section
+      className="panel card-review"
+      aria-label="Ôn thẻ hôm nay"
+      ref={panel}
+      tabIndex={-1}
+      onKeyDown={e => {
+        if ((e.target as HTMLElement).tagName === 'INPUT') return;
+        if (e.key === ' ') {
+          e.preventDefault();
+          flip();
+        } else if (shown && e.key === '1') answer(false);
+        else if (shown && e.key === '2') answer(true);
+      }}
+    >
       <div className="panel-head">
         <h2>Ôn hôm nay</h2>
         <span>
-          Thẻ {position + 1}/{queue.length} · {levelLabel(card.level)}
+          {position + 1}/{queue.length}
         </span>
       </div>
-      <p className="card-word" lang="en">
-        {card.word}
-      </p>
+      <div className="flip-progress" aria-hidden="true">
+        <span style={{ width: `${progress}%` }} />
+      </div>
+      <div className="flip-scene">
+        <button
+          key={card.id}
+          type="button"
+          className={shown ? 'flip-card flipped' : 'flip-card'}
+          onClick={flip}
+          aria-label={shown ? `${card.meaning}. Bấm để lật lại` : `${card.word}. Bấm để xem nghĩa`}
+        >
+          <span className="flip-face flip-front">
+            <span className="flip-level">{levelLabel(card.level)}</span>
+            <span className="flip-word" lang="en">
+              {card.word}
+            </span>
+            <span className="flip-hint">Bấm thẻ hoặc nhấn Space để lật</span>
+          </span>
+          <span className="flip-face flip-back">
+            <span className="flip-word small" lang="en">
+              {card.word}
+            </span>
+            <span className="flip-meaning">{card.meaning}</span>
+            {card.example && (
+              <span className="flip-example" lang="en">
+                “{card.example}”
+              </span>
+            )}
+          </span>
+        </button>
+        <button
+          type="button"
+          className="flip-speak"
+          onClick={speak}
+          aria-label="Nghe phát âm"
+          title="Nghe phát âm"
+        >
+          <Volume2 size={18} />
+        </button>
+      </div>
       {shown ? (
-        <>
-          <p className="card-meaning">{card.meaning}</p>
-          {card.example && (
-            <p className="card-example" lang="en">
-              {card.example}
-            </p>
-          )}
-          <div className="actions card-answer">
-            <button onClick={() => answer(false)}>
-              <RotateCcw size={18} />
-              Quên · ôn lại ngày mai
-            </button>
-            <button className="primary" onClick={() => answer(true)}>
-              <Check size={18} />
-              Nhớ · ôn lại sau {intervals[Math.min(card.level, intervals.length - 1)]} ngày
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <button
-            className="primary"
-            onClick={() => {
-              if (!session) setSession(queue);
-              setShown(true);
-              refocus();
-            }}
-          >
-            <Eye size={18} />
-            Hiện nghĩa
+        <div className="flip-answers">
+          <button className="flip-forgot" onClick={() => answer(false)}>
+            <RotateCcw size={18} /> Quên
+            <small>ôn lại ngày mai · phím 1</small>
           </button>
-        </>
+          <button className="flip-remembered" onClick={() => answer(true)}>
+            <Check size={18} /> Nhớ
+            <small>sau {intervals[Math.min(card.level, intervals.length - 1)]} ngày · phím 2</small>
+          </button>
+        </div>
+      ) : (
+        <button className="primary flip-reveal" onClick={flip}>
+          <Eye size={18} /> Hiện nghĩa
+        </button>
       )}
     </section>
   );
@@ -212,6 +266,9 @@ export function CardsPage({
   const [editing, setEditing] = useState<string>();
   const [query, setQuery] = useState('');
   const [deckMessage, setDeckMessage] = useState('');
+  const [tab, setTab] = useState<'review' | 'cards' | 'decks'>(cards.length ? 'review' : 'decks');
+  const [adding, setAdding] = useState(false);
+  const [group, setGroup] = useState('all');
   const decks = (intro: boolean) => (
     <SampleDecks
       cards={cards}
@@ -220,14 +277,23 @@ export function CardsPage({
       onAdd={(inputs, title) => {
         const added = onAddDeck(inputs);
         setDeckMessage(`Đã thêm ${added} thẻ từ bộ “${title}”.`);
+        setTab('review');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     />
   );
   const due = dueCards(cards, todayKey).length;
   const needle = query.trim().toLocaleLowerCase('vi');
+  // Cards do not store their deck, so group by matching the word against the sample decks.
+  const groupOf = (card: Flashcard) => {
+    const word = card.word.trim().toLowerCase();
+    const deck = sampleDecks.find(d => d.cards.some(c => c.word.trim().toLowerCase() === word));
+    return deck ? deck.title : card.lessonId ? 'Từ bài học' : 'Tự thêm';
+  };
+  const groups = [...new Set(cards.map(groupOf))];
   const shown = [...cards]
     .reverse()
+    .filter(c => group === 'all' || groupOf(c) === group)
     .filter(c => !needle || `${c.word} ${c.meaning}`.toLocaleLowerCase('vi').includes(needle));
   const duplicate = (word: string, except?: string) => {
     const found = findWord(cards, word);
@@ -235,98 +301,142 @@ export function CardsPage({
   };
   return (
     <>
-      <PageTitle title="Từ vựng" description={`Ôn lại sau ${intervals.join('–')} ngày.`} />
+      <PageTitle title="Từ vựng" />
       {deckMessage && (
         <p role="status" className="notice deck-message">
           {deckMessage}
         </p>
       )}
-      {cards.length === 0 && decks(true)}
-      <div className="cards-layout">
-        <Review cards={cards} todayKey={todayKey} onReview={onReview} />
-        <section className="panel" aria-labelledby="add-card-title">
-          <div className="panel-head">
-            <h2 id="add-card-title">Thêm thẻ</h2>
-            <span>{due} thẻ cần ôn hôm nay</span>
-          </div>
-          <CardForm
-            idPrefix="new-card"
-            submitLabel="Thêm thẻ"
-            onSubmit={onAdd}
-            duplicate={w => duplicate(w)}
-          />
-        </section>
+      <div className="cards-tabs" role="tablist" aria-label="Từ vựng">
+        {(
+          [
+            ['review', `Ôn tập${due ? ` (${due})` : ''}`],
+            ['cards', `Thẻ của tôi (${cards.length})`],
+            ['decks', 'Bộ thẻ mẫu'],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            role="tab"
+            aria-selected={tab === id}
+            className={tab === id ? 'selected' : ''}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
-
-      <section className="card-list" aria-labelledby="card-list-title">
-        <div className="section-heading">
-          <h2 id="card-list-title">Bộ thẻ của bạn</h2>
-          <span>{cards.length} thẻ</span>
+      {tab === 'review' && (
+        <div className="cards-review-wrap">
+          <Review cards={cards} todayKey={todayKey} onReview={onReview} />
         </div>
-        {cards.length > 5 && (
-          <label className="search card-search">
-            <Search size={17} aria-hidden="true" />
-            <span className="visually-hidden">Tìm thẻ</span>
-            <input
-              type="search"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Tìm từ…"
-            />
-          </label>
-        )}
-        {cards.length === 0 ? (
-          <p className="muted">Chưa có thẻ nào.</p>
-        ) : shown.length === 0 ? (
-          <p className="muted">Không có thẻ khớp “{query}”.</p>
-        ) : (
-          <ul className="outcome-list">
-            {shown.map(card => (
-              <li key={card.id} className="card-row">
-                {editing === card.id ? (
-                  <CardForm
-                    idPrefix={`edit-${card.id}`}
-                    initial={card}
-                    submitLabel="Lưu"
-                    onSubmit={input => {
-                      onEdit(card.id, input);
-                      setEditing(undefined);
-                    }}
-                    onCancel={() => setEditing(undefined)}
-                    duplicate={w => duplicate(w, card.id)}
-                  />
-                ) : (
-                  <>
-                    <div className="card-row-main">
-                      <strong lang="en">{card.word}</strong>
-                      <span>{card.meaning}</span>
-                      {card.example && <small lang="en">{card.example}</small>}
-                    </div>
-                    <span className="card-row-meta">
-                      {levelLabel(card.level)}
-                      <small>{card.due <= todayKey ? 'Cần ôn hôm nay' : `Ôn ${dayLabel(card.due)}`}</small>
-                    </span>
-                    <span className="card-row-actions">
-                      <button onClick={() => setEditing(card.id)} aria-label={`Sửa thẻ ${card.word}`}>
-                        <Pencil size={16} />
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (confirm(`Xóa thẻ “${card.word}”?`)) onDelete(card.id);
-                        }}
-                        aria-label={`Xóa thẻ ${card.word}`}
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </span>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      {cards.length > 0 && decks(false)}
+      )}
+      {tab === 'decks' && decks(cards.length === 0)}
+      {tab === 'cards' && (
+        <section className="card-list" aria-labelledby="card-list-title">
+          <div className="card-list-bar">
+            {adding ? null : (
+              <button className="primary" onClick={() => setAdding(true)}>
+                <Plus size={17} /> Thêm thẻ
+              </button>
+            )}
+            {cards.length > 5 && (
+              <label className="search card-search">
+                <Search size={17} aria-hidden="true" />
+                <span className="visually-hidden">Tìm thẻ</span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  placeholder="Tìm từ…"
+                />
+              </label>
+            )}
+          </div>
+          {groups.length > 1 && (
+            <div className="skill-tabs card-groups" role="group" aria-label="Lọc theo bộ thẻ">
+              {['all', ...groups].map(g => (
+                <button
+                  key={g}
+                  className={group === g ? 'selected' : ''}
+                  aria-pressed={group === g}
+                  onClick={() => setGroup(g)}
+                >
+                  {g === 'all' ? 'Tất cả' : g}{' '}
+                  <span className="library-count">
+                    {g === 'all' ? cards.length : cards.filter(c => groupOf(c) === g).length}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+          {adding && (
+            <div className="panel card-add">
+              <CardForm
+                idPrefix="new-card"
+                submitLabel="Thêm thẻ"
+                onSubmit={onAdd}
+                onCancel={() => setAdding(false)}
+                duplicate={w => duplicate(w)}
+              />
+            </div>
+          )}
+          <h2 id="card-list-title" className="visually-hidden">
+            Thẻ của tôi
+          </h2>
+
+          {cards.length === 0 ? (
+            <p className="muted">Chưa có thẻ nào.</p>
+          ) : shown.length === 0 ? (
+            <p className="muted">Không có thẻ khớp “{query}”.</p>
+          ) : (
+            <ul className="outcome-list card-grid">
+              {shown.map(card => (
+                <li key={card.id} className="card-row">
+                  {editing === card.id ? (
+                    <CardForm
+                      idPrefix={`edit-${card.id}`}
+                      initial={card}
+                      submitLabel="Lưu"
+                      onSubmit={input => {
+                        onEdit(card.id, input);
+                        setEditing(undefined);
+                      }}
+                      onCancel={() => setEditing(undefined)}
+                      duplicate={w => duplicate(w, card.id)}
+                    />
+                  ) : (
+                    <>
+                      <div className="card-row-main">
+                        <strong lang="en">{card.word}</strong>
+                        <span>{card.meaning}</span>
+                        {card.example && <small lang="en">{card.example}</small>}
+                      </div>
+                      <span className="card-row-meta">
+                        {levelLabel(card.level)}
+                        <small>{card.due <= todayKey ? 'Cần ôn hôm nay' : `Ôn ${dayLabel(card.due)}`}</small>
+                      </span>
+                      <span className="card-row-actions">
+                        <button onClick={() => setEditing(card.id)} aria-label={`Sửa thẻ ${card.word}`}>
+                          <Pencil size={16} />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Xóa thẻ “${card.word}”?`)) onDelete(card.id);
+                          }}
+                          aria-label={`Xóa thẻ ${card.word}`}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </span>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </>
   );
 }

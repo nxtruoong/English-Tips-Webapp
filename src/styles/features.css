@@ -1467,3 +1467,358 @@ a.feedback-button:hover {
     width: 100%;
   }
 }
+
+/* Flashcard review: 3D flip card */
+.flip-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.flip-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: inherit;
+  transition: width 0.4s ease;
+}
+.flip-scene {
+  position: relative;
+  width: 100%;
+  align-self: stretch;
+  box-sizing: border-box;
+  perspective: 1200px;
+  margin-bottom: 18px;
+}
+.flip-card {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  padding: 0;
+  border: 0;
+  background: none;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.3, 1.3, 0.5, 1);
+  animation: flip-in 0.35s ease-out;
+}
+.flip-card:hover {
+  background: none;
+}
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 24px;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-hover);
+  text-align: center;
+}
+.flip-front {
+  background: linear-gradient(145deg, var(--sheet), var(--tint));
+}
+.flip-back {
+  background: linear-gradient(145deg, var(--tint), var(--tint-strong));
+  transform: rotateY(180deg);
+}
+.flip-level {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.flip-word {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+.flip-word.small {
+  font-size: var(--text-lg);
+  color: var(--muted);
+}
+.flip-meaning {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+.flip-example {
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--text);
+  max-width: 46ch;
+}
+.flip-hint {
+  position: absolute;
+  bottom: 14px;
+  font-size: var(--text-xs);
+  color: var(--placeholder);
+}
+.flip-speak {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-height: 38px;
+  width: 38px;
+  padding: 0;
+  border-radius: 50%;
+  z-index: 2;
+}
+.flip-reveal {
+  width: 100%;
+}
+.flip-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  animation: flip-in 0.3s ease-out;
+}
+.flip-answers button {
+  flex-wrap: wrap;
+  font-weight: 600;
+  min-height: 56px;
+}
+.flip-answers small {
+  width: 100%;
+  font-weight: 400;
+  font-size: var(--text-xs);
+  opacity: 0.8;
+}
+.flip-forgot,
+.flip-forgot:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-ink);
+}
+.flip-remembered,
+.flip-remembered:hover {
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+.flip-forgot:hover,
+.flip-remembered:hover {
+  border-color: currentColor;
+}
+.flip-celebrate {
+  font-size: 44px;
+  animation: pop 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes pop {
+  from {
+    transform: scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-card,
+  .flip-answers,
+  .flip-celebrate,
+  .flip-progress span {
+    animation: none;
+    transition: none;
+  }
+}
+
+.flip-answers,
+.flip-reveal {
+  width: 100%;
+  align-self: stretch;
+}
+
+/* Vocabulary tabs: one job per view, no long scroll */
+.cards-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.cards-tabs button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.cards-tabs button.selected {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.cards-review-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.card-list-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.card-list-bar .search {
+  margin-left: auto;
+}
+.card-add {
+  margin-bottom: 16px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+.card-grid .card-row {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--sheet);
+  padding: 12px 14px;
+  margin: 0;
+}
+/* Same height before and after flipping so the panel does not jump. */
+.flip-reveal,
+.flip-answers button {
+  min-height: 64px;
+}
+/* Grid tiles stack vertically: word on top, status and actions in one row below. */
+.card-grid .card-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'main main'
+    'meta actions';
+  align-items: center;
+  gap: 10px;
+}
+.card-grid .card-row-main {
+  grid-area: main;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  overflow-wrap: break-word;
+}
+.card-grid .card-row-main strong {
+  font-size: var(--text-lg);
+}
+.card-grid .card-row-meta {
+  grid-area: meta;
+  text-align: left;
+  align-items: flex-start;
+}
+.card-grid .card-row-actions {
+  grid-area: actions;
+}
+.card-grid .card-row-actions button {
+  min-height: 36px;
+  width: 36px;
+  padding: 0;
+}
+.card-grid .card-row > form {
+  grid-column: 1 / -1;
+}
+
+/* Vocabulary page: keep the review card above the fold */
+.cards-tabs {
+  margin-bottom: 14px;
+}
+.deck-message {
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: var(--text-sm);
+}
+.cards-review-wrap .card-review {
+  padding: 16px 18px;
+}
+.cards-review-wrap .panel-head {
+  margin-bottom: 8px;
+}
+.cards-review-wrap .flip-card {
+  min-height: 210px;
+}
+.cards-review-wrap .flip-scene {
+  margin-bottom: 12px;
+}
+.card-groups {
+  margin-bottom: 12px;
+}
+
+/* My cards: the list scrolls inside its own box, the page stays put */
+.card-grid {
+  max-height: calc(100dvh - 300px);
+  min-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding: 4px 6px 4px 0;
+  scrollbar-gutter: stable;
+}
+@media (max-width: 760px) {
+  .card-grid {
+    max-height: 65dvh;
+  }
+}
+
+/* Tighter page headings on every page */
+.page-heading,
+main .page-heading {
+  padding: 0 0 12px;
+  margin-bottom: 16px;
+}
+.page-heading h1 {
+  margin-bottom: 4px;
+}
+.page-heading h1:only-child {
+  margin-bottom: 0;
+}
+
+/* Vocabulary tabs fit one screen: lists scroll inside their own box */
+.card-grid {
+  max-height: calc(100dvh - 330px);
+}
+.sample-decks .sample-grid {
+  max-height: calc(100dvh - 290px);
+  min-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding: 4px 6px 4px 0;
+  scrollbar-gutter: stable;
+}
+.sample-decks .section-heading {
+  margin-bottom: 10px;
+}
+@media (max-width: 760px) {
+  .sample-decks .sample-grid {
+    max-height: 65dvh;
+  }
+}
+/* Account for main padding, tabs, toolbar and footer so the page itself does not scroll. */
+.card-grid {
+  max-height: calc(100dvh - 450px);
+  min-height: 200px;
+}
+.sample-decks .sample-grid {
+  max-height: calc(100dvh - 400px);
+  min-height: 200px;
+}

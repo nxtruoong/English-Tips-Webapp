@@ -181,3 +181,119 @@
 
   color-scheme: dark;
 }
+
+/*
+ * Dark theme, less monochrome: neutral slate surfaces instead of violet-on-violet,
+ * so the violet accent, gold highlights and skill colours stand out.
+ */
+:root[data-theme='dark'] {
+  --paper: #111318;
+  --sheet: #1a1d24;
+  --surface-subtle: #20232b;
+  --surface-hover: #262a33;
+  --surface-muted: #23262e;
+
+  --ink: #f2f3f7;
+  --text: #d5d8e0;
+  --muted: #9ba1ae;
+  --placeholder: #7f8593;
+  --icon: #c6b1f7;
+  --icon-muted: #8b91a0;
+
+  --line: #2c3039;
+  --line-soft: #252830;
+  --line-strong: #3a3f4a;
+  --border-control: #474c58;
+  --border-control-hover: #6a7080;
+
+  --tint: #2a2440;
+  --tint-strong: #352c55;
+  --accent-border: #5c4494;
+
+  --nav: #0c0d11;
+  --nav-hover: #191b22;
+  --nav-active: #262033;
+  --nav-active-border: #3d3356;
+  --nav-line: #1f2128;
+  --nav-text: #e6e8ee;
+  --nav-text-muted: #a2a7b4;
+}
+
+/* Keep the violet rail in dark mode too, so both themes share the brand colour. */
+:root[data-theme='dark'] {
+  --nav: #1e1236;
+  --nav-hover: #2a1a48;
+  --nav-active: #3a2563;
+  --nav-active-border: #533a8a;
+  --nav-line: #2e1f4a;
+  --nav-text: #eee7fb;
+  --nav-text-muted: #c3b5e0;
+}
+
+/* Dark rail: an indigo-violet tone, distinct from the deep plum rail in light mode. */
+:root[data-theme='dark'] {
+  --nav: #2a1d66;
+  --nav-hover: #36277d;
+  --nav-active: #46339a;
+  --nav-active-border: #6650c0;
+  --nav-line: #3a2c7a;
+  --nav-text: #f0ecff;
+  --nav-text-muted: #c8bff0;
+}
+
+/* Softer, less saturated dusky violet for the dark rail. */
+:root[data-theme='dark'] {
+  --nav: #29243d;
+  --nav-hover: #332d4a;
+  --nav-active: #3f3759;
+  --nav-active-border: #574d78;
+  --nav-line: #36304c;
+  --nav-text: #ece9f4;
+  --nav-text-muted: #b8b2cc;
+}
+
+/* Dark rail picks up the dark-mode accent (#b794ff) for the current item. */
+:root[data-theme='dark'] {
+  --nav-accent: #b794ff;
+  --nav-active: #362c52;
+  --nav-active-border: #b794ff;
+}
+
+/* Dark mode: lavender rail in the dark-mode accent colour, with dark text for contrast. */
+:root[data-theme='dark'] {
+  --nav: #b794ff;
+  --nav-hover: #c6abff;
+  --nav-active: #d8c6ff;
+  --nav-active-border: #8b5cf6;
+  --nav-line: #a07ff0;
+  --nav-text: #1d1238;
+  --nav-text-muted: #2f2055;
+  --nav-strong: #140a2b;
+  --nav-accent: #4c1d95;
+}
+
+/* Final dark rail: a deep violet of the same hue as #b794ff, moderately saturated. */
+:root[data-theme='dark'] {
+  --nav: #32265a;
+  --nav-hover: #3d2f6b;
+  --nav-active: #4a3a80;
+  --nav-active-border: #b794ff;
+  --nav-line: #43367a;
+  --nav-text: #efe9ff;
+  --nav-text-muted: #c9bdf0;
+  --nav-strong: #fff;
+  --nav-accent: #d4bfff;
+}
+
+/* Dark rail matches the light-mode rail exactly. */
+:root[data-theme='dark'] {
+  --nav: #24133f;
+  --nav-hover: #311c54;
+  --nav-active: #3e2569;
+  --nav-active-border: #5b3b93;
+  --nav-line: #3b2a58;
+  --nav-text: #eee7fb;
+  --nav-text-muted: #c8bce2;
+  --nav-strong: #fff;
+  --nav-accent: #fcd34d;
+}
