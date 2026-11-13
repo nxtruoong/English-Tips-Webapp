@@ -1253,3 +1253,39 @@ a.feedback-button:hover {
 .flip-answers button {
   min-height: 64px;
 }
+/* Grid tiles stack vertically: word on top, status and actions in one row below. */
+.card-grid .card-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'main main'
+    'meta actions';
+  align-items: center;
+  gap: 10px;
+}
+.card-grid .card-row-main {
+  grid-area: main;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  overflow-wrap: break-word;
+}
+.card-grid .card-row-main strong {
+  font-size: var(--text-lg);
+}
+.card-grid .card-row-meta {
+  grid-area: meta;
+  text-align: left;
+  align-items: flex-start;
+}
+.card-grid .card-row-actions {
+  grid-area: actions;
+}
+.card-grid .card-row-actions button {
+  min-height: 36px;
+  width: 36px;
+  padding: 0;
+}
+.card-grid .card-row > form {
+  grid-column: 1 / -1;
+}
