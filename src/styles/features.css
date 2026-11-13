@@ -119,11 +119,6 @@
   padding: 1px 7px;
   white-space: nowrap;
 }
-.speak-intro {
-  color: var(--muted);
-  font-size: var(--text-sm);
-  margin: -4px 0 14px;
-}
 .speak-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -217,10 +212,6 @@
   border-left: 3px solid var(--accent-border);
   padding-left: 12px;
   margin: 0;
-}
-.card-hint {
-  font-size: var(--text-sm);
-  color: var(--muted);
 }
 .card-answer {
   margin-top: auto;
@@ -502,22 +493,6 @@
   font-size: var(--text-2xl);
   color: var(--accent);
 }
-.quiz-preview {
-  font-size: var(--text-sm);
-  padding: 12px 16px;
-  background: var(--surface-subtle);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 var(--radius-tile) var(--radius-tile) 0;
-}
-.quiz-preview strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-.quiz-preview ul {
-  margin: 6px 0 0;
-  padding-left: 18px;
-  color: var(--text);
-}
 .study-settings > .text-button {
   align-self: flex-start;
 }
@@ -663,9 +638,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.site-footer > span > span {
-  display: block;
-}
 .feedback-button {
   display: inline-flex;
   align-items: center;
@@ -696,12 +668,6 @@ a.feedback-button:hover {
 }
 .sample-decks.intro {
   margin: 0 0 30px;
-}
-.sample-note {
-  font-size: var(--text-sm);
-  color: var(--muted);
-  margin: -4px 0 14px;
-  max-width: 75ch;
 }
 .sample-grid {
   display: grid;
@@ -780,4 +746,9 @@ a.feedback-button:hover {
 }
 .deck-message {
   margin: 0 0 18px;
+}
+
+/* The sidebar note was removed; keep the theme, collapse and device controls at the bottom. */
+.sidebar .theme-toggle {
+  margin-top: auto;
 }

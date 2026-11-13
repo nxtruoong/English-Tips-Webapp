@@ -11,7 +11,7 @@ export function ResourcesPage() {
       <GuideTabs current="resources" />
       <PageTitle
         title="Tài nguyên học miễn phí"
-        description={`${total} công cụ dùng được mà không tốn tiền, xếp theo việc cần làm. “Có bản miễn phí” nghĩa là có gói trả phí nhưng bản miễn phí vẫn dùng được; giá và giới hạn có thể thay đổi.`}
+        description={`${total} công cụ, xếp theo việc cần làm. Giá và giới hạn có thể thay đổi.`}
       />
       <div className="outcome-notes budget-notes">
         {budgets.map(b => (

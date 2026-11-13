@@ -92,13 +92,9 @@ export function DataSettings({
   }
   return (
     <>
-      <PageTitle
-        title="Cài đặt & dữ liệu"
-        description="Trình độ, mục tiêu mỗi ngày, và dữ liệu học tập lưu trong trình duyệt này."
-      />
+      <PageTitle title="Cài đặt & dữ liệu" />
       <section className="panel study-settings" aria-labelledby="settings-title">
         <h2 id="settings-title">Trình độ & mục tiêu</h2>
-        <p>Trình độ chỉ dùng để gợi ý thứ tự bài và mẹo học; mọi bài vẫn mở.</p>
         {quiz ? (
           <LevelQuiz
             onConfirm={level => {
@@ -111,7 +107,7 @@ export function DataSettings({
           <>
             <LevelPicker level={data.level} onPick={setLevel} />
             <button className="text-button" onClick={() => setQuiz(true)}>
-              Chưa chắc? Trả lời 5 câu để được gợi ý
+              Chưa chắc? Trả lời 5 câu hỏi nhanh
             </button>
           </>
         )}

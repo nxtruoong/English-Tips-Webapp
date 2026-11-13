@@ -50,10 +50,7 @@ export function GuideTabs({ current }: { current: string }) {
 export function GuidePage() {
   return (
     <>
-      <PageTitle
-        title="Cẩm nang"
-        description="Thông tin để tự quyết định học gì và học thế nào: chuẩn đầu ra của trường, phương pháp học, và công cụ miễn phí."
-      />
+      <PageTitle title="Cẩm nang" />
       <div className="guide-cards">
         {tabs.map(({ id, label, text, Icon }) => (
           <a key={id} href={`#${id}`} className="guide-card">

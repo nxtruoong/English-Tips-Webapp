@@ -15,10 +15,7 @@ export function ToolsPage() {
   const total = toolGroups.reduce((n, g) => n + g.items.length, 0);
   return (
     <>
-      <PageTitle
-        title="Công cụ miễn phí"
-        description={`${total} công cụ dùng được mà không tốn tiền, xếp theo việc cần làm. Một số có gói trả phí, nhưng bản miễn phí đã đủ dùng; giới hạn có thể thay đổi.`}
-      />
+      <PageTitle title="Công cụ miễn phí" description={`${total} công cụ, dùng bản miễn phí là đủ.`} />
       <div className="skill-tabs tool-filters" role="group" aria-label="Lọc theo kỹ năng">
         {(['all', ...toolSkills] as const).map(option => (
           <button
@@ -61,9 +58,6 @@ export function ToolsPage() {
         <h2 className="outcome-group-title" id="speak-title">
           Nơi luyện nói miễn phí
         </h2>
-        <p className="speak-intro">
-          Ngại nói là chuyện thường gặp. Bắt đầu ở nơi ít áp lực, nói ngắn nhưng đều đặn.
-        </p>
         <div className="speak-grid">
           {speakingPlaces.map(place => (
             <article key={place.title} className="panel">
@@ -81,9 +75,6 @@ export function ToolsPage() {
           ))}
         </div>
       </section>
-      <p className="small">
-        Danh sách đầy đủ hơn, kèm ghi chú giá, có ở <a href="#resources">Cẩm nang › Tài nguyên miễn phí</a>.
-      </p>
     </>
   );
 }

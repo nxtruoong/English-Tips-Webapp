@@ -293,14 +293,6 @@ export default function App() {
             </a>
           ))}
         </nav>
-        <div className="sidebar-note">
-          <strong>IELTS Academic</strong>
-          <span>
-            Luyện theo kỹ năng.
-            <br />
-            Theo dõi bài đã làm.
-          </span>
-        </div>
         <button
           className="sidebar-toggle theme-toggle"
           onClick={toggleTheme}
@@ -490,10 +482,7 @@ export default function App() {
           </>
         )}
         <footer className="site-footer">
-          <span>
-            Hiên · Luyện tập độc lập, không liên kết với IELTS.{' '}
-            <span>Dữ liệu được lưu trên thiết bị này.</span>
-          </span>
+          <span>Hiên · Không liên kết với IELTS.</span>
           {feedbackReady() ? (
             <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
               <MessageSquareText size={16} aria-hidden="true" />

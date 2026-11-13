@@ -267,7 +267,7 @@ function QuickWord({ cards, onAdd }: { cards: Flashcard[]; onAdd: (input: CardIn
       </button>
       {added && (
         <p role="status" className="small">
-          Đã thêm “{added}”. Ôn ở mục <a href="#cards">Từ vựng</a>.
+          Đã thêm “{added}”.
         </p>
       )}
       {open && (
@@ -347,7 +347,6 @@ export default function CourseReader({
           placeholder="Ghi câu trả lời, dàn ý hoặc điểm cần nhớ…"
           onChange={e => onChange({ notes: { ...progress.notes, [`${stage}/${key}`]: e.target.value } })}
         />
-        <span className="small">Tự lưu trên thiết bị · đối chiếu ở bước Đáp án & xem lại.</span>
       </div>
     );
   }
@@ -458,7 +457,7 @@ export default function CourseReader({
                   <FileText size={18} />
                   <span>
                     <strong>{a.title}</strong>
-                    <small>Workspace luyện tập · {a.minutes} phút</small>
+                    <small>{a.minutes} phút</small>
                   </span>
                   <ArrowRight size={17} />
                 </button>

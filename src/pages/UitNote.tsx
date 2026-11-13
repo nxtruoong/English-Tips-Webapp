@@ -28,14 +28,10 @@ export function UitNote() {
         ))}
         .
       </p>
-      <p>
-        Bài trên Hiên theo dạng IELTS, nhưng luyện cùng 4 kỹ năng nền tảng mà TOEIC kiểm tra: nghe lấy thông
-        tin, đọc tìm bằng chứng, nói trôi chảy và viết mạch lạc. Trước kỳ thi, làm thêm đề TOEIC để quen định
-        dạng.
-      </p>
+      <p>Bài trên Hiên theo dạng IELTS nhưng vẫn luyện đủ 4 kỹ năng mà TOEIC kiểm tra.</p>
       <div className="uit-links">
         <a href="#outcomes">
-          Chuẩn của các chương trình khác <ArrowRight size={15} aria-hidden="true" />
+          Chuẩn các trường khác <ArrowRight size={15} aria-hidden="true" />
         </a>
         <a href="#tools">
           Đề TOEIC miễn phí <ArrowRight size={15} aria-hidden="true" />

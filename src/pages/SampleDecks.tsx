@@ -1,7 +1,7 @@
 import { Check, Plus } from 'lucide-react';
 import { missingCount, type CardInput, type Flashcard } from '../flashcards';
 import { sampleDecks } from '../content/sampleDecks';
-import { levelIds, levelPaths, type Level } from '../content/levels';
+import type { Level } from '../content/levels';
 
 /** Starter decks the learner can copy into their own cards. Decks for their level come first. */
 export function SampleDecks({
@@ -21,13 +21,9 @@ export function SampleDecks({
   return (
     <section className={intro ? 'sample-decks intro' : 'sample-decks'} aria-labelledby="sample-title">
       <div className="section-heading">
-        <h2 id="sample-title">{intro ? 'Bắt đầu nhanh với bộ thẻ mẫu' : 'Bộ thẻ mẫu'}</h2>
+        <h2 id="sample-title">Bộ thẻ mẫu</h2>
         <span>{decks.length} bộ</span>
       </div>
-      <p className="sample-note">
-        Thêm cả bộ vào thẻ của bạn rồi ôn như thẻ tự tạo. Từ đã có sẽ được bỏ qua; sửa hoặc xóa từng thẻ tùy
-        ý.
-      </p>
       <div className="sample-grid">
         {decks.map(deck => {
           const missing = missingCount(cards, deck.cards);
@@ -36,16 +32,10 @@ export function SampleDecks({
             <article key={deck.id} className={suits ? 'panel sample-deck suits' : 'panel sample-deck'}>
               <div className="sample-head">
                 <h3>{deck.title}</h3>
-                {suits && <span className="sample-badge">Hợp trình độ của bạn</span>}
+                {suits && <span className="sample-badge">Hợp với bạn</span>}
               </div>
               <p>{deck.description}</p>
-              <small>
-                {deck.cards.length} từ · Phù hợp:{' '}
-                {levelIds
-                  .filter(l => deck.levels.includes(l))
-                  .map(l => levelPaths[l].label)
-                  .join(', ')}
-              </small>
+              <small>{deck.cards.length} từ</small>
               <details>
                 <summary>Xem trước</summary>
                 <ul>

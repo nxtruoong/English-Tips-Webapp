@@ -22,11 +22,11 @@ export const formatDate = (date: string) =>
     new Date(date),
   );
 
-export function PageTitle({ title, description }: { title: string; description: string }) {
+export function PageTitle({ title, description }: { title: string; description?: string }) {
   return (
     <header className="page-heading">
       <h1>{title}</h1>
-      <p>{description}</p>
+      {description && <p>{description}</p>}
     </header>
   );
 }

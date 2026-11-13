@@ -32,7 +32,7 @@ export function PracticePage({
   const visibleActivities = filterActivities(activities, { skill: filter, part, duration, query });
   return (
     <>
-      <PageTitle title="Thư viện bài luyện" description="Lọc theo kỹ năng, dạng bài và thời lượng." />
+      <PageTitle title="Thư viện bài luyện" />
       <button className="text-button" onClick={() => go('courses')}>
         Học lý thuyết, hướng dẫn và bài tập theo lộ trình
         <ArrowRight size={17} />

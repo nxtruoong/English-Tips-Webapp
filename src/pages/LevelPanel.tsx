@@ -127,7 +127,6 @@ export function LevelQuiz({
   const recommended = levelFromAnswers(answers);
   const chosen = override || recommended;
   const path = levelPaths[chosen];
-  const first = lessonIndex.find(l => l.id === suggestedLessons(chosen, {})[0]);
   const yes = answers.filter(Boolean).length;
   return (
     <div className="level-quiz result" ref={box}>
@@ -135,21 +134,8 @@ export function LevelQuiz({
         Bạn trả lời “Đúng” {yes}/{levelQuestions.length} câu. Hiên gợi ý:
       </p>
       <h3 tabIndex={-1}>{levelPaths[recommended].label}</h3>
-      <p className="level-note">{levelPaths[recommended].summary}</p>
-      <p className="quiz-kicker">Thấy chưa đúng? Chọn mức khác:</p>
+      <p className="quiz-kicker">Hoặc chọn mức khác:</p>
       <LevelPicker level={override} suggested={recommended} onPick={setOverride} />
-      <div className="quiz-preview">
-        <strong>Khi chọn “{path.label}”, trang Tổng quan sẽ:</strong>
-        <ul>
-          {first && (
-            <li>
-              Gợi ý bắt đầu với {first.skill} · {first.part} ({first.title})
-            </li>
-          )}
-          <li>Nhắc 3 cách học: {path.tips.map(t => t.title.toLocaleLowerCase('vi')).join(', ')}</li>
-          <li>Vẫn mở mọi bài; đổi lại bất cứ lúc nào trong Cài đặt</li>
-        </ul>
-      </div>
       <div className="actions">
         <button className="primary" onClick={() => onConfirm(chosen)}>
           <Check size={18} />
@@ -190,7 +176,7 @@ export function LevelPanel({
     return (
       <div className="level-later">
         <Compass size={18} aria-hidden="true" />
-        <span>Chưa chọn trình độ, nên lộ trình đang theo thứ tự mặc định.</span>
+        <span>Chưa chọn trình độ.</span>
         <button
           className="text-button"
           onClick={() => {
@@ -224,15 +210,11 @@ export function LevelPanel({
           <LevelQuiz onConfirm={pick} onCancel={() => setQuiz(false)} />
         ) : (
           <>
-            <p className="level-note">
-              Chọn mức gần đúng nhất để Hiên sắp thứ tự bài và gợi ý cách học. Không phải bài kiểm tra; mọi
-              bài vẫn mở.
-            </p>
             <LevelPicker onPick={pick} />
             <button className="level-unsure" onClick={() => setQuiz(true)}>
               <HelpCircle size={18} aria-hidden="true" />
               <span>
-                <strong>Chưa chắc?</strong> Trả lời {levelQuestions.length} câu Đúng/Chưa, khoảng 1 phút.
+                <strong>Chưa chắc?</strong> Trả lời {levelQuestions.length} câu hỏi nhanh
               </span>
               <ArrowRight size={16} aria-hidden="true" />
             </button>

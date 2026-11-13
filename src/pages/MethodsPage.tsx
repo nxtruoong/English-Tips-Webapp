@@ -65,7 +65,7 @@ export function MethodsPage() {
       <GuideTabs current="methods" />
       <PageTitle
         title="Phương pháp học tiếng Anh"
-        description="Chọn trình độ và quỹ thời gian để xem cách học phù hợp. Tổng hợp từ báo cáo nghiên cứu của nhóm về phương pháp và nền tảng học ngoại ngữ."
+        description="Chọn trình độ và quỹ thời gian để xem cách học phù hợp."
       />
 
       <section className="method-picker" aria-labelledby="picker-title">

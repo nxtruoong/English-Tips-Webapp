@@ -27,13 +27,7 @@ export function StudyStrip({
         <div>
           <span className="strip-label">Chuỗi ngày học</span>
           <strong className="strip-value">{streak} ngày</strong>
-          <small>
-            {streak === 0
-              ? 'Hoàn thành 1 bước hoặc 1 lượt luyện để bắt đầu chuỗi.'
-              : doneToday
-                ? `Hôm nay đã tính. Dài nhất: ${best} ngày.`
-                : `Học hôm nay để giữ chuỗi. Dài nhất: ${best} ngày.`}
-          </small>
+          {best > streak && <small>Dài nhất: {best} ngày</small>}
         </div>
       </div>
       <div className={met ? 'strip-cell goal met' : 'strip-cell goal'}>

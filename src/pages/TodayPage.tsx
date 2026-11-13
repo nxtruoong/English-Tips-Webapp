@@ -104,7 +104,6 @@ export function TodayPage({
       <header className="daily-heading">
         <div>
           <h1>Tổng quan học tập</h1>
-          <p>Học tiếp từ chỗ dừng, hoặc chọn kỹ năng muốn luyện.</p>
         </div>
         <span className="date">
           {new Intl.DateTimeFormat('vi-VN', {
@@ -124,11 +123,6 @@ export function TodayPage({
           <div>
             <span className="strip-label">Thẻ từ vựng cần ôn</span>
             <strong className="strip-value">{dueCount} thẻ</strong>
-            <small>
-              {data.cards.length
-                ? `${data.cards.length} thẻ trong bộ của bạn.`
-                : 'Chưa có thẻ. Thêm từ khi đọc bài học hoặc ở mục Từ vựng.'}
-            </small>
             <button className="text-button" onClick={() => go('cards')}>
               {dueCount ? 'Ôn ngay' : data.cards.length ? 'Xem bộ thẻ' : 'Thêm thẻ'} <ArrowRight size={16} />
             </button>

@@ -107,11 +107,11 @@ function Review({
         <h2>{session ? 'Đã ôn xong lượt này' : 'Không có thẻ cần ôn hôm nay'}</h2>
         {session && (
           <p>
-            Nhớ {result.remembered} thẻ · quên {result.forgotten} thẻ. Thẻ quên sẽ quay lại vào ngày mai.
+            Nhớ {result.remembered} thẻ · quên {result.forgotten} thẻ.
           </p>
         )}
         {!cards.length ? (
-          <p>Thêm vài từ ở khung bên cạnh. Thẻ mới cần ôn ngay trong ngày.</p>
+          <p>Chưa có thẻ nào.</p>
         ) : (
           upcoming && <p>Lần ôn tiếp theo: {upcoming <= todayKey ? 'hôm nay' : dayLabel(upcoming)}.</p>
         )}
@@ -172,7 +172,6 @@ function Review({
         </>
       ) : (
         <>
-          <p className="card-hint">Nhớ lại nghĩa trước, rồi mở đáp án để tự kiểm tra.</p>
           <button
             className="primary"
             onClick={() => {
@@ -220,7 +219,7 @@ export function CardsPage({
       intro={intro}
       onAdd={(inputs, title) => {
         const added = onAddDeck(inputs);
-        setDeckMessage(`Đã thêm ${added} thẻ từ bộ “${title}”. Thẻ mới cần ôn ngay hôm nay.`);
+        setDeckMessage(`Đã thêm ${added} thẻ từ bộ “${title}”.`);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     />
@@ -236,10 +235,7 @@ export function CardsPage({
   };
   return (
     <>
-      <PageTitle
-        title="Từ vựng"
-        description={`Tự thêm từ cần nhớ và ôn theo lịch lặp lại ngắt quãng: nhớ thì lên mức (${intervals.join('–')} ngày), quên thì về mức 1.`}
-      />
+      <PageTitle title="Từ vựng" description={`Ôn lại sau ${intervals.join('–')} ngày.`} />
       {deckMessage && (
         <p role="status" className="notice deck-message">
           {deckMessage}
@@ -280,10 +276,7 @@ export function CardsPage({
           </label>
         )}
         {cards.length === 0 ? (
-          <p className="muted">
-            Chưa có thẻ nào. Thêm một bộ thẻ mẫu ở trên, hoặc dùng nút “Thêm từ vựng” trong bài học để lưu
-            nhanh từ đang đọc.
-          </p>
+          <p className="muted">Chưa có thẻ nào.</p>
         ) : shown.length === 0 ? (
           <p className="muted">Không có thẻ khớp “{query}”.</p>
         ) : (
