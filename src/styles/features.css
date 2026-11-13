@@ -1019,3 +1019,171 @@ a.feedback-button:hover {
     font-size: var(--text-3xl);
   }
 }
+
+/* Flashcard review: 3D flip card */
+.flip-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.flip-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: inherit;
+  transition: width 0.4s ease;
+}
+.flip-scene {
+  position: relative;
+  perspective: 1200px;
+  margin-bottom: 18px;
+}
+.flip-card {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  padding: 0;
+  border: 0;
+  background: none;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.3, 1.3, 0.5, 1);
+  animation: flip-in 0.35s ease-out;
+}
+.flip-card:hover {
+  background: none;
+}
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 24px;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-hover);
+  text-align: center;
+}
+.flip-front {
+  background: linear-gradient(145deg, var(--sheet), var(--tint));
+}
+.flip-back {
+  background: linear-gradient(145deg, var(--tint), var(--tint-strong));
+  transform: rotateY(180deg);
+}
+.flip-level {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.flip-word {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.flip-word.small {
+  font-size: var(--text-lg);
+  color: var(--muted);
+}
+.flip-meaning {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+.flip-example {
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--text);
+  max-width: 46ch;
+}
+.flip-hint {
+  position: absolute;
+  bottom: 14px;
+  font-size: var(--text-xs);
+  color: var(--placeholder);
+}
+.flip-speak {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-height: 38px;
+  width: 38px;
+  padding: 0;
+  border-radius: 50%;
+  z-index: 2;
+}
+.flip-reveal {
+  width: 100%;
+}
+.flip-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  animation: flip-in 0.3s ease-out;
+}
+.flip-answers button {
+  flex-wrap: wrap;
+  font-weight: 600;
+  min-height: 56px;
+}
+.flip-answers small {
+  width: 100%;
+  font-weight: 400;
+  font-size: var(--text-xs);
+  opacity: 0.8;
+}
+.flip-forgot,
+.flip-forgot:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-ink);
+}
+.flip-remembered,
+.flip-remembered:hover {
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+.flip-forgot:hover,
+.flip-remembered:hover {
+  border-color: currentColor;
+}
+.flip-celebrate {
+  font-size: 44px;
+  animation: pop 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes pop {
+  from {
+    transform: scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-card,
+  .flip-answers,
+  .flip-celebrate,
+  .flip-progress span {
+    animation: none;
+    transition: none;
+  }
+}

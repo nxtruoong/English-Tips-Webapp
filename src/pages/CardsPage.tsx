@@ -1,5 +1,5 @@
-import { useRef, useState, type FormEvent } from 'react';
-import { Check, Eye, Pencil, Plus, RotateCcw, Search, Trash2 } from 'lucide-react';
+import { useRef, useState, type FormEvent, type MouseEvent } from 'react';
+import { Check, Eye, Pencil, Plus, RotateCcw, Search, Trash2, Volume2 } from 'lucide-react';
 import {
   dueCards,
   findWord,
@@ -104,6 +104,11 @@ function Review({
     const upcoming = cards.map(c => c.due).sort()[0];
     return (
       <section className="panel card-review done" aria-label="Ôn thẻ hôm nay" ref={panel} tabIndex={-1}>
+        {session && (
+          <div className="flip-celebrate" aria-hidden="true">
+            🎉
+          </div>
+        )}
         <h2>{session ? 'Đã ôn xong lượt này' : 'Không có thẻ cần ôn hôm nay'}</h2>
         {session && (
           <p>
@@ -140,50 +145,98 @@ function Review({
     setPosition(p => p + 1);
     refocus();
   }
+  function flip() {
+    if (!session) setSession(queue);
+    setShown(s => !s);
+  }
+  function speak(event: MouseEvent) {
+    event.stopPropagation();
+    try {
+      const utterance = new SpeechSynthesisUtterance(card!.word);
+      utterance.lang = 'en-US';
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    } catch {
+      // Speech not supported; the button simply does nothing.
+    }
+  }
+  const progress = Math.round((position / Math.max(queue.length, 1)) * 100);
   return (
-    <section className="panel card-review" aria-label="Ôn thẻ hôm nay" ref={panel}>
+    <section
+      className="panel card-review"
+      aria-label="Ôn thẻ hôm nay"
+      ref={panel}
+      tabIndex={-1}
+      onKeyDown={e => {
+        if ((e.target as HTMLElement).tagName === 'INPUT') return;
+        if (e.key === ' ') {
+          e.preventDefault();
+          flip();
+        } else if (shown && e.key === '1') answer(false);
+        else if (shown && e.key === '2') answer(true);
+      }}
+    >
       <div className="panel-head">
         <h2>Ôn hôm nay</h2>
         <span>
-          Thẻ {position + 1}/{queue.length} · {levelLabel(card.level)}
+          {position + 1}/{queue.length}
         </span>
       </div>
-      <p className="card-word" lang="en">
-        {card.word}
-      </p>
+      <div className="flip-progress" aria-hidden="true">
+        <span style={{ width: `${progress}%` }} />
+      </div>
+      <div className="flip-scene">
+        <button
+          key={card.id}
+          type="button"
+          className={shown ? 'flip-card flipped' : 'flip-card'}
+          onClick={flip}
+          aria-label={shown ? `${card.meaning}. Bấm để lật lại` : `${card.word}. Bấm để xem nghĩa`}
+        >
+          <span className="flip-face flip-front">
+            <span className="flip-level">{levelLabel(card.level)}</span>
+            <span className="flip-word" lang="en">
+              {card.word}
+            </span>
+            <span className="flip-hint">Bấm thẻ hoặc nhấn Space để lật</span>
+          </span>
+          <span className="flip-face flip-back">
+            <span className="flip-word small" lang="en">
+              {card.word}
+            </span>
+            <span className="flip-meaning">{card.meaning}</span>
+            {card.example && (
+              <span className="flip-example" lang="en">
+                “{card.example}”
+              </span>
+            )}
+          </span>
+        </button>
+        <button
+          type="button"
+          className="flip-speak"
+          onClick={speak}
+          aria-label="Nghe phát âm"
+          title="Nghe phát âm"
+        >
+          <Volume2 size={18} />
+        </button>
+      </div>
       {shown ? (
-        <>
-          <p className="card-meaning">{card.meaning}</p>
-          {card.example && (
-            <p className="card-example" lang="en">
-              {card.example}
-            </p>
-          )}
-          <div className="actions card-answer">
-            <button onClick={() => answer(false)}>
-              <RotateCcw size={18} />
-              Quên · ôn lại ngày mai
-            </button>
-            <button className="primary" onClick={() => answer(true)}>
-              <Check size={18} />
-              Nhớ · ôn lại sau {intervals[Math.min(card.level, intervals.length - 1)]} ngày
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <button
-            className="primary"
-            onClick={() => {
-              if (!session) setSession(queue);
-              setShown(true);
-              refocus();
-            }}
-          >
-            <Eye size={18} />
-            Hiện nghĩa
+        <div className="flip-answers">
+          <button className="flip-forgot" onClick={() => answer(false)}>
+            <RotateCcw size={18} /> Quên
+            <small>ôn lại ngày mai · phím 1</small>
           </button>
-        </>
+          <button className="flip-remembered" onClick={() => answer(true)}>
+            <Check size={18} /> Nhớ
+            <small>sau {intervals[Math.min(card.level, intervals.length - 1)]} ngày · phím 2</small>
+          </button>
+        </div>
+      ) : (
+        <button className="primary flip-reveal" onClick={flip}>
+          <Eye size={18} /> Hiện nghĩa
+        </button>
       )}
     </section>
   );
