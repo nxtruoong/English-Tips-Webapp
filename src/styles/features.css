@@ -1918,3 +1918,9 @@ main .page-heading {
   margin: 0;
   height: 100%;
 }
+.today-grid {
+  align-items: stretch;
+}
+.today-grid .today-side {
+  width: 100%;
+}
