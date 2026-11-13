@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 
 async function openActivity(page: Page, title: string) {
   await page.goto('/#practice');
-  await page.locator('.activity-row').filter({ hasText: title }).click();
+  await page.locator('.library-card').filter({ hasText: title }).getByRole('button').click();
   await expect(page.locator('.workspace-heading h1')).toHaveText(title);
 }
 async function saved(page: Page) {
@@ -161,10 +161,10 @@ test('keyboard skip preserves route; empty search is recoverable', async ({ page
   await expect(page.getByRole('main')).toBeFocused();
   await expect(page).toHaveURL(/#today$/);
   await page.getByRole('link', { name: 'Luyện tập', exact: true }).click();
-  await page.getByRole('textbox', { name: 'Tìm bài luyện' }).fill('unavailable-topic-xyz');
-  await expect(page.getByRole('heading', { name: 'Chưa tìm thấy bài phù hợp.' })).toBeVisible();
+  await page.getByRole('searchbox', { name: 'Tìm bài luyện' }).fill('unavailable-topic-xyz');
+  await expect(page.getByRole('heading', { name: 'Không có bài nào khớp.' })).toBeVisible();
   await page.getByRole('button', { name: 'Xóa bộ lọc' }).click();
-  await expect(page.locator('.activity-row')).toHaveCount(6);
+  await expect(page.locator('.library-card')).toHaveCount(6);
 });
 
 test('storage and audio failures are visible and do not claim saved work', async ({ page }) => {
