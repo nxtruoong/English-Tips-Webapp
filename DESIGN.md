@@ -218,11 +218,15 @@ Inputs and textareas use white fill, a fine field border, control corners, and t
 
 ### Navigation and filters
 
-Navigation combines line icons with visible labels. Active routes use a lighter graphite-blue fill, a border, white text, and `aria-current`. The four primary destinations are Hôm nay, Bài học, Luyện tập, and Ôn lại. Mobile navigation remains a labeled horizontal row. Skill filters use a cobalt selected fill and expose pressed state; workspace tabs also expose pressed state.
+Navigation combines line icons with visible labels. Active routes use a lighter graphite-blue fill, a border, white text, and `aria-current`. The primary destinations are Cẩm nang, Tổng quan, Bài học, Luyện tập, Từ vựng, Ôn lại, and Công cụ. Mobile navigation remains a labeled horizontal row; when the labels do not fit, the row scrolls on its own (never the page) and keeps the current destination in view. Skill filters use a cobalt selected fill and expose pressed state; workspace tabs also expose pressed state.
 
 ### Containers and indexes
 
 Dashboard panels use white backgrounds, fine cool borders, and panel corners. The skill and activity indexes use full-width action rows separated by fine rules; hover adds a faint blue fill. Counts show actual available activities. Study summary values show actual completed work and saved questions.
+
+### Daily progress, flashcards and level suggestions
+
+Tổng quan opens with a study strip of equal cells (streak, today's goal, due flashcards) inside one card, separated by fine rules. Values use tabular numerals; a met goal adds a green "Đã đạt" label rather than relying on color. A first-visit level picker uses three bordered choices with `aria-pressed`; after a choice, a suggestions panel pairs three tips with the next lessons. Flashcard review shows one card at a time: the meaning stays hidden until requested, then Quên/Nhớ state their next interval in text, and focus stays inside the card. Styles live in `src/styles/features.css` and use tokens only.
 
 ### Study workspace and feedback
 
