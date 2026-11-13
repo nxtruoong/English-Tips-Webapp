@@ -1959,3 +1959,9 @@ main .page-heading {
 .outcome-group-tabs {
   margin: 4px 0 16px;
 }
+
+/* Outcomes: description and caution use the full content width */
+.page-heading p,
+.outcome-caution {
+  max-width: none;
+}
