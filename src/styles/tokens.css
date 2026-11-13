@@ -229,3 +229,14 @@
   --nav-text: #eee7fb;
   --nav-text-muted: #c3b5e0;
 }
+
+/* Dark rail: an indigo-violet tone, distinct from the deep plum rail in light mode. */
+:root[data-theme='dark'] {
+  --nav: #2a1d66;
+  --nav-hover: #36277d;
+  --nav-active: #46339a;
+  --nav-active-border: #6650c0;
+  --nav-line: #3a2c7a;
+  --nav-text: #f0ecff;
+  --nav-text-muted: #c8bff0;
+}
