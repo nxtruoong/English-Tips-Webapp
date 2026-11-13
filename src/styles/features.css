@@ -1330,3 +1330,16 @@ a.feedback-button:hover {
     max-height: 65dvh;
   }
 }
+
+/* Tighter page headings on every page */
+.page-heading,
+main .page-heading {
+  padding: 0 0 12px;
+  margin-bottom: 16px;
+}
+.page-heading h1 {
+  margin-bottom: 4px;
+}
+.page-heading h1:only-child {
+  margin-bottom: 0;
+}
