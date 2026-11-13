@@ -271,3 +271,16 @@
   --nav-strong: #140a2b;
   --nav-accent: #4c1d95;
 }
+
+/* Final dark rail: a deep violet of the same hue as #b794ff, moderately saturated. */
+:root[data-theme='dark'] {
+  --nav: #32265a;
+  --nav-hover: #3d2f6b;
+  --nav-active: #4a3a80;
+  --nav-active-border: #b794ff;
+  --nav-line: #43367a;
+  --nav-text: #efe9ff;
+  --nav-text-muted: #c9bdf0;
+  --nav-strong: #fff;
+  --nav-accent: #d4bfff;
+}
