@@ -6,6 +6,7 @@ import { emptyData } from './domain';
 const today = '2026-11-13';
 const card = (patch: Partial<Flashcard> = {}): Flashcard => ({
   ...newCard({ word: 'carry out', meaning: 'thực hiện', example: '' }, today),
+  createdAt: '2026-11-13T02:00:00.000Z',
   ...patch,
 });
 
