@@ -26,8 +26,16 @@
 }
 .strip-cell > svg {
   flex-shrink: 0;
-  color: var(--icon);
-  margin-top: 2px;
+  box-sizing: content-box;
+  padding: 7px;
+  border-radius: 8px;
+  color: var(--accent);
+  background: var(--tint);
+}
+/* The streak is the one gold highlight in the strip. */
+.strip-cell:first-child > svg {
+  color: var(--gold-ink);
+  background: var(--gold-bg);
 }
 .strip-cell > div {
   display: flex;
@@ -56,6 +64,7 @@
 }
 .strip-cell.met > svg {
   color: var(--success);
+  background: var(--success-bg);
 }
 .strip-cell.met .meter > span {
   background: var(--success);

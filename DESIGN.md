@@ -2,22 +2,25 @@
 name: Hiên
 description: A practical technical field manual for independent IELTS practice.
 colors:
-  paper: "#f3f5f9"
+  paper: "#f6f3fb"
   sheet: "#fff"
-  ink: "#182438"
-  text: "#29364b"
-  muted: "#59677b"
-  line: "#dce2eb"
-  accent: "#2454d6"
-  accent-hover: "#1943b5"
-  tint: "#edf2ff"
-  nav: "#152034"
-  nav-text: "#e3eaf5"
+  ink: "#21163a"
+  text: "#30274a"
+  muted: "#5e5675"
+  line: "#e3dcef"
+  accent: "#6d28d9"
+  accent-hover: "#5b21b6"
+  tint: "#f3edff"
+  nav: "#24133f"
+  nav-text: "#eee7fb"
+  gold: "#f5b700"
+  gold-bg: "#fff6d6"
+  gold-ink: "#7a5300"
   danger: "#b02c2c"
-  focus: "#638dff"
-  button-border: "#bac5d6"
-  button-hover: "#eaf0fb"
-  field-border: "#b5c1d2"
+  focus: "#8b5cf6"
+  button-border: "#c2b6d8"
+  button-hover: "#e9dffd"
+  field-border: "#c2b6d8"
   correct: "#edf7f1"
   incorrect: "#fff1ed"
   error-bg: "#fff0ef"
@@ -106,7 +109,7 @@ components:
     padding: "9px 13px"
   lesson-stage-selected:
     backgroundColor: "{colors.tint}"
-    textColor: "#1c47b8"
+    textColor: "{colors.accent}"
     rounded: "{rounded.control}"
     padding: "12px 10px"
   lesson-content:
@@ -125,34 +128,39 @@ components:
 
 **Creative North Star: "The Technical Field Manual"**
 
-Hiên is a practical IELTS workspace for Vietnamese university students, primarily in technology-related majors. Graphite navigation, cool white workspaces, cobalt actions, and compact sans-serif headings make study tasks easy to locate and complete. Audience relevance comes from clarity and useful information, without gender stereotypes.
+Hiên is a practical IELTS workspace for Vietnamese university students, primarily in technology-related majors. Deep violet navigation, white workspaces on a lavender-tinted canvas, violet actions with gold highlights, and compact sans-serif headings make study tasks easy to locate and complete. Audience relevance comes from clarity and useful information, without gender stereotypes.
 
 The interface uses direct Vietnamese instructions alongside English learning material. Fine dividers, labeled steps, and reference panes support deliberate practice and evidence review. Tokens live in `src/styles/tokens.css`; component styles in `src/theme.css` reference them. Never add raw hex colors or pixel font sizes outside the token file.
 
 **Key Characteristics:**
 
-- Graphite navigation and white workspaces on a cool neutral background.
+- Deep violet navigation and white workspaces on a lavender-tinted background, with gold for a few highlights.
 - One sans-serif family with clear task hierarchy and measured density.
 - Flat lists, explicit states, and study information derived from actual work.
 
 ## Colors
 
-The palette combines cool slate neutrals with a single cobalt action accent. Frontmatter records the reusable source values.
+The palette pairs violet (the primary colour) with gold as a secondary highlight over lavender-tinted neutrals. Violet carries every action; gold marks only a few points of emphasis so it stays meaningful. Frontmatter records the reusable source values.
 
 ### Primary
 
-- **Cobalt action** (`accent`): starting practice, submitting answers, links, selected filters, and question numbers.
-- **Deep cobalt** (`accent-hover`): hover emphasis on primary and text actions.
+- **Violet action** (`accent`): starting practice, submitting answers, links, selected filters, and question numbers.
+- **Deep violet** (`accent-hover`): hover emphasis on primary and text actions.
 - **Reference tint** (`tint`): notices and supporting study labels.
-- **Focus blue** (`focus`): visible keyboard focus on the light workspace.
+- **Focus violet** (`focus`): visible keyboard focus on the light workspace.
+
+### Secondary
+
+- **Gold** (`gold`, `gold-bg`, `gold-ink`): the brand mark, the active navigation icon, the streak counter, the current lesson on the roadmap and the ring around the current step. Gold is a highlight, never a button fill or body text colour; on light surfaces, gold text uses `gold-ink` for contrast.
+- **Skill colours:** Listening teal, Speaking orange, Reading blue, Writing green. Reading moved from purple to blue so no skill competes with the violet accent.
 
 ### Neutral
 
-- **Cool background** (`paper`): the application canvas.
+- **Lavender background** (`paper`): the application canvas.
 - **White workspace** (`sheet`): editable work, reference material, and grouped lists.
-- **Graphite navigation** (`nav`) and **light navigation text** (`nav-text`): persistent orientation.
+- **Deep violet navigation** (`nav`) and **light navigation text** (`nav-text`): persistent orientation.
 - **Heading ink**, **body slate**, and **muted slate** (`ink`, `text`, `muted`): readable hierarchy.
-- **Cool divider** (`line`): group boundaries without raised cards.
+- **Soft divider** (`line`): group boundaries without raised cards.
 - **Control borders** (`button-border`, `field-border`): distinguish interactive controls from white workspaces.
 
 Correct and incorrect answers use pale state fills with explicit review text. Error surfaces pair readable red copy with a pale red background. Green completion styling indicates a completed task, without implying an assessed IELTS band.
@@ -196,7 +204,7 @@ The lesson reader extends the same workspace with five equal stage controls, an 
 
 ## Elevation & Depth
 
-The interface has no ambient card shadows. White surfaces, cool tints, fine borders, and spacing establish depth. Navigation states use tonal fills and borders within the graphite rail.
+The interface has no ambient card shadows. White surfaces, violet tints, fine borders, and spacing establish depth. Navigation states use tonal fills and borders within the violet rail.
 
 A short workspace entrance uses (180ms) timing with a small vertical shift and blur. Button state transitions use (150ms). Reduced-motion preference disables animation, transitions, and smooth scrolling.
 
@@ -208,21 +216,21 @@ Controls have restrained corners using the control radius. Study panes use the w
 
 ### Buttons
 
-Primary actions use cobalt fill and white text. Secondary actions use white fill, slate text, and a cool border. Text actions use cobalt without a surrounding box and gain an underline on hover. Standard controls have a minimum height of (44px). Disabled buttons use (0.55) opacity and a not-allowed cursor.
+Primary actions use violet fill and white text. Secondary actions use white fill, dark text, and a soft violet-grey border. Text actions use violet without a surrounding box and gain an underline on hover. Standard controls have a minimum height of (44px). Disabled buttons use (0.55) opacity and a not-allowed cursor.
 
-Focus is a (3px) outline with (4px) offset. Navigation uses a lighter focus color against graphite. Preserve the focus-visible skip link.
+Focus is a (3px) outline with (4px) offset. Navigation uses the gold focus color against the violet rail. Preserve the focus-visible skip link.
 
 ### Inputs and fields
 
-Inputs and textareas use white fill, a fine field border, control corners, and the field padding. Disabled fields use a pale cool fill while retaining readable text. Textareas resize vertically. Native radio and checkbox controls use cobalt accents. File import exposes focus on its visible label.
+Inputs and textareas use white fill, a fine field border, control corners, and the field padding. Disabled fields use a pale tinted fill while retaining readable text. Textareas resize vertically. Native radio and checkbox controls use violet accents. File import exposes focus on its visible label.
 
 ### Navigation and filters
 
-Navigation combines line icons with visible labels. Active routes use a lighter graphite-blue fill, a border, white text, and `aria-current`. The primary destinations are Cẩm nang, Tổng quan, Bài học, Luyện tập, Từ vựng, Ôn lại, and Công cụ. Mobile navigation remains a labeled horizontal row; when the labels do not fit, the row scrolls on its own (never the page) and keeps the current destination in view. Skill filters use a cobalt selected fill and expose pressed state; workspace tabs also expose pressed state.
+Navigation combines line icons with visible labels. Active routes use a lighter violet fill, a border, white text, a gold icon, and `aria-current`. The primary destinations are Cẩm nang, Tổng quan, Bài học, Luyện tập, Từ vựng, Ôn lại, and Công cụ. Mobile navigation remains a labeled horizontal row; when the labels do not fit, the row scrolls on its own (never the page) and keeps the current destination in view. Skill filters use a violet selected fill and expose pressed state; workspace tabs also expose pressed state.
 
 ### Containers and indexes
 
-Dashboard panels use white backgrounds, fine cool borders, and panel corners. The skill and activity indexes use full-width action rows separated by fine rules; hover adds a faint blue fill. Counts show actual available activities. Study summary values show actual completed work and saved questions.
+Dashboard panels use white backgrounds, fine borders, and panel corners. The skill and activity indexes use full-width action rows separated by fine rules; hover adds a faint violet fill. Counts show actual available activities. Study summary values show actual completed work and saved questions.
 
 ### Daily progress, flashcards and level suggestions
 
@@ -236,7 +244,7 @@ The redesign ships no decorative raster imagery. Source charts and audio remain 
 
 ### Lesson reader and source material
 
-The Bài học index presents 17 source modules through the existing flat activity rows. Each module has five independently accessible stages: Lý thuyết, Hướng dẫn làm bài, Bài tập nhỏ, Bài tập đầy đủ, and Đáp án & xem lại. Stage controls pair numbered (23px) squares with visible labels. The current step uses a cobalt border, reference tint, and `aria-current="step"`; a check replaces the number for learner-marked completion. The completion toggle exposes `aria-pressed`. Its count describes stages the learner marked as studied, not objectively correct answers or an assessed score.
+The Bài học index presents 17 source modules through the existing flat activity rows. Each module has five independently accessible stages: Lý thuyết, Hướng dẫn làm bài, Bài tập nhỏ, Bài tập đầy đủ, and Đáp án & xem lại. Stage controls pair numbered (23px) squares with visible labels. The current step uses a violet border, reference tint, and `aria-current="step"`; a check replaces the number for learner-marked completion. The completion toggle exposes `aria-pressed`. Its count describes stages the learner marked as studied, not objectively correct answers or an assessed score.
 
 Source sections use native disclosures with ruled boundaries. The initial theory section opens by default; model answers remain closed with an explicit suggestion to open after attempting the exercise. Search appears for stages with more than five sections and has a visible no-results message. Source paragraphs use (14px), (1.95) leading, and a (75ch) maximum; on mobile they use (13px) and (2) leading. Figures preserve their source proportions, cap their height at (750px), and link to the original image for enlargement. Tables retain source rows with (12px) text, a tinted first row, and a (400px) minimum width within horizontal scrolling. Mobile table cells use (11px) text.
 
@@ -248,7 +256,7 @@ Per-exercise notebooks and stage notes use labeled, vertically resizable fields,
 
 ### Do:
 
-- **Do** use graphite navigation, cool white workspaces, cobalt actions, and clear sans-serif hierarchy.
+- **Do** use deep violet navigation, white workspaces, violet actions, sparing gold highlights, and clear sans-serif hierarchy.
 - **Do** keep selected, saved, submitted, and error states explicit in text and semantics.
 - **Do** preserve keyboard focus, readable learning material, and reduced-motion behavior.
 - **Do** derive study counts and progress from actual activity and saved work.

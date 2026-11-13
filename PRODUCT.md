@@ -49,7 +49,7 @@ Students study on mobile and desktop. Vietnamese navigation and explanations sup
 
 ## Brand Commitments
 
-The owner rejected the campus-journal aesthetic. The replacement is a practical technical field-manual interface: graphite navigation, cool white workspaces, cobalt actions, clear sans-serif typography, direct interface copy, and useful study information. Avoid botanical decoration, literary styling, motivational slogans, and decorative code. Audience relevance comes through task clarity, not gender stereotypes. See `DESIGN.md` for implementation tokens. Hiên remains a provisional working name.
+The owner rejected the campus-journal aesthetic. The replacement is a practical technical field-manual interface. Its colours are violet (primary, chosen by the owner) and gold (secondary highlight): deep violet navigation, white workspaces, violet actions, sparing gold highlights, clear sans-serif typography, direct interface copy, and useful study information. Avoid botanical decoration, literary styling, motivational slogans, and decorative code. Audience relevance comes through task clarity, not gender stereotypes. See `DESIGN.md` for implementation tokens. Hiên remains a provisional working name.
 
 ## Evidence on Hand
 

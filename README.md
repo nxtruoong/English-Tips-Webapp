@@ -2,7 +2,7 @@
 
 A local-first English practice app for Vietnamese university students. React, TypeScript, Vite, ordinary CSS, and IndexedDB. “Hiên” is a provisional working name.
 
-The current theme targets students in technology-related majors: graphite navigation, cool white study panels, cobalt actions, sans-serif typography, direct labels, and real progress information. The previous campus-journal theme has been replaced. Learning data, existing attempts, and backup formats are unchanged.
+The current theme targets students in technology-related majors: deep violet navigation, white study panels, violet actions with gold highlights, sans-serif typography, direct labels, and real progress information. The previous campus-journal theme has been replaced. Learning data, existing attempts, and backup formats are unchanged.
 
 ## Run
 

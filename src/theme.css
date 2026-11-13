@@ -278,7 +278,7 @@ figcaption {
   background: var(--brand-bg);
   border: 1px solid var(--brand-border);
   border-radius: 7px;
-  color: var(--nav-strong);
+  color: var(--brand-ink);
 }
 .wordmark small {
   font-size: var(--text-xs);

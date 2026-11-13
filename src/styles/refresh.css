@@ -151,7 +151,7 @@
 .hero-steps li.current .step-dot {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 0 3px var(--tint-strong);
+  box-shadow: 0 0 0 3px var(--gold-border);
 }
 .hero-steps li.current button {
   color: var(--ink);
@@ -220,9 +220,11 @@
 .roadmap .col:hover {
   background: var(--surface-hover);
 }
+/* "You are here" uses the gold highlight so it reads apart from the skill colours. */
 .roadmap .col.here {
-  outline: 1.5px solid var(--skill);
+  outline: 2px solid var(--gold);
   outline-offset: 0;
+  background: var(--gold-bg);
 }
 .roadmap .col > span {
   width: 22px;
