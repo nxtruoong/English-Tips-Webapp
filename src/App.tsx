@@ -41,7 +41,7 @@ import { MethodsPage } from './pages/MethodsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ToolsPage } from './pages/ToolsPage';
 import { CardsPage } from './pages/CardsPage';
-import { cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
+import { addCards, cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
 import { suggestedLessons, type Level } from './content/levels';
 import { FEEDBACK_FORM_URL, feedbackReady } from './config';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
@@ -162,6 +162,12 @@ export default function App() {
   }
   function addCard(input: CardInput, lessonId?: string) {
     mutate(old => ({ ...old, cards: [...old.cards, newCard(input, dayKey(new Date()), lessonId)] }));
+  }
+  function addDeck(inputs: CardInput[]): number {
+    const before = data.cards.length;
+    const next = addCards(data.cards, inputs, dayKey(new Date()));
+    mutate(old => ({ ...old, cards: addCards(old.cards, inputs, dayKey(new Date())) }), { immediate: true });
+    return next.length - before;
   }
   function editCard(id: string, input: CardInput) {
     mutate(old => ({
@@ -457,6 +463,8 @@ export default function App() {
                 onEdit={editCard}
                 onDelete={deleteCard}
                 onReview={answerCard}
+                onAddDeck={addDeck}
+                level={data.level}
               />
             )}
             {route === 'data' && (

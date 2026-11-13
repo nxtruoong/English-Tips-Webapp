@@ -9,6 +9,8 @@ export const levelIds: Level[] = ['beginner', 'intermediate', 'advanced'];
 export interface LevelPath {
   label: string;
   summary: string;
+  /** What learners at this level can usually do, to help them recognise themselves. */
+  canDo: string[];
   tips: { title: string; text: string; link?: { href: string; label: string } }[];
   /** Every lesson id exactly once, in suggested order. */
   order: string[];
@@ -18,6 +20,7 @@ export const levelPaths: Record<Level, LevelPath> = {
   beginner: {
     label: 'Mới bắt đầu',
     summary: 'Chưa vững phát âm, vốn từ ít, chưa biết bắt đầu từ đâu.',
+    canDo: ['Hiểu câu chào hỏi, câu hỏi rất đơn giản', 'Đọc chậm, còn phải tra nhiều từ'],
     tips: [
       {
         title: 'Phát âm qua video ngắn',
@@ -56,6 +59,10 @@ export const levelPaths: Record<Level, LevelPath> = {
   intermediate: {
     label: 'Trung bình',
     summary: 'Nắm ngữ pháp cơ bản, đọc được đoạn ngắn, thiếu từ vựng và chưa quen tốc độ nói.',
+    canDo: [
+      'Đọc hiểu đoạn ngắn, nghe được khi nói chậm',
+      'Viết email ngắn nhưng còn lỗi, nói còn ngập ngừng',
+    ],
     tips: [
       {
         title: 'Chép chính tả',
@@ -95,6 +102,7 @@ export const levelPaths: Record<Level, LevelPath> = {
   advanced: {
     label: 'Khá',
     summary: 'Nghe và giao tiếp ổn, còn khó với nội dung chuyên sâu và từ vựng chuyên ngành.',
+    canDo: ['Giao tiếp được về chủ đề quen thuộc', 'Xem video, đọc tài liệu tiếng Anh, chỉ vướng thuật ngữ'],
     tips: [
       {
         title: 'Tài liệu chuyên ngành',
@@ -149,4 +157,19 @@ export function suggestedLessons(level: Level, progress: Record<string, LessonPr
     ...order.filter(id => !started(id)),
     ...order.filter(done),
   ];
+}
+
+/** Short self-check for learners unsure of their level. Each "yes" adds one point. */
+export const levelQuestions: string[] = [
+  'Bạn nghe hiểu câu hỏi đơn giản như “Where do you live?” khi người nói chậm và rõ.',
+  'Bạn đọc một đoạn tin ngắn tiếng Anh và nắm được ý chính, chỉ cần tra vài từ.',
+  'Bạn tự viết được email ngắn khoảng 5–6 câu, ít lỗi ngữ pháp cơ bản.',
+  'Bạn nói được 1–2 phút về một chủ đề quen thuộc mà không phải dừng lại nghĩ nhiều.',
+  'Bạn đọc tài liệu chuyên ngành hoặc xem video tiếng Anh mà không cần phụ đề tiếng Việt.',
+];
+
+/** 0–1 "yes" → beginner, 2–3 → intermediate, 4–5 → advanced. */
+export function levelFromAnswers(answers: boolean[]): Level {
+  const yes = answers.filter(Boolean).length;
+  return yes <= 1 ? 'beginner' : yes <= 3 ? 'intermediate' : 'advanced';
 }

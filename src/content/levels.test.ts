@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { levelIds, levelPaths, suggestedLessons } from './levels';
+import { levelFromAnswers, levelIds, levelPaths, levelQuestions, suggestedLessons } from './levels';
 import { lessonIndex } from '../curriculum';
 import { validateData } from '../storage';
 import { emptyData } from '../domain';
@@ -33,5 +33,23 @@ describe('level suggestions', () => {
     expect(validateData({ ...emptyData(), level: 'advanced' }).level).toBe('advanced');
     expect(validateData({ schema: 1, attempts: [], saved: [] })).not.toHaveProperty('level');
     expect(() => validateData({ ...emptyData(), level: 'expert' })).toThrow();
+  });
+});
+
+describe('level self-check', () => {
+  const answers = (yes: number) => levelQuestions.map((_, i) => i < yes);
+  it('maps the number of “yes” answers to a level', () => {
+    expect([0, 1, 2, 3, 4, 5].map(n => levelFromAnswers(answers(n)))).toEqual([
+      'beginner',
+      'beginner',
+      'intermediate',
+      'intermediate',
+      'advanced',
+      'advanced',
+    ]);
+  });
+  it('has five questions and two can-do lines per level', () => {
+    expect(levelQuestions).toHaveLength(5);
+    for (const level of levelIds) expect(levelPaths[level].canDo).toHaveLength(2);
   });
 });

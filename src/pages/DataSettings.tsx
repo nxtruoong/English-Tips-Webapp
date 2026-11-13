@@ -3,7 +3,7 @@ import { Download, Settings2, Trash2, Upload } from 'lucide-react';
 import type { StudyData } from '../domain';
 import { download, validateData } from '../storage';
 import { PageTitle } from '../ui';
-import { LevelPicker } from './LevelPanel';
+import { LevelPicker, LevelQuiz } from './LevelPanel';
 import type { Level } from '../content/levels';
 import { goalOptions, minutesPerStep } from '../streak';
 
@@ -21,6 +21,7 @@ export function DataSettings({
   onClear: () => void;
 }) {
   const [message, setMessage] = useState('');
+  const [quiz, setQuiz] = useState(false);
   const [busy, setBusy] = useState(false);
   async function exportBackup() {
     setBusy(true);
@@ -98,7 +99,22 @@ export function DataSettings({
       <section className="panel study-settings" aria-labelledby="settings-title">
         <h2 id="settings-title">Trình độ & mục tiêu</h2>
         <p>Trình độ chỉ dùng để gợi ý thứ tự bài và mẹo học; mọi bài vẫn mở.</p>
-        <LevelPicker level={data.level} onPick={setLevel} />
+        {quiz ? (
+          <LevelQuiz
+            onConfirm={level => {
+              setLevel(level);
+              setQuiz(false);
+            }}
+            onCancel={() => setQuiz(false)}
+          />
+        ) : (
+          <>
+            <LevelPicker level={data.level} onPick={setLevel} />
+            <button className="text-button" onClick={() => setQuiz(true)}>
+              Chưa chắc? Trả lời 5 câu để được gợi ý
+            </button>
+          </>
+        )}
         <label className="strip-goal">
           <span>Mục tiêu mỗi ngày</span>
           <select value={data.dailyGoal} onChange={e => setGoal(Number(e.target.value))}>

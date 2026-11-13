@@ -10,6 +10,8 @@ import {
   type Flashcard,
 } from '../flashcards';
 import { PageTitle, formatDate } from '../ui';
+import { SampleDecks } from './SampleDecks';
+import type { Level } from '../content/levels';
 
 const blank: CardInput = { word: '', meaning: '', example: '' };
 const dayLabel = (key: string) => formatDate(`${key}T12:00:00+07:00`);
@@ -195,9 +197,14 @@ export function CardsPage({
   onEdit,
   onDelete,
   onReview,
+  onAddDeck,
+  level,
 }: {
   cards: Flashcard[];
   todayKey: string;
+  level?: Level;
+  /** Adds the words not yet present; returns how many were added. */
+  onAddDeck: (inputs: CardInput[]) => number;
   onAdd: (input: CardInput) => void;
   onEdit: (id: string, input: CardInput) => void;
   onDelete: (id: string) => void;
@@ -205,6 +212,19 @@ export function CardsPage({
 }) {
   const [editing, setEditing] = useState<string>();
   const [query, setQuery] = useState('');
+  const [deckMessage, setDeckMessage] = useState('');
+  const decks = (intro: boolean) => (
+    <SampleDecks
+      cards={cards}
+      level={level}
+      intro={intro}
+      onAdd={(inputs, title) => {
+        const added = onAddDeck(inputs);
+        setDeckMessage(`Đã thêm ${added} thẻ từ bộ “${title}”. Thẻ mới cần ôn ngay hôm nay.`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+    />
+  );
   const due = dueCards(cards, todayKey).length;
   const needle = query.trim().toLocaleLowerCase('vi');
   const shown = [...cards]
@@ -220,6 +240,12 @@ export function CardsPage({
         title="Từ vựng"
         description={`Tự thêm từ cần nhớ và ôn theo lịch lặp lại ngắt quãng: nhớ thì lên mức (${intervals.join('–')} ngày), quên thì về mức 1.`}
       />
+      {deckMessage && (
+        <p role="status" className="notice deck-message">
+          {deckMessage}
+        </p>
+      )}
+      {cards.length === 0 && decks(true)}
       <div className="cards-layout">
         <Review cards={cards} todayKey={todayKey} onReview={onReview} />
         <section className="panel" aria-labelledby="add-card-title">
@@ -255,7 +281,8 @@ export function CardsPage({
         )}
         {cards.length === 0 ? (
           <p className="muted">
-            Chưa có thẻ nào. Trong bài học, dùng nút “Thêm từ vựng” để lưu nhanh từ đang đọc.
+            Chưa có thẻ nào. Thêm một bộ thẻ mẫu ở trên, hoặc dùng nút “Thêm từ vựng” trong bài học để lưu
+            nhanh từ đang đọc.
           </p>
         ) : shown.length === 0 ? (
           <p className="muted">Không có thẻ khớp “{query}”.</p>
@@ -306,6 +333,7 @@ export function CardsPage({
           </ul>
         )}
       </section>
+      {cards.length > 0 && decks(false)}
     </>
   );
 }

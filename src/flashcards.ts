@@ -65,3 +65,21 @@ export function findWord(cards: Flashcard[], word: string): Flashcard | undefine
   const key = cleanInput({ word, meaning: '', example: '' }).word.toLocaleLowerCase('en');
   return cards.find(card => card.word.toLocaleLowerCase('en') === key);
 }
+
+/**
+ * Add several cards at once (a sample deck), skipping words that already exist
+ * or repeat within the batch. New cards are due today, like single additions.
+ */
+export function addCards(cards: Flashcard[], inputs: CardInput[], today: string): Flashcard[] {
+  const next = [...cards];
+  for (const input of inputs) {
+    if (!cleanInput(input).word || findWord(next, input.word)) continue;
+    next.push(newCard(input, today));
+  }
+  return next;
+}
+
+/** How many of these words are not in the learner's cards yet. */
+export function missingCount(cards: Flashcard[], inputs: CardInput[]): number {
+  return inputs.filter(input => !findWord(cards, input.word)).length;
+}
