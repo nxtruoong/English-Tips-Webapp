@@ -1,5 +1,5 @@
 import { ArrowRight, Timer, WalletCards } from 'lucide-react';
-import { activities, skills } from '../content/activities';
+import { skills } from '../content/activities';
 import {
   lessonIndex as lessons,
   stages,
@@ -8,19 +8,12 @@ import {
   type LessonStage,
 } from '../curriculum';
 import type { Activity, Attempt, Skill, StudyData } from '../domain';
-import { skillDescriptions } from '../ui';
 import { dayKey } from '../streak';
 import { StudyStrip } from './StudyStrip';
 import { dueCards } from '../flashcards';
 import { LevelPanel } from './LevelPanel';
 import { UitNote } from './UitNote';
 import type { Level } from '../content/levels';
-
-const quick = (() => {
-  const activity = activities.find(a => a.preview);
-  const question = activity?.questions.find(q => q.id === activity.preview?.questionId);
-  return activity && question ? { activity, question } : undefined;
-})();
 
 /** Attempts touched on each of the last seven days, oldest first. */
 function lastWeek(attempts: Attempt[], today: Date) {
@@ -47,8 +40,6 @@ export function TodayPage({
   nextLesson,
   start,
   openLesson,
-  setFilter,
-  setPart,
   setReviewTab,
   go,
   setLevel,
@@ -223,47 +214,6 @@ export function TodayPage({
       <div className="today-grid">
         <div className="today-main">
           {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
-          <section aria-labelledby="skills-title">
-            <div className="section-heading">
-              <h2 id="skills-title">Học theo kỹ năng</h2>
-              <span>{lessons.length} bài học</span>
-            </div>
-            <ul className="skill-table">
-              {skills.map(skill => {
-                const own = lessons.filter(l => l.skill === skill);
-                const done = own.reduce((n, l) => n + (data.lessons[l.id]?.completed.length || 0), 0);
-                const total = own.length * 5;
-                return (
-                  <li key={skill} data-skill={skill.toLowerCase()}>
-                    <button
-                      onClick={() => {
-                        setFilter(skill);
-                        setPart('all');
-                        go('courses');
-                      }}
-                    >
-                      <span className="skill-name">
-                        <strong>{skill}</strong>
-                        <span>{skillDescriptions[skill]}</span>
-                      </span>
-                      <span className="skill-progress">
-                        <span className="meter" aria-hidden="true">
-                          <span style={{ width: `${(done / total) * 100}%` }} />
-                        </span>
-                        <small>
-                          {done}/{total} bước · {own.length} bài
-                        </small>
-                      </span>
-                      <ArrowRight size={18} aria-hidden="true" />
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        </div>
-
-        <aside className="today-side">
           {weekTotal > 0 && (
             <section className="panel">
               <div className="panel-head">
@@ -293,19 +243,9 @@ export function TodayPage({
               </button>
             </section>
           )}
-          {quick && (
-            <section className="panel quick-card">
-              <div className="panel-head">
-                <h2>Bài luyện nhanh</h2>
-                <span>{quick.activity.minutes} phút</span>
-              </div>
-              <blockquote lang="en">{quick.activity.passage}</blockquote>
-              <p lang="en">“{quick.question.prompt}”</p>
-              <button className="text-button" onClick={() => start(quick.activity)}>
-                Làm bài {quick.activity.skill} <ArrowRight size={17} />
-              </button>
-            </section>
-          )}
+        </div>
+
+        <aside className="today-side">
           <UitNote />
         </aside>
       </div>
