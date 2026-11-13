@@ -1924,3 +1924,34 @@ main .page-heading {
 .today-grid .today-side {
   width: 100%;
 }
+
+/* UIT note on a wide row: text left, the two links as a column on the right */
+@media (min-width: 900px) {
+  .today-side .uit-note {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    column-gap: 32px;
+    align-items: start;
+  }
+  .today-side .uit-note > :not(.uit-links) {
+    grid-column: 1;
+  }
+  .today-side .uit-note .uit-links {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    gap: 8px;
+  }
+  .today-side .uit-note .uit-links a {
+    justify-content: space-between;
+    padding: 12px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-tile);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .today-side .uit-note .uit-links a:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+  }
+}
