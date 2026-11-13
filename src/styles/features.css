@@ -471,3 +471,36 @@
 .study-settings .strip-goal {
   font-size: var(--text-sm);
 }
+
+/* UIT outcome note */
+.uit-note h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-lg);
+  margin: 0 0 10px;
+}
+.uit-note h2 svg {
+  color: var(--icon);
+  flex-shrink: 0;
+}
+.uit-note p {
+  font-size: var(--text-sm);
+  margin: 0 0 10px;
+}
+.uit-note strong {
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.uit-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--text-sm);
+}
+.uit-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

@@ -13,6 +13,7 @@ import { dayKey } from '../streak';
 import { StudyStrip } from './StudyStrip';
 import { dueCards } from '../flashcards';
 import { LevelPanel } from './LevelPanel';
+import { UitNote } from './UitNote';
 import type { Level } from '../content/levels';
 
 const quick = (() => {
@@ -266,6 +267,7 @@ export function TodayPage({
         </section>
 
         <aside className="today-side">
+          <UitNote />
           {weekTotal > 0 && (
             <section className="panel">
               <div className="panel-head">
