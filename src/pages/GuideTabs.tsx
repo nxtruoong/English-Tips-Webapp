@@ -1,4 +1,12 @@
-import { ArrowLeft, ArrowRight, Compass, BookMarked, GraduationCap, type LucideIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Compass,
+  BookMarked,
+  GraduationCap,
+  PlayCircle,
+  type LucideIcon,
+} from 'lucide-react';
 import { PageTitle } from '../ui';
 
 const tabs: { id: string; label: string; text: string; Icon: LucideIcon }[] = [
@@ -51,6 +59,14 @@ export function GuidePage() {
   return (
     <>
       <PageTitle title="Cẩm nang" />
+      <a className="start-banner" href="#start">
+        <PlayCircle size={26} strokeWidth={1.6} aria-hidden="true" />
+        <span>
+          <strong>Mới dùng Hiên?</strong>
+          Làm quen trong 3 bước: cách dùng, chọn trình độ, vào bài đầu tiên.
+        </span>
+        <ArrowRight size={18} aria-hidden="true" />
+      </a>
       <div className="guide-cards">
         {tabs.map(({ id, label, text, Icon }) => (
           <a key={id} href={`#${id}`} className="guide-card">
