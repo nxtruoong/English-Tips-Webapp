@@ -312,9 +312,6 @@ export function TodayPage({
           )}
         </aside>
       </div>
-      <footer>
-        Hiên · Luyện tập độc lập, không liên kết với IELTS. <span>Dữ liệu được lưu trên thiết bị này.</span>
-      </footer>
     </>
   );
 }

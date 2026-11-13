@@ -14,6 +14,7 @@ import {
   BookOpenText,
   Wrench,
   WalletCards,
+  MessageSquareText,
 } from 'lucide-react';
 import { activities } from './content/activities';
 import { emptyData, newAttempt, type Activity, type Attempt, type Skill } from './domain';
@@ -42,6 +43,7 @@ import { ToolsPage } from './pages/ToolsPage';
 import { CardsPage } from './pages/CardsPage';
 import { cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
 import { suggestedLessons, type Level } from './content/levels';
+import { FEEDBACK_FORM_URL, feedbackReady } from './config';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
@@ -479,6 +481,24 @@ export default function App() {
               )}
           </>
         )}
+        <footer className="site-footer">
+          <span>
+            Hiên · Luyện tập độc lập, không liên kết với IELTS.{' '}
+            <span>Dữ liệu được lưu trên thiết bị này.</span>
+          </span>
+          {feedbackReady() ? (
+            <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
+              <MessageSquareText size={16} aria-hidden="true" />
+              Góp ý về cẩm nang
+              <span className="visually-hidden">(mở tab mới)</span>
+            </a>
+          ) : (
+            <span className="feedback-button pending" aria-disabled="true">
+              <MessageSquareText size={16} aria-hidden="true" />
+              Góp ý · form sắp mở
+            </span>
+          )}
+        </footer>
       </main>
     </div>
   );

@@ -504,3 +504,35 @@
   align-items: center;
   gap: 6px;
 }
+
+/* Site footer and feedback */
+.site-footer {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.site-footer > span > span {
+  display: block;
+}
+.feedback-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-control);
+  border-radius: 5px;
+  background: var(--sheet);
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+a.feedback-button:hover {
+  background: var(--tint-strong);
+  border-color: var(--border-control-hover);
+}
+.feedback-button.pending {
+  color: var(--muted);
+  border-style: dashed;
+  cursor: default;
+}
