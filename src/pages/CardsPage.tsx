@@ -265,6 +265,8 @@ export function CardsPage({
   const [editing, setEditing] = useState<string>();
   const [query, setQuery] = useState('');
   const [deckMessage, setDeckMessage] = useState('');
+  const [tab, setTab] = useState<'review' | 'cards' | 'decks'>(cards.length ? 'review' : 'decks');
+  const [adding, setAdding] = useState(false);
   const decks = (intro: boolean) => (
     <SampleDecks
       cards={cards}
@@ -273,6 +275,7 @@ export function CardsPage({
       onAdd={(inputs, title) => {
         const added = onAddDeck(inputs);
         setDeckMessage(`Đã thêm ${added} thẻ từ bộ “${title}”.`);
+        setTab('review');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     />
@@ -294,92 +297,119 @@ export function CardsPage({
           {deckMessage}
         </p>
       )}
-      {cards.length === 0 && decks(true)}
-      <div className="cards-layout">
-        <Review cards={cards} todayKey={todayKey} onReview={onReview} />
-        <section className="panel" aria-labelledby="add-card-title">
-          <div className="panel-head">
-            <h2 id="add-card-title">Thêm thẻ</h2>
-            <span>{due} thẻ cần ôn hôm nay</span>
-          </div>
-          <CardForm
-            idPrefix="new-card"
-            submitLabel="Thêm thẻ"
-            onSubmit={onAdd}
-            duplicate={w => duplicate(w)}
-          />
-        </section>
+      <div className="cards-tabs" role="tablist" aria-label="Từ vựng">
+        {(
+          [
+            ['review', `Ôn tập${due ? ` (${due})` : ''}`],
+            ['cards', `Thẻ của tôi (${cards.length})`],
+            ['decks', 'Bộ thẻ mẫu'],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            role="tab"
+            aria-selected={tab === id}
+            className={tab === id ? 'selected' : ''}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
-
-      <section className="card-list" aria-labelledby="card-list-title">
-        <div className="section-heading">
-          <h2 id="card-list-title">Bộ thẻ của bạn</h2>
-          <span>{cards.length} thẻ</span>
+      {tab === 'review' && (
+        <div className="cards-review-wrap">
+          <Review cards={cards} todayKey={todayKey} onReview={onReview} />
         </div>
-        {cards.length > 5 && (
-          <label className="search card-search">
-            <Search size={17} aria-hidden="true" />
-            <span className="visually-hidden">Tìm thẻ</span>
-            <input
-              type="search"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Tìm từ…"
-            />
-          </label>
-        )}
-        {cards.length === 0 ? (
-          <p className="muted">Chưa có thẻ nào.</p>
-        ) : shown.length === 0 ? (
-          <p className="muted">Không có thẻ khớp “{query}”.</p>
-        ) : (
-          <ul className="outcome-list">
-            {shown.map(card => (
-              <li key={card.id} className="card-row">
-                {editing === card.id ? (
-                  <CardForm
-                    idPrefix={`edit-${card.id}`}
-                    initial={card}
-                    submitLabel="Lưu"
-                    onSubmit={input => {
-                      onEdit(card.id, input);
-                      setEditing(undefined);
-                    }}
-                    onCancel={() => setEditing(undefined)}
-                    duplicate={w => duplicate(w, card.id)}
-                  />
-                ) : (
-                  <>
-                    <div className="card-row-main">
-                      <strong lang="en">{card.word}</strong>
-                      <span>{card.meaning}</span>
-                      {card.example && <small lang="en">{card.example}</small>}
-                    </div>
-                    <span className="card-row-meta">
-                      {levelLabel(card.level)}
-                      <small>{card.due <= todayKey ? 'Cần ôn hôm nay' : `Ôn ${dayLabel(card.due)}`}</small>
-                    </span>
-                    <span className="card-row-actions">
-                      <button onClick={() => setEditing(card.id)} aria-label={`Sửa thẻ ${card.word}`}>
-                        <Pencil size={16} />
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (confirm(`Xóa thẻ “${card.word}”?`)) onDelete(card.id);
-                        }}
-                        aria-label={`Xóa thẻ ${card.word}`}
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </span>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      {cards.length > 0 && decks(false)}
+      )}
+      {tab === 'decks' && decks(cards.length === 0)}
+      {tab === 'cards' && (
+        <section className="card-list" aria-labelledby="card-list-title">
+          <div className="card-list-bar">
+            {adding ? null : (
+              <button className="primary" onClick={() => setAdding(true)}>
+                <Plus size={17} /> Thêm thẻ
+              </button>
+            )}
+            {cards.length > 5 && (
+              <label className="search card-search">
+                <Search size={17} aria-hidden="true" />
+                <span className="visually-hidden">Tìm thẻ</span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  placeholder="Tìm từ…"
+                />
+              </label>
+            )}
+          </div>
+          {adding && (
+            <div className="panel card-add">
+              <CardForm
+                idPrefix="new-card"
+                submitLabel="Thêm thẻ"
+                onSubmit={onAdd}
+                onCancel={() => setAdding(false)}
+                duplicate={w => duplicate(w)}
+              />
+            </div>
+          )}
+          <h2 id="card-list-title" className="visually-hidden">
+            Thẻ của tôi
+          </h2>
+
+          {cards.length === 0 ? (
+            <p className="muted">Chưa có thẻ nào.</p>
+          ) : shown.length === 0 ? (
+            <p className="muted">Không có thẻ khớp “{query}”.</p>
+          ) : (
+            <ul className="outcome-list card-grid">
+              {shown.map(card => (
+                <li key={card.id} className="card-row">
+                  {editing === card.id ? (
+                    <CardForm
+                      idPrefix={`edit-${card.id}`}
+                      initial={card}
+                      submitLabel="Lưu"
+                      onSubmit={input => {
+                        onEdit(card.id, input);
+                        setEditing(undefined);
+                      }}
+                      onCancel={() => setEditing(undefined)}
+                      duplicate={w => duplicate(w, card.id)}
+                    />
+                  ) : (
+                    <>
+                      <div className="card-row-main">
+                        <strong lang="en">{card.word}</strong>
+                        <span>{card.meaning}</span>
+                        {card.example && <small lang="en">{card.example}</small>}
+                      </div>
+                      <span className="card-row-meta">
+                        {levelLabel(card.level)}
+                        <small>{card.due <= todayKey ? 'Cần ôn hôm nay' : `Ôn ${dayLabel(card.due)}`}</small>
+                      </span>
+                      <span className="card-row-actions">
+                        <button onClick={() => setEditing(card.id)} aria-label={`Sửa thẻ ${card.word}`}>
+                          <Pencil size={16} />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Xóa thẻ “${card.word}”?`)) onDelete(card.id);
+                          }}
+                          aria-label={`Xóa thẻ ${card.word}`}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </span>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </>
   );
 }
