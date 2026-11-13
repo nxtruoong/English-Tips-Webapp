@@ -1343,3 +1343,25 @@ main .page-heading {
 .page-heading h1:only-child {
   margin-bottom: 0;
 }
+
+/* Vocabulary tabs fit one screen: lists scroll inside their own box */
+.card-grid {
+  max-height: calc(100dvh - 330px);
+}
+.sample-decks .sample-grid {
+  max-height: calc(100dvh - 290px);
+  min-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding: 4px 6px 4px 0;
+  scrollbar-gutter: stable;
+}
+.sample-decks .section-heading {
+  margin-bottom: 10px;
+}
+@media (max-width: 760px) {
+  .sample-decks .sample-grid {
+    max-height: 65dvh;
+  }
+}
