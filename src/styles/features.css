@@ -1343,3 +1343,127 @@ a.feedback-button:hover {
     margin-bottom: 28px;
   }
 }
+
+/* Practice library */
+.library-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.library-bar .skill-tabs {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.library-count {
+  opacity: 0.7;
+  font-size: var(--text-xs);
+}
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.library-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  --skill: var(--accent);
+  --skill-bg: var(--tint);
+}
+.library-card[data-skill='listening'] {
+  --skill: var(--listening);
+  --skill-bg: var(--listening-bg);
+}
+.library-card[data-skill='speaking'] {
+  --skill: var(--speaking);
+  --skill-bg: var(--speaking-bg);
+}
+.library-card[data-skill='reading'] {
+  --skill: var(--reading);
+  --skill-bg: var(--reading-bg);
+}
+.library-card[data-skill='writing'] {
+  --skill: var(--writing);
+  --skill-bg: var(--writing-bg);
+}
+.library-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.library-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-tile);
+  background: var(--skill-bg);
+  color: var(--skill);
+}
+.library-skill {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.library-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--muted);
+}
+.library-status.draft {
+  background: var(--gold-bg);
+  color: var(--gold-ink);
+}
+.library-status.done {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.library-card h2 {
+  font-size: var(--text-lg);
+  margin: 4px 0 0;
+}
+.library-card p {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  margin: 0;
+  flex: 1;
+}
+.library-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.library-foot > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.library-foot button {
+  min-height: 38px;
+  padding: 6px 14px;
+}
+@media (max-width: 760px) {
+  .library-bar .search {
+    margin-left: 0;
+    width: 100%;
+  }
+  .library-bar .search input {
+    width: 100%;
+  }
+}
