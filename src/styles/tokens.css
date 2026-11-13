@@ -251,3 +251,10 @@
   --nav-text: #ece9f4;
   --nav-text-muted: #b8b2cc;
 }
+
+/* Dark rail picks up the dark-mode accent (#b794ff) for the current item. */
+:root[data-theme='dark'] {
+  --nav-accent: #b794ff;
+  --nav-active: #362c52;
+  --nav-active-border: #b794ff;
+}
