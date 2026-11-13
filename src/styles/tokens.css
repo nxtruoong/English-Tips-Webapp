@@ -284,3 +284,16 @@
   --nav-strong: #fff;
   --nav-accent: #d4bfff;
 }
+
+/* Dark rail matches the light-mode rail exactly. */
+:root[data-theme='dark'] {
+  --nav: #24133f;
+  --nav-hover: #311c54;
+  --nav-active: #3e2569;
+  --nav-active-border: #5b3b93;
+  --nav-line: #3b2a58;
+  --nav-text: #eee7fb;
+  --nav-text-muted: #c8bce2;
+  --nav-strong: #fff;
+  --nav-accent: #fcd34d;
+}
