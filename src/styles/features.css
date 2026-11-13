@@ -1314,3 +1314,19 @@ a.feedback-button:hover {
 .card-groups {
   margin-bottom: 12px;
 }
+
+/* My cards: the list scrolls inside its own box, the page stays put */
+.card-grid {
+  max-height: calc(100dvh - 300px);
+  min-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding: 4px 6px 4px 0;
+  scrollbar-gutter: stable;
+}
+@media (max-width: 760px) {
+  .card-grid {
+    max-height: 65dvh;
+  }
+}
