@@ -1,6 +1,7 @@
 import type { LessonProgress } from './curriculum';
 import { defaultDailyGoal } from './streak';
 import type { Flashcard } from './flashcards';
+import type { Level } from './content/guide';
 
 export type Skill = 'Listening' | 'Speaking' | 'Reading' | 'Writing';
 export interface Question {
@@ -69,6 +70,8 @@ export interface StudyData {
   dailyGoal: number;
   /** Learner-made vocabulary flashcards. */
   cards: Flashcard[];
+  /** Self-reported level for suggestions; unset until the learner picks one. */
+  level?: Level;
 }
 export const emptyData = (): StudyData => ({
   schema: 1,

@@ -41,6 +41,7 @@ import { ResourcesPage } from './pages/ResourcesPage';
 import { ToolsPage } from './pages/ToolsPage';
 import { CardsPage } from './pages/CardsPage';
 import { cleanInput, newCard, reviewCard, type CardInput } from './flashcards';
+import { suggestedLessons, type Level } from './content/levels';
 import { GuidePage, guideRoutes } from './pages/GuideTabs';
 
 const getRoute = () => location.hash.slice(1) || 'today';
@@ -210,7 +211,14 @@ export default function App() {
     activities[0];
   const attempt = data.attempts.find(a => route === `attempt/${a.id}`);
   const activity = activities.find(a => a.id === attempt?.activityId && a.version === attempt.version);
-  const nextLesson = lessons.find(unit => unit.linkedActivities.includes(next.id)) || lessons[0];
+  // With a chosen level, the hero follows that level's suggested order.
+  const levelNext = data.level && suggestedLessons(data.level, data.lessons)[0];
+  const nextLesson =
+    lessons.find(unit => unit.id === levelNext) ||
+    lessons.find(unit => unit.linkedActivities.includes(next.id)) ||
+    lessons[0];
+  const setLevel = (level: Level) => mutate(old => ({ ...old, level }));
+  const setGoal = (goal: number) => mutate(old => ({ ...old, dailyGoal: goal }));
   const unit = lessons.find(lesson => route.startsWith(`lesson/${lesson.id}/`));
   const requestedStage = route.split('/')[2] || '';
   const lessonStage = isLessonStage(requestedStage) ? requestedStage : 'theory';
@@ -357,7 +365,8 @@ export default function App() {
                 setPart={setPart}
                 setReviewTab={setReviewTab}
                 go={go}
-                setGoal={goal => mutate(old => ({ ...old, dailyGoal: goal }))}
+                setGoal={setGoal}
+                setLevel={setLevel}
               />
             )}
             {route === 'courses' && (
@@ -451,6 +460,8 @@ export default function App() {
             {route === 'data' && (
               <DataSettings
                 data={data}
+                setGoal={setGoal}
+                setLevel={setLevel}
                 onImport={value => mutate(() => value, { immediate: true })}
                 onClear={() => mutate(emptyData, { immediate: true })}
               />

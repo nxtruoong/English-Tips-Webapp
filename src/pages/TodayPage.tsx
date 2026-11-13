@@ -12,6 +12,8 @@ import { skillDescriptions } from '../ui';
 import { dayKey } from '../streak';
 import { StudyStrip } from './StudyStrip';
 import { dueCards } from '../flashcards';
+import { LevelPanel } from './LevelPanel';
+import type { Level } from '../content/levels';
 
 const quick = (() => {
   const activity = activities.find(a => a.preview);
@@ -49,6 +51,7 @@ export function TodayPage({
   setReviewTab,
   go,
   setGoal,
+  setLevel,
 }: {
   data: StudyData;
   today: Date;
@@ -62,6 +65,7 @@ export function TodayPage({
   setReviewTab: (tab: 'saved' | 'history') => void;
   go: (destination: string) => void;
   setGoal: (goal: number) => void;
+  setLevel: (level: Level) => void;
 }) {
   const progress = data.lessons[nextLesson.id];
   const doneHere = progress?.completed.length || 0;
@@ -110,6 +114,8 @@ export function TodayPage({
           }).format(today)}
         </span>
       </header>
+
+      {!data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
 
       <StudyStrip data={data} todayKey={dayKey(today)} setGoal={setGoal}>
         <div className="strip-cell">
@@ -171,6 +177,8 @@ export function TodayPage({
           </ol>
         )}
       </section>
+
+      {data.level && <LevelPanel data={data} setLevel={setLevel} openLesson={openLesson} />}
 
       <section className="roadmap" aria-labelledby="roadmap-title">
         <div className="roadmap-head">

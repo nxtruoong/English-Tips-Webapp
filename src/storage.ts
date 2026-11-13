@@ -2,6 +2,7 @@ import { emptyData, type StudyData, type Attempt } from './domain';
 import { isLessonStage, type LessonProgress } from './curriculum';
 import { defaultDailyGoal, isDayKey, isGoal } from './streak';
 import { limits, maxLevel, type Flashcard } from './flashcards';
+import { isLevel } from './content/levels';
 
 let database: Promise<IDBDatabase> | undefined;
 function db(): Promise<IDBDatabase> {
@@ -171,7 +172,17 @@ export function validateData(value: unknown, allowBlobs = false): StudyData {
       };
     });
   }
-  return { schema: 1, attempts, saved: [...new Set(value.saved)], lessons, studyDays, dailyGoal, cards };
+  if (value.level !== undefined && !isLevel(value.level)) throw new Error('Trình độ không hợp lệ.');
+  return {
+    schema: 1,
+    attempts,
+    saved: [...new Set(value.saved)],
+    lessons,
+    studyDays,
+    dailyGoal,
+    cards,
+    ...(isLevel(value.level) ? { level: value.level } : {}),
+  };
 }
 export function download(blob: Blob, name: string): void {
   const url = URL.createObjectURL(blob);
