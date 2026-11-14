@@ -98,7 +98,7 @@ export function StartPage({
       {step === 0 && (
         <section className="start-card" aria-labelledby="start-title">
           <h1 id="start-title" tabIndex={-1}>
-            Chào mừng đến với Hiên
+            Chào mừng đến với EngStudyMate
           </h1>
           <p className="start-lead">
             Luyện tiếng Anh theo 4 kỹ năng, miễn phí, bài làm lưu ngay trên máy bạn.

@@ -126,8 +126,8 @@ export function DataSettings({
         <Settings2 size={30} strokeWidth={1.2} />
         <h2>Sao lưu & khôi phục</h2>
         <p>
-          Hiên chưa có tài khoản hay đồng bộ. Xóa dữ liệu trình duyệt có thể làm mất bài. Xuất tệp định kỳ để
-          sao lưu hoặc chuyển sang thiết bị khác.
+          EngStudyMate chưa có tài khoản hay đồng bộ. Xóa dữ liệu trình duyệt có thể làm mất bài. Xuất tệp
+          định kỳ để sao lưu hoặc chuyển sang thiết bị khác.
         </p>
         <p>
           {data.attempts.length} lượt học · {data.saved.length} câu đã lưu ·{' '}
@@ -162,12 +162,14 @@ export function DataSettings({
           <h3>Xóa dữ liệu trên thiết bị này</h3>
           <p>
             Thao tác xóa toàn bộ lượt học, bản nháp, câu đã lưu, bản ghi âm, thẻ từ vựng và lịch sử ngày học
-            trong Hiên.
+            trong EngStudyMate.
           </p>
           <button
             disabled={busy}
             onClick={() => {
-              if (confirm('Xóa toàn bộ dữ liệu Hiên trên thiết bị này? Thao tác không thể hoàn tác.')) {
+              if (
+                confirm('Xóa toàn bộ dữ liệu EngStudyMate trên thiết bị này? Thao tác không thể hoàn tác.')
+              ) {
                 onClear();
                 setMessage('Đã xóa. Đợi thanh bên báo “Đã lưu” rồi hãy đóng trang.');
               }

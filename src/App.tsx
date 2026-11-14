@@ -286,12 +286,12 @@ export default function App() {
         Đến nội dung chính
       </a>
       <aside className="sidebar">
-        <a className="wordmark" href="#today" aria-label="Hiên — về Hôm nay">
+        <a className="wordmark" href="#today" aria-label="EngStudyMate — về Hôm nay">
           <span className="brand-mark">
             <Layers size={23} strokeWidth={1.8} />
           </span>
           <span>
-            Hiên<small>Luyện tiếng Anh</small>
+            EngStudyMate<small>Luyện tiếng Anh</small>
           </span>
         </a>
         <nav aria-label="Điều hướng chính">
@@ -344,7 +344,9 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         {conflict && (
           <div className="storage-error" role="alert">
-            <p>Dữ liệu vừa được lưu từ một tab Hiên khác. Chọn bản muốn giữ để tránh ghi đè bài làm.</p>
+            <p>
+              Dữ liệu vừa được lưu từ một tab EngStudyMate khác. Chọn bản muốn giữ để tránh ghi đè bài làm.
+            </p>
             <div className="actions">
               <button onClick={reload}>Dùng dữ liệu mới nhất</button>
               <button onClick={dismissConflict}>Giữ bản của tab này</button>
@@ -512,7 +514,7 @@ export default function App() {
           </>
         )}
         <footer className="site-footer">
-          <span>Hiên · Ứng dụng tự luyện của sinh viên, không thuộc tổ chức thi IELTS.</span>
+          <span>EngStudyMate · Ứng dụng tự luyện của sinh viên, không thuộc tổ chức thi IELTS.</span>
           {feedbackReady() ? (
             <a className="feedback-button" href={FEEDBACK_FORM_URL} target="_blank" rel="noreferrer">
               <MessageSquareText size={16} aria-hidden="true" />

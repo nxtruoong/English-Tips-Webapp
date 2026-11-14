@@ -62,7 +62,7 @@ export function GuidePage() {
       <a className="start-banner" href="#start">
         <PlayCircle size={26} strokeWidth={1.6} aria-hidden="true" />
         <span>
-          <strong>Mới dùng Hiên?</strong>
+          <strong>Mới dùng EngStudyMate?</strong>
           Làm quen trong 3 bước: cách dùng, chọn trình độ, vào bài đầu tiên.
         </span>
         <ArrowRight size={18} aria-hidden="true" />

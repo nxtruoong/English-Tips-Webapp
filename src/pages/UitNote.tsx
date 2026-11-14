@@ -29,8 +29,8 @@ export function UitNote() {
         .
       </p>
       <p>
-        Trường quy về thang TOEIC; chứng chỉ khác được quy đổi theo bảng của trường. Bài trên Hiên luyện đủ 4
-        kỹ năng nên dùng được cho mọi loại chứng chỉ.
+        Trường quy về thang TOEIC; chứng chỉ khác được quy đổi theo bảng của trường. Bài trên EngStudyMate
+        luyện đủ 4 kỹ năng nên dùng được cho mọi loại chứng chỉ.
       </p>
       <div className="uit-links">
         <a href={standard?.source.url} target="_blank" rel="noreferrer">

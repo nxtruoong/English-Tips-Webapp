@@ -131,7 +131,7 @@ export function LevelQuiz({
   return (
     <div className="level-quiz result" ref={box}>
       <p className="quiz-kicker">
-        Bạn trả lời “Đúng” {yes}/{levelQuestions.length} câu. Hiên gợi ý:
+        Bạn trả lời “Đúng” {yes}/{levelQuestions.length} câu. EngStudyMate gợi ý:
       </p>
       <h3 tabIndex={-1}>{levelPaths[recommended].label}</h3>
       <p className="quiz-kicker">Hoặc chọn mức khác:</p>

@@ -12,7 +12,7 @@ function db(): Promise<IDBDatabase> {
       request.onupgradeneeded = () => request.result.createObjectStore('study');
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
-      request.onblocked = () => reject(new Error('Đóng các tab Hiên khác rồi tải lại.'));
+      request.onblocked = () => reject(new Error('Đóng các tab EngStudyMate khác rồi tải lại.'));
     });
     database.catch(() => {
       database = undefined;
@@ -50,7 +50,7 @@ function date(value: unknown): value is string {
 }
 export function validateData(value: unknown, allowBlobs = false): StudyData {
   if (!record(value) || value.schema !== 1 || !Array.isArray(value.attempts) || !strings(value.saved))
-    throw new Error('Tệp không đúng định dạng Hiên phiên bản 1.');
+    throw new Error('Tệp không đúng định dạng EngStudyMate phiên bản 1.');
   const ids = new Set<string>();
   const attempts = value.attempts.map((item: unknown): Attempt => {
     if (
