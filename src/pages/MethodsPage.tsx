@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import {
+  aiPrompts,
   barriers,
   glossary,
   goals,
@@ -41,6 +43,78 @@ function ToolChips({ tools }: { tools?: string[] }) {
         ),
       )}
     </span>
+  );
+}
+
+async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // Older browsers or blocked permission: fall back to a hidden textarea.
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
+    area.remove();
+    return ok;
+  }
+}
+
+function AiPrompts({ level }: { level: Level }) {
+  const [copied, setCopied] = useState<string | null>(null);
+  const [failed, setFailed] = useState<string | null>(null);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  async function copy(title: string, prompt: string) {
+    const ok = await copyText(prompt);
+    setCopied(ok ? title : null);
+    setFailed(ok ? null : title);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCopied(null), 2000);
+  }
+
+  return (
+    <section className="guide-section" aria-labelledby="ai-prompt-title">
+      <h2 id="ai-prompt-title" className="outcome-group-title">
+        Luyện nói với AI
+      </h2>
+      <p className="ai-prompt-intro">
+        Sao chép câu lệnh, dán vào ChatGPT hoặc Claude (bản miễn phí, bật chế độ giọng nói nếu có) rồi trả lời
+        bằng lời. AI có thể nhận xét sai, nên tự kiểm tra lại; AI không chấm band IELTS.
+      </p>
+      <div className="ai-prompt-grid">
+        {aiPrompts[level].map(p => (
+          <article key={p.title} className="ai-prompt-card">
+            <h3>{p.title}</h3>
+            <p className="goal-who">{p.use}</p>
+            <pre lang="en">{p.prompt}</pre>
+            <button type="button" onClick={() => copy(p.title, p.prompt)}>
+              {copied === p.title ? <Check size={16} /> : <Copy size={16} />}
+              {copied === p.title ? 'Đã sao chép' : 'Sao chép câu lệnh'}
+            </button>
+            {failed === p.title && (
+              <p className="ai-prompt-error" role="alert">
+                Trình duyệt chặn sao chép. Bôi đen đoạn trên rồi nhấn Ctrl+C.
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+      <span className="visually-hidden" role="status">
+        {copied ? 'Đã sao chép câu lệnh' : ''}
+      </span>
+    </section>
   );
 }
 
@@ -126,6 +200,8 @@ export function MethodsPage() {
         </div>
       </section>
 
+      <AiPrompts level={profile.level} />
+
       <section className="guide-section" aria-labelledby="goals-title">
         <h2 id="goals-title" className="outcome-group-title">
           Theo mục tiêu
@@ -153,7 +229,10 @@ export function MethodsPage() {
         <ul className="outcome-list">
           {barriers.map(b => (
             <li key={b.barrier} className="barrier-row">
-              <h3>{b.barrier}</h3>
+              <div>
+                <h3>{b.barrier}</h3>
+                <span className="barrier-share">{b.survey} SV khảo sát gặp phải</span>
+              </div>
               <p>
                 <span>Nguyên nhân</span>
                 {b.cause}
