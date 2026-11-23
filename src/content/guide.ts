@@ -155,23 +155,80 @@ export const goals: { title: string; who: string; core: string; steps: string[] 
   },
 ];
 
-export const barriers: { barrier: string; cause: string; fix: string }[] = [
+/** `survey`: share of the 132 surveyed students who named this barrier (PRODUCT.md, Evidence on Hand). */
+export const barriers: { barrier: string; survey: string; cause: string; fix: string }[] = [
   {
     barrier: 'Khó nhớ từ vựng',
+    survey: '54,5%',
     cause: 'Học rời rạc, nhảy chủ đề, học thụ động: nhớ nhanh nhưng quên cũng nhanh.',
     fix: 'Lặp lại ngắt quãng (spaced repetition) kết hợp flashcard, học theo chủ đề.',
   },
   {
     barrier: 'Ngại nói, khó nghe, thiếu phản xạ',
+    survey: '43,9%',
     cause: 'Sợ bị chê cười vì phát âm hoặc nghe chưa tốt.',
     fix: 'Luyện với AI chatbot để không áp lực. Tự độc thoại theo chủ đề, tự đóng vai nhiều phía. Shadowing và dictation hằng ngày.',
   },
   {
     barrier: 'Thiếu động lực, hay trì hoãn',
+    survey: '42,4%',
     cause: 'Mục tiêu đặt vội và mơ hồ; hăng hái lúc đầu rồi nản vì lộ trình quá dài.',
     fix: 'Chia nhỏ buổi học (micro learning, Pomodoro), đặt mức vừa sức, tìm bạn học cùng (study buddy).',
   },
 ];
+
+// Ready-made prompts for speaking practice in a free external chatbot. These are the
+// team's own wording (not from the source DOCX); the app itself has no AI conversation.
+export interface AiPrompt {
+  title: string;
+  use: string;
+  prompt: string;
+}
+
+export const aiPrompts: Record<Level, AiPrompt[]> = {
+  beginner: [
+    {
+      title: 'Hỏi đáp chậm về bản thân',
+      use: 'Làm quen nói câu ngắn, không sợ sai.',
+      prompt:
+        'You are a patient English speaking partner for a Vietnamese university student at A2 level. Use short, simple sentences. Ask me one easy question at a time about my daily life, my major or my hobbies. After each answer, correct only my biggest mistake, show the corrected sentence, then ask the next question.',
+    },
+    {
+      title: 'Đặt câu với từ mới',
+      use: 'Biến từ vừa học trong flashcard thành câu nói được.',
+      prompt:
+        'I am learning these English words: [dán 3–5 từ của bạn vào đây]. Give me one word at a time with a simple example sentence. Ask me to say my own sentence with it. Tell me if my sentence is natural and show a better version if needed.',
+    },
+  ],
+  intermediate: [
+    {
+      title: 'IELTS Speaking Part 1',
+      use: 'Luyện trả lời ngắn có lý do và ví dụ.',
+      prompt:
+        'Act as an IELTS Speaking examiner. Ask me Part 1 questions one at a time on familiar topics (study, hometown, technology, free time). After each answer, give brief feedback on fluency and vocabulary, and suggest one more natural phrase I could have used. Do not give a band score.',
+    },
+    {
+      title: 'IELTS Speaking Part 2',
+      use: 'Nói liền 1–2 phút theo cue card.',
+      prompt:
+        'Give me an IELTS Speaking Part 2 cue card. Wait while I prepare for one minute and then speak. After my answer, list what I covered, what I missed from the cue card, and three expressions that would make my answer more natural. Do not give a band score.',
+    },
+  ],
+  advanced: [
+    {
+      title: 'IELTS Speaking Part 3',
+      use: 'Thảo luận ý kiến, so sánh, đưa ví dụ.',
+      prompt:
+        'Act as an IELTS Speaking examiner for Part 3. Ask me one abstract discussion question at a time about education, technology or work. Push back on my opinion with a follow-up question. After each turn, point out one place where I could be more precise and give a more academic way to say it. Do not give a band score.',
+    },
+    {
+      title: 'Phỏng vấn thực tập (STAR)',
+      use: 'Trả lời câu hỏi hành vi theo Situation – Task – Action – Result.',
+      prompt:
+        'Act as a hiring manager interviewing me for a software internship. Ask one behavioural question at a time. After each answer, check whether I covered Situation, Task, Action and Result, and show a more concise version of my answer.',
+    },
+  ],
+};
 
 export const glossary: { term: string; text: string }[] = [
   {
