@@ -150,10 +150,10 @@ function Review({
     if (!session) setSession(queue);
     setShown(s => !s);
   }
-  function speak(event: MouseEvent) {
+  function speak(event: MouseEvent, text: string) {
     event.stopPropagation();
     try {
-      const utterance = new SpeechSynthesisUtterance(card!.word);
+      const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
       speechSynthesis.cancel();
       speechSynthesis.speak(utterance);
@@ -216,13 +216,22 @@ function Review({
         <button
           type="button"
           className="flip-speak"
-          onClick={speak}
+          onClick={e => speak(e, card.word)}
           aria-label="Nghe phát âm"
           title="Nghe phát âm"
         >
           <Volume2 size={18} />
         </button>
       </div>
+      {shown && card.example && (
+        <button
+          type="button"
+          className="text-button flip-speak-example"
+          onClick={e => speak(e, card.example!)}
+        >
+          <Volume2 size={16} /> Nghe câu ví dụ
+        </button>
+      )}
       {shown ? (
         <div className="flip-answers">
           <button className="flip-forgot" onClick={() => answer(false)}>
